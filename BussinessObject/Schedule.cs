@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace BussinessObject
 {
-    [PrimaryKey(nameof(menuId),nameof(userId))]
+    [PrimaryKey(nameof(menuId),nameof(userInfoId))]
     public class Schedule
     {
         [ForeignKey("menu")]
         public Guid menuId { get; set; }
         [ForeignKey("userBodyMax")]
-        public Guid userId { get; set; }
+        public Guid userInfoId { get; set; }
         public int dateScheduled {  get; set; }
         public string status { get; set; }
         public string createBy { get; set; }

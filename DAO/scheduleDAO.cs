@@ -28,11 +28,11 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public List<Schedule> getSchedulesByUserId(Guid userId)
+        public List<Schedule> getSchedulesByUserInfo(Guid userInfoId)
         {
             try
             {
-                return _context.schedules.Where(s => s.userId == userId)
+                return _context.schedules.Where(s => s.userInfoId == userInfoId)
                     .Include(u => u.userBodyMaxs)
                     .Include(m => m.menus).ToList();
             }
@@ -48,6 +48,7 @@ namespace DataAccess
                 var newSche = new Schedule
                 {
                     dateScheduled = schedule.dateScheduled,
+                    userBodyMaxs = _context.userBodyMaxes.Where(u=>u.userInfoId == schedule.userInfoId).FirstOrDefault(),
                     status = "available",
                 };
                 _context.schedules.Add(newSche);
@@ -61,11 +62,11 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public Schedule getScheduleByUserIAndmenuId(Guid userId, Guid menuId)
+        public Schedule getScheduleByUserIAndmenuId(Guid userInfoId, Guid menuId)
         {
             try
             {
-                return _context.schedules.FirstOrDefault(s => s.userId == userId && s.menuId == menuId);
+                return _context.schedules.FirstOrDefault(s => s.userInfoId == userInfoId && s.menuId == menuId);
             }
             catch (Exception ex)
             {
@@ -76,7 +77,7 @@ namespace DataAccess
         {
             try
             {
-                var check = _context.schedules.FirstOrDefault(s => s.userId == schedule.userId && s.menuId == schedule.menuId);
+                var check = _context.schedules.FirstOrDefault(s => s.userInfoId == schedule.userInfoId && s.menuId == schedule.menuId);
                 if (check != null)
                 {
                     _context.schedules.Remove(check);
@@ -92,7 +93,7 @@ namespace DataAccess
         {
             try
             {
-                var men = _context.schedules.FirstOrDefault(m => m.menuId == sche.menuId && m.userId== sche.userId);
+                var men = _context.schedules.FirstOrDefault(m => m.menuId == sche.menuId && m.userInfoId == sche.userInfoId);
                 if (men != null)
                 {
                     _context.Entry<Schedule>(sche).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
