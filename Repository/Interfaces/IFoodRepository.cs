@@ -11,6 +11,7 @@ namespace Repository.Interfaces
     public interface IFoodRepository
     {
         List<food> GetFoodList();
+        List<food> GetFoodByTag(string tag);
         food getFoodById(Guid id);
         food UpdateFood(food food);
         Task<food> AddNewFood(food food);

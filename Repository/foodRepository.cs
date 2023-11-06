@@ -22,6 +22,9 @@ namespace Repository
         public Task<food> AddNewFood(food food) =>dao.AddNewFood(food);
         public void DeleteFood(food food) =>dao.deleteFood(food);
         public food getFoodById(Guid id) =>dao.getFoodById(id);
+
+        public List<food> GetFoodByTag(string tag) =>dao.getFoodByTAG(tag);
+
         public List<food> GetFoodList() =>dao.GetFoodList();
         public food UpdateFood(food food) =>dao.UpdateFood(food);
     }

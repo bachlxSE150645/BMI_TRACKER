@@ -38,7 +38,21 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+        public List<food> getFoodByTAG(string tag)
+        {
+            try
+            {
+                var foodTag = from u in _context.foods
+                                where u.foodTag.Contains(tag)
+                                select u;
+                return foodTag.ToList();
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public food UpdateFood(food food)
         {
             try

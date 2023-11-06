@@ -118,7 +118,6 @@ namespace BMITrackerAPI.Controllers
                     uid.email = Email;
                     uid.fullName = fullName;
                     uid.phoneNumber = phoneNumber;
-                    uid.birthday = birthday;
                     uid.sex = sex;
                     uid.password = passWord;
                     userRepo.updateUser(uid);

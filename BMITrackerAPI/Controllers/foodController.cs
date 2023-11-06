@@ -45,6 +45,18 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("FoodTag")]
+        public async Task<IActionResult> GetfoodByTag(string tag)
+        {
+            try
+            {
+                return Ok(foodRepository.GetFoodByTag(tag));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpPost]
 
         public async Task<IActionResult> AddFood(foodInfo dto)
