@@ -25,7 +25,7 @@ namespace Repository
 
         public Schedule getScheduleByUserIAndmenuId(Guid userId, Guid menuId)=>dao.getScheduleByUserIAndmenuId(userId, menuId);
 
-        public List<Schedule> getScheduleByUserId(Guid userId) =>dao.getSchedulesByUserId(userId);
+        public List<Schedule> getScheduleByUserId(Guid userId) =>dao.getSchedulesByUserInfo(userId);
 
         public Schedule UpdateSchedule(Schedule sche) =>dao.UpdateSchedule(sche);
     }

@@ -20,9 +20,6 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<blog,blogInfo>().ReverseMap();
             CreateMap<message,messInfo>().ReverseMap();
             CreateMap<userBodyMax,userBodyMaxInfo>().ReverseMap();
-            CreateMap<payment,PaymentInfo>().ReverseMap();
-            CreateMap<Order,orderInfo>().ReverseMap();
-            CreateMap<orderDetail,orderDetailsDTO>().ReverseMap();
             CreateMap<Service,serviceInfo>().ReverseMap();
             CreateMap<ServiceType, serviveTypeInfo>().ReverseMap();
         }

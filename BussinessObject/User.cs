@@ -55,8 +55,8 @@ namespace BussinessObject
 
         public ICollection <feedback> feedbacks { get; set; }
         [JsonIgnore]
-
         public notification notifications { get; set; }
-
+        [JsonIgnore]
+        public ICollection <complement> complements { get; set; }
     }
 }

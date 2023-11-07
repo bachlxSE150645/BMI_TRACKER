@@ -23,7 +23,9 @@ namespace BussinessObject
         public string? updateBy { get; set; }
         public DateTime? updateTime { get; set; }
         [JsonIgnore]
-
+        public ICollection <complement> complements { get; set; }
+        [JsonIgnore]
         public ICollection<Content> contents { get; set; }
+       
     }
 }

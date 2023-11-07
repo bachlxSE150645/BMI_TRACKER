@@ -38,8 +38,7 @@ namespace BussinessObject
         public virtual DbSet<ingredient> ingredients { get; set; }
         public virtual DbSet<Category> categories { get; set; }
         public virtual DbSet<Menu> menus { get; set; }
-        public virtual DbSet<Order> orders { get; set; }
-        public virtual DbSet<orderDetail> orderDetails { get; set; }
+       
         public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<Service> services { get; set; }
         public virtual DbSet<ServiceType> serviceTypes { get; set; }
@@ -50,9 +49,9 @@ namespace BussinessObject
         public virtual DbSet<userBodyMax> userBodyMaxes { get; set; }
         public virtual DbSet<Schedule> schedules { get; set; }
         public virtual DbSet<Meal> meals { get; set; }
-        public virtual DbSet<payment> Payments { get; set; }
+        
         public virtual DbSet<blog> blogs { get; set; }
-        public virtual DbSet<paymentDetails> paymentDetails { get; set; }
+        public virtual DbSet<complement> Complements { get; set; }
         public virtual DbSet<Content> contents { get; set; }
         public virtual DbSet<feebackCategory> feebackCategories { get; set; }
         public virtual DbSet<message> messages { get; set; }

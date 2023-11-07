@@ -31,9 +31,11 @@ namespace BussinessObject
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public  user users { get; set; }
+        [ForeignKey("service")]
+        public Guid serviceId { get; set; }
 
         public ICollection<Schedule> schedules { get; set; }
-        public Order order { get; set; }
 
+        public Service services { get; set; }
     }
 }

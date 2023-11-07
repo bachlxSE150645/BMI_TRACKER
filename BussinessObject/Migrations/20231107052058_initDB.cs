@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BussinessObject.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class initDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,8 @@ namespace BussinessObject.Migrations
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ratingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,17 +81,18 @@ namespace BussinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "notifications",
                 columns: table => new
                 {
-                    paymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    paymentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    orderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    notificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    notificationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    type = table.Column<int>(type: "int", nullable: true),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.paymentId);
+                    table.PrimaryKey("PK_notifications", x => x.notificationId);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,7 +135,6 @@ namespace BussinessObject.Migrations
                 columns: table => new
                 {
                     foodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    categoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     foodName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     foodTag = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     foodNutrition = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -147,14 +148,14 @@ namespace BussinessObject.Migrations
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    categorysCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    categoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_foods", x => x.foodId);
                     table.ForeignKey(
-                        name: "FK_foods_categories_categorysCategoryId",
-                        column: x => x.categorysCategoryId,
+                        name: "FK_foods_categories_categoryId",
+                        column: x => x.categoryId,
                         principalTable: "categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Restrict);
@@ -165,21 +166,20 @@ namespace BussinessObject.Migrations
                 columns: table => new
                 {
                     ingredientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    categoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ingredientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ingredientPhoto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    categorysCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    categoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ingredients", x => x.ingredientId);
                     table.ForeignKey(
-                        name: "FK_ingredients_categories_categorysCategoryId",
-                        column: x => x.categorysCategoryId,
+                        name: "FK_ingredients_categories_categoryId",
+                        column: x => x.categoryId,
                         principalTable: "categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Restrict);
@@ -190,47 +190,26 @@ namespace BussinessObject.Migrations
                 columns: table => new
                 {
                     MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     menuName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     menuDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     menuPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     menuType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     menuPhoto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    categoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    categorysCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_menus", x => x.MenuId);
                     table.ForeignKey(
-                        name: "FK_menus_categories_categorysCategoryId",
-                        column: x => x.categorysCategoryId,
+                        name: "FK_menus_categories_categoryId",
+                        column: x => x.categoryId,
                         principalTable: "categories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "orders",
-                columns: table => new
-                {
-                    orderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    paymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_orders", x => x.orderId);
-                    table.ForeignKey(
-                        name: "FK_orders_Payments_paymentId",
-                        column: x => x.paymentId,
-                        principalTable: "Payments",
-                        principalColumn: "paymentId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -242,9 +221,8 @@ namespace BussinessObject.Migrations
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     fullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    notificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     sex = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     phoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     certificateId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     certificateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -253,14 +231,20 @@ namespace BussinessObject.Migrations
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    rolesroleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    roleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_users", x => x.userId);
                     table.ForeignKey(
-                        name: "FK_users_roles_rolesroleId",
-                        column: x => x.rolesroleId,
+                        name: "FK_users_notifications_notificationId",
+                        column: x => x.notificationId,
+                        principalTable: "notifications",
+                        principalColumn: "notificationId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_users_roles_roleId",
+                        column: x => x.roleId,
                         principalTable: "roles",
                         principalColumn: "roleId",
                         onDelete: ReferentialAction.Restrict);
@@ -271,22 +255,23 @@ namespace BussinessObject.Migrations
                 columns: table => new
                 {
                     serviceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    serviceType = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     nameService = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     descriptionService = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ratingId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     createBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    serviceTypesServiceTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    serviceTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_services", x => x.serviceId);
                     table.ForeignKey(
-                        name: "FK_services_serviceTypes_serviceTypesServiceTypeId",
-                        column: x => x.serviceTypesServiceTypeId,
+                        name: "FK_services_serviceTypes_serviceTypeId",
+                        column: x => x.serviceTypeId,
                         principalTable: "serviceTypes",
                         principalColumn: "ServiceTypeId",
                         onDelete: ReferentialAction.Restrict);
@@ -421,13 +406,12 @@ namespace BussinessObject.Migrations
                     feebackCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    type = table.Column<int>(type: "int", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    usersuserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -439,31 +423,7 @@ namespace BussinessObject.Migrations
                         principalColumn: "feedbackCategoryId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_feedbacks_users_usersuserId",
-                        column: x => x.usersuserId,
-                        principalTable: "users",
-                        principalColumn: "userId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "paymentDetails",
-                columns: table => new
-                {
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    paymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_paymentDetails", x => new { x.userId, x.paymentId });
-                    table.ForeignKey(
-                        name: "FK_paymentDetails_Payments_paymentId",
-                        column: x => x.paymentId,
-                        principalTable: "Payments",
-                        principalColumn: "paymentId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_paymentDetails_users_userId",
+                        name: "FK_feedbacks_users_userId",
                         column: x => x.userId,
                         principalTable: "users",
                         principalColumn: "userId",
@@ -471,29 +431,33 @@ namespace BussinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "schedules",
+                name: "Complements",
                 columns: table => new
                 {
-                    menuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    dateScheduled = table.Column<int>(type: "int", nullable: false),
+                    ratingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    createBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    quantity = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    serviceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    blogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_schedules", x => new { x.menuId, x.userId });
+                    table.PrimaryKey("PK_Complements", x => x.ratingId);
                     table.ForeignKey(
-                        name: "FK_schedules_menus_menuId",
-                        column: x => x.menuId,
-                        principalTable: "menus",
-                        principalColumn: "MenuId",
+                        name: "FK_Complements_blogs_blogId",
+                        column: x => x.blogId,
+                        principalTable: "blogs",
+                        principalColumn: "bolgId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_schedules_users_userId",
+                        name: "FK_Complements_services_serviceId",
+                        column: x => x.serviceId,
+                        principalTable: "services",
+                        principalColumn: "serviceId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Complements_users_userId",
                         column: x => x.userId,
                         principalTable: "users",
                         principalColumn: "userId",
@@ -505,9 +469,10 @@ namespace BussinessObject.Migrations
                 columns: table => new
                 {
                     userInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     heght = table.Column<int>(type: "int", nullable: false),
                     weight = table.Column<int>(type: "int", nullable: false),
+                    age = table.Column<int>(type: "int", nullable: false),
+                    BMIPerson = table.Column<float>(type: "real", nullable: false),
                     minimum_calories = table.Column<int>(type: "int", nullable: false),
                     maximum_calories = table.Column<int>(type: "int", nullable: false),
                     photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -515,11 +480,19 @@ namespace BussinessObject.Migrations
                     createBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    serviceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_userBodyMaxes", x => x.userInfoId);
+                    table.ForeignKey(
+                        name: "FK_userBodyMaxes_services_serviceId",
+                        column: x => x.serviceId,
+                        principalTable: "services",
+                        principalColumn: "serviceId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_userBodyMaxes_users_userId",
                         column: x => x.userId,
@@ -529,29 +502,32 @@ namespace BussinessObject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderDetails",
+                name: "schedules",
                 columns: table => new
                 {
-                    orderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    serviceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    quantity = table.Column<int>(type: "int", nullable: true),
-                    unitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    menuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    userInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    dateScheduled = table.Column<int>(type: "int", nullable: false),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    createBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    createTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    updateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    updateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderDetails", x => new { x.orderId, x.serviceId });
+                    table.PrimaryKey("PK_schedules", x => new { x.menuId, x.userInfoId });
                     table.ForeignKey(
-                        name: "FK_orderDetails_orders_orderId",
-                        column: x => x.orderId,
-                        principalTable: "orders",
-                        principalColumn: "orderId",
+                        name: "FK_schedules_menus_menuId",
+                        column: x => x.menuId,
+                        principalTable: "menus",
+                        principalColumn: "MenuId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_orderDetails_services_serviceId",
-                        column: x => x.serviceId,
-                        principalTable: "services",
-                        principalColumn: "serviceId",
+                        name: "FK_schedules_userBodyMaxes_userInfoId",
+                        column: x => x.userInfoId,
+                        principalTable: "userBodyMaxes",
+                        principalColumn: "userInfoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -559,6 +535,24 @@ namespace BussinessObject.Migrations
                 name: "IX_chatSection_messageId",
                 table: "chatSection",
                 column: "messageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Complements_blogId",
+                table: "Complements",
+                column: "blogId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Complements_serviceId",
+                table: "Complements",
+                column: "serviceId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Complements_userId",
+                table: "Complements",
+                column: "userId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_contents_blogId",
@@ -576,19 +570,19 @@ namespace BussinessObject.Migrations
                 column: "feebackCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_feedbacks_usersuserId",
+                name: "IX_feedbacks_userId",
                 table: "feedbacks",
-                column: "usersuserId");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_foods_categorysCategoryId",
+                name: "IX_foods_categoryId",
                 table: "foods",
-                column: "categorysCategoryId");
+                column: "categoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingredients_categorysCategoryId",
+                name: "IX_ingredients_categoryId",
                 table: "ingredients",
-                column: "categorysCategoryId");
+                column: "categoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_meals_foodId",
@@ -596,24 +590,9 @@ namespace BussinessObject.Migrations
                 column: "foodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_menus_categorysCategoryId",
+                name: "IX_menus_categoryId",
                 table: "menus",
-                column: "categorysCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orderDetails_serviceId",
-                table: "orderDetails",
-                column: "serviceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orders_paymentId",
-                table: "orders",
-                column: "paymentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_paymentDetails_paymentId",
-                table: "paymentDetails",
-                column: "paymentId");
+                column: "categoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_recipes_foodId",
@@ -621,14 +600,20 @@ namespace BussinessObject.Migrations
                 column: "foodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_schedules_userId",
+                name: "IX_schedules_userInfoId",
                 table: "schedules",
-                column: "userId");
+                column: "userInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_services_serviceTypesServiceTypeId",
+                name: "IX_services_serviceTypeId",
                 table: "services",
-                column: "serviceTypesServiceTypeId");
+                column: "serviceTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userBodyMaxes_serviceId",
+                table: "userBodyMaxes",
+                column: "serviceId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_userBodyMaxes_userId",
@@ -637,9 +622,15 @@ namespace BussinessObject.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_users_rolesroleId",
+                name: "IX_users_notificationId",
                 table: "users",
-                column: "rolesroleId");
+                column: "notificationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_roleId",
+                table: "users",
+                column: "roleId");
         }
 
         /// <inheritdoc />
@@ -647,6 +638,9 @@ namespace BussinessObject.Migrations
         {
             migrationBuilder.DropTable(
                 name: "chatSection");
+
+            migrationBuilder.DropTable(
+                name: "Complements");
 
             migrationBuilder.DropTable(
                 name: "contents");
@@ -661,19 +655,10 @@ namespace BussinessObject.Migrations
                 name: "meals");
 
             migrationBuilder.DropTable(
-                name: "orderDetails");
-
-            migrationBuilder.DropTable(
-                name: "paymentDetails");
-
-            migrationBuilder.DropTable(
                 name: "recipes");
 
             migrationBuilder.DropTable(
                 name: "schedules");
-
-            migrationBuilder.DropTable(
-                name: "userBodyMaxes");
 
             migrationBuilder.DropTable(
                 name: "messages");
@@ -685,12 +670,6 @@ namespace BussinessObject.Migrations
                 name: "feebackCategories");
 
             migrationBuilder.DropTable(
-                name: "orders");
-
-            migrationBuilder.DropTable(
-                name: "services");
-
-            migrationBuilder.DropTable(
                 name: "foods");
 
             migrationBuilder.DropTable(
@@ -700,16 +679,22 @@ namespace BussinessObject.Migrations
                 name: "menus");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "userBodyMaxes");
 
             migrationBuilder.DropTable(
-                name: "Payments");
+                name: "categories");
+
+            migrationBuilder.DropTable(
+                name: "services");
+
+            migrationBuilder.DropTable(
+                name: "users");
 
             migrationBuilder.DropTable(
                 name: "serviceTypes");
 
             migrationBuilder.DropTable(
-                name: "categories");
+                name: "notifications");
 
             migrationBuilder.DropTable(
                 name: "roles");

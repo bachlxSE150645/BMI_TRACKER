@@ -16,7 +16,7 @@ namespace BussinessObject
         public string nameService { get; set; }
         public string descriptionService {  get; set; }
         public string status { get; set; }
-
+        public ICollection <userBodyMax> userBodyMaxs { get; set; }
         public string createBy { get; set; }
         public DateTime createTime { get; set; }
         public string updateBy { get; set; }
@@ -24,10 +24,8 @@ namespace BussinessObject
         [ForeignKey("servicetType")]
         public Guid serviceTypeId { get; set; }
         public ServiceType serviceTypes { get; set; }
-        [JsonIgnore]
-        public ICollection<orderDetail> orderDetails { get; set; }
-
-
+      
+        public ICollection<complement> complements { get; set; }
     }
 
 }

@@ -23,9 +23,6 @@ builder.Services.AddScoped<IFeedbackRepository, feedbackRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<IMessageRepository, messageRepository>();
 builder.Services.AddScoped<IUserBodyMaxRepositorycs, userBodyMaxRepository>();
-builder.Services.AddScoped<IOrderDetailRepository, orderDetailRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IPaymentRepository, paymentRepository>();
 builder.Services.AddScoped<IServiceRepository, serviceReposiotry>();
 builder.Services.AddScoped<IServiceTypeRepository, serviceTypeRepository>();
 

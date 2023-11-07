@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BussinessObject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231031114354_InitDb")]
-    partial class InitDb
+    [Migration("20231107145336_fixCom")]
+    partial class fixCom
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,11 +92,7 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("categorysCategoryId")
+                    b.Property<Guid>("categoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("createBy")
@@ -139,32 +135,9 @@ namespace BussinessObject.Migrations
 
                     b.HasKey("MenuId");
 
-                    b.HasIndex("categorysCategoryId");
+                    b.HasIndex("categoryId");
 
                     b.ToTable("menus");
-                });
-
-            modelBuilder.Entity("BussinessObject.Order", b =>
-                {
-                    b.Property<Guid>("orderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("dateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("paymentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("orderId");
-
-                    b.HasIndex("paymentId");
-
-                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("BussinessObject.Schedule", b =>
@@ -172,7 +145,7 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("menuId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("userId")
+                    b.Property<Guid>("userInfoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("createBy")
@@ -196,9 +169,9 @@ namespace BussinessObject.Migrations
                     b.Property<DateTime>("updateTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("menuId", "userId");
+                    b.HasKey("menuId", "userInfoId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("userInfoId");
 
                     b.ToTable("schedules");
                 });
@@ -224,10 +197,7 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("serviceType")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("serviceTypesServiceTypeId")
+                    b.Property<Guid>("serviceTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("status")
@@ -243,7 +213,7 @@ namespace BussinessObject.Migrations
 
                     b.HasKey("serviceId");
 
-                    b.HasIndex("serviceTypesServiceTypeId");
+                    b.HasIndex("serviceTypeId");
 
                     b.ToTable("services");
                 });
@@ -344,6 +314,39 @@ namespace BussinessObject.Migrations
                     b.ToTable("chatSection");
                 });
 
+            modelBuilder.Entity("BussinessObject.complement", b =>
+                {
+                    b.Property<Guid>("ratingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("blogId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("serviceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ratingId");
+
+                    b.HasIndex("blogId");
+
+                    b.HasIndex("serviceId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Complements");
+                });
+
             modelBuilder.Entity("BussinessObject.favoriteFood", b =>
                 {
                     b.Property<Guid>("foodId")
@@ -424,9 +427,6 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("type")
-                        .HasColumnType("int");
-
                     b.Property<string>("updateBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -434,14 +434,14 @@ namespace BussinessObject.Migrations
                     b.Property<DateTime>("updateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("usersuserId")
+                    b.Property<Guid>("userId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("feedbackId");
 
                     b.HasIndex("feebackCategoryId");
 
-                    b.HasIndex("usersuserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("feedbacks");
                 });
@@ -452,11 +452,7 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("categoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("categorysCategoryId")
+                    b.Property<Guid>("categoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("createBy")
@@ -509,7 +505,7 @@ namespace BussinessObject.Migrations
 
                     b.HasKey("foodId");
 
-                    b.HasIndex("categorysCategoryId");
+                    b.HasIndex("categoryId");
 
                     b.ToTable("foods");
                 });
@@ -520,11 +516,7 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("categoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("categorysCategoryId")
+                    b.Property<Guid>("categoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("createTime")
@@ -551,7 +543,7 @@ namespace BussinessObject.Migrations
 
                     b.HasKey("ingredientId");
 
-                    b.HasIndex("categorysCategoryId");
+                    b.HasIndex("categoryId");
 
                     b.ToTable("ingredients");
                 });
@@ -577,65 +569,28 @@ namespace BussinessObject.Migrations
                     b.ToTable("messages");
                 });
 
-            modelBuilder.Entity("BussinessObject.orderDetail", b =>
+            modelBuilder.Entity("BussinessObject.notification", b =>
                 {
-                    b.Property<Guid>("orderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("serviceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("unitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("orderId", "serviceId");
-
-                    b.HasIndex("serviceId");
-
-                    b.ToTable("orderDetails");
-                });
-
-            modelBuilder.Entity("BussinessObject.payment", b =>
-                {
-                    b.Property<Guid>("paymentId")
+                    b.Property<Guid>("notificationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("orderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("content")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("paymentName")
-                        .IsRequired()
+                    b.Property<string>("notificationName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("paymentId");
+                    b.Property<int?>("type")
+                        .HasColumnType("int");
 
-                    b.ToTable("Payments");
-                });
+                    b.HasKey("notificationId");
 
-            modelBuilder.Entity("BussinessObject.paymentDetails", b =>
-                {
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("paymentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("userId", "paymentId");
-
-                    b.HasIndex("paymentId");
-
-                    b.ToTable("paymentDetails");
+                    b.ToTable("notifications");
                 });
 
             modelBuilder.Entity("BussinessObject.recipe", b =>
@@ -692,9 +647,6 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("birthday")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("certificateId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -718,6 +670,9 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("notificationId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -726,7 +681,7 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("rolesroleId")
+                    b.Property<Guid>("roleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("sex")
@@ -744,12 +699,12 @@ namespace BussinessObject.Migrations
                     b.Property<DateTime>("updateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("userInfoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("userId");
 
-                    b.HasIndex("rolesroleId");
+                    b.HasIndex("notificationId")
+                        .IsUnique();
+
+                    b.HasIndex("roleId");
 
                     b.ToTable("users");
                 });
@@ -759,6 +714,12 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("userInfoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("BMIPerson")
+                        .HasColumnType("real");
+
+                    b.Property<int>("age")
+                        .HasColumnType("int");
 
                     b.Property<string>("createBy")
                         .IsRequired()
@@ -780,6 +741,9 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("serviceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -798,6 +762,8 @@ namespace BussinessObject.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("userInfoId");
+
+                    b.HasIndex("serviceId");
 
                     b.HasIndex("userId")
                         .IsUnique();
@@ -847,22 +813,11 @@ namespace BussinessObject.Migrations
                 {
                     b.HasOne("BussinessObject.Category", "categorys")
                         .WithMany("menus")
-                        .HasForeignKey("categorysCategoryId")
+                        .HasForeignKey("categoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("categorys");
-                });
-
-            modelBuilder.Entity("BussinessObject.Order", b =>
-                {
-                    b.HasOne("BussinessObject.payment", "payments")
-                        .WithMany("orders")
-                        .HasForeignKey("paymentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("payments");
                 });
 
             modelBuilder.Entity("BussinessObject.Schedule", b =>
@@ -873,22 +828,22 @@ namespace BussinessObject.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("BussinessObject.user", "users")
+                    b.HasOne("BussinessObject.userBodyMax", "userBodyMaxs")
                         .WithMany("schedules")
-                        .HasForeignKey("userId")
+                        .HasForeignKey("userInfoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("menus");
 
-                    b.Navigation("users");
+                    b.Navigation("userBodyMaxs");
                 });
 
             modelBuilder.Entity("BussinessObject.Service", b =>
                 {
                     b.HasOne("BussinessObject.ServiceType", "serviceTypes")
                         .WithMany("services")
-                        .HasForeignKey("serviceTypesServiceTypeId")
+                        .HasForeignKey("serviceTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -910,6 +865,33 @@ namespace BussinessObject.Migrations
                         .IsRequired();
 
                     b.Navigation("messages");
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("BussinessObject.complement", b =>
+                {
+                    b.HasOne("BussinessObject.blog", "blogs")
+                        .WithMany("complements")
+                        .HasForeignKey("blogId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BussinessObject.Service", "services")
+                        .WithMany("complements")
+                        .HasForeignKey("serviceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BussinessObject.user", "users")
+                        .WithMany("complements")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("blogs");
+
+                    b.Navigation("services");
 
                     b.Navigation("users");
                 });
@@ -943,7 +925,7 @@ namespace BussinessObject.Migrations
 
                     b.HasOne("BussinessObject.user", "users")
                         .WithMany("feedbacks")
-                        .HasForeignKey("usersuserId")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -956,7 +938,7 @@ namespace BussinessObject.Migrations
                 {
                     b.HasOne("BussinessObject.Category", "categorys")
                         .WithMany("foods")
-                        .HasForeignKey("categorysCategoryId")
+                        .HasForeignKey("categoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -967,49 +949,11 @@ namespace BussinessObject.Migrations
                 {
                     b.HasOne("BussinessObject.Category", "categorys")
                         .WithMany("ingredients")
-                        .HasForeignKey("categorysCategoryId")
+                        .HasForeignKey("categoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("categorys");
-                });
-
-            modelBuilder.Entity("BussinessObject.orderDetail", b =>
-                {
-                    b.HasOne("BussinessObject.Order", "orders")
-                        .WithMany("orderDetails")
-                        .HasForeignKey("orderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BussinessObject.Service", "services")
-                        .WithMany("orderDetails")
-                        .HasForeignKey("serviceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("orders");
-
-                    b.Navigation("services");
-                });
-
-            modelBuilder.Entity("BussinessObject.paymentDetails", b =>
-                {
-                    b.HasOne("BussinessObject.payment", "payments")
-                        .WithMany("paymentDetails")
-                        .HasForeignKey("paymentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BussinessObject.user", "users")
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("payments");
-
-                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("BussinessObject.recipe", b =>
@@ -1033,24 +977,40 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.user", b =>
                 {
-                    b.HasOne("BussinessObject.role", "roles")
-                        .WithMany("users")
-                        .HasForeignKey("rolesroleId")
+                    b.HasOne("BussinessObject.notification", "notifications")
+                        .WithOne("users")
+                        .HasForeignKey("BussinessObject.user", "notificationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("BussinessObject.role", "roles")
+                        .WithMany("users")
+                        .HasForeignKey("roleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("notifications");
 
                     b.Navigation("roles");
                 });
 
             modelBuilder.Entity("BussinessObject.userBodyMax", b =>
                 {
-                    b.HasOne("BussinessObject.user", "user")
+                    b.HasOne("BussinessObject.Service", "services")
+                        .WithMany("userBodyMaxs")
+                        .HasForeignKey("serviceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BussinessObject.user", "users")
                         .WithOne("userBodyMaxs")
                         .HasForeignKey("BussinessObject.userBodyMax", "userId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("services");
+
+                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("BussinessObject.Category", b =>
@@ -1069,14 +1029,11 @@ namespace BussinessObject.Migrations
                     b.Navigation("schedules");
                 });
 
-            modelBuilder.Entity("BussinessObject.Order", b =>
-                {
-                    b.Navigation("orderDetails");
-                });
-
             modelBuilder.Entity("BussinessObject.Service", b =>
                 {
-                    b.Navigation("orderDetails");
+                    b.Navigation("complements");
+
+                    b.Navigation("userBodyMaxs");
                 });
 
             modelBuilder.Entity("BussinessObject.ServiceType", b =>
@@ -1086,6 +1043,8 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.blog", b =>
                 {
+                    b.Navigation("complements");
+
                     b.Navigation("contents");
                 });
 
@@ -1113,11 +1072,10 @@ namespace BussinessObject.Migrations
                     b.Navigation("chatSections");
                 });
 
-            modelBuilder.Entity("BussinessObject.payment", b =>
+            modelBuilder.Entity("BussinessObject.notification", b =>
                 {
-                    b.Navigation("orders");
-
-                    b.Navigation("paymentDetails");
+                    b.Navigation("users")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BussinessObject.role", b =>
@@ -1129,16 +1087,21 @@ namespace BussinessObject.Migrations
                 {
                     b.Navigation("chatSections");
 
+                    b.Navigation("complements");
+
                     b.Navigation("contents");
 
                     b.Navigation("favoriteFoods");
 
                     b.Navigation("feedbacks");
 
-                    b.Navigation("schedules");
-
                     b.Navigation("userBodyMaxs")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BussinessObject.userBodyMax", b =>
+                {
+                    b.Navigation("schedules");
                 });
 #pragma warning restore 612, 618
         }
