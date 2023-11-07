@@ -15,7 +15,7 @@ namespace BussinessObject
         public Guid notificationId { get; set; }
         public string? notificationName { get; set; }
         public string? content { get; set; }
-        public  notificationType? type {get;set;}
+        public  notificationType[] type {get;set;}
         public string status { get; set; }
 
 

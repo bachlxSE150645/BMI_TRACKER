@@ -10,6 +10,7 @@ namespace Repository.Interfaces
     public interface IScheduleRepository
     {
         List<Schedule> getAllSchedules();
+        List<Schedule> getScheduleByEmail(string email);
         List<Schedule> getScheduleByUserId(Guid userId);
         Task<Schedule> CreteNewSchedule(Schedule schedule);
         Schedule getScheduleByUserIAndmenuId(Guid userId, Guid menuId);

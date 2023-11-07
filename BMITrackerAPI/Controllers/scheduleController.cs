@@ -55,6 +55,18 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("email")]
+        public ActionResult<Schedule> getScheduleByEmail(string email)
+        {
+            try
+            {
+                return Ok(scheRepo.getScheduleByEmail(email));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpPut]
         public async Task<ActionResult> CreteNewSchedule( ScheduleInfo dto)
         {

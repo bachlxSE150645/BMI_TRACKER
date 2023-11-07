@@ -23,6 +23,7 @@ namespace Repository
 
         public List<Schedule> getAllSchedules() =>dao.getAllSchedules();
 
+        public List<Schedule> getScheduleByEmail(string email) =>dao.getScheduleByEmail(email);
         public Schedule getScheduleByUserIAndmenuId(Guid userId, Guid menuId)=>dao.getScheduleByUserIAndmenuId(userId, menuId);
 
         public List<Schedule> getScheduleByUserId(Guid userId) =>dao.getSchedulesByUserInfo(userId);

@@ -41,6 +41,20 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+        public List<Schedule> getScheduleByEmail (string email)
+        {
+            try
+            {
+                var ScheEmail = from s in _context.schedules
+                                where s.userBodyMaxs.users.email.Contains(email)
+                                select s;
+                return ScheEmail.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception (ex.Message);
+            }
+        }
         public async Task<Schedule> CreteNewSchedule(Schedule schedule)
         {
             try

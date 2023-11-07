@@ -22,6 +22,7 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<userBodyMax,userBodyMaxInfo>().ReverseMap();
             CreateMap<Service,serviceInfo>().ReverseMap();
             CreateMap<ServiceType, serviveTypeInfo>().ReverseMap();
+            CreateMap<notification,notiInfo>().ReverseMap();
         }
     }
 }
