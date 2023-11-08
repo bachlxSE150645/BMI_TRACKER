@@ -39,6 +39,7 @@ namespace BussinessObject
         public virtual DbSet<Category> categories { get; set; }
         public virtual DbSet<Menu> menus { get; set; }
        
+        public virtual DbSet<trackForm> trackForms { get; set; }
         public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<Service> services { get; set; }
         public virtual DbSet<ServiceType> serviceTypes { get; set; }

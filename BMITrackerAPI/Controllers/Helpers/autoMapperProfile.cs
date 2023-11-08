@@ -23,6 +23,7 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<Service,serviceInfo>().ReverseMap();
             CreateMap<ServiceType, serviveTypeInfo>().ReverseMap();
             CreateMap<notification,notiInfo>().ReverseMap();
+            CreateMap<trackForm,trackformInfo>().ReverseMap();
         }
     }
 }

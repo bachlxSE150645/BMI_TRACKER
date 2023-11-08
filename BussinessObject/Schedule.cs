@@ -25,7 +25,9 @@ namespace BussinessObject
         public DateTime updateTime { get; set; }
 
         public userBodyMax userBodyMaxs { get; set; }
-
+        [ForeignKey("trackForm")]
+        public Guid trackFormId { get; set; }
+        public trackForm trackForms { get; set; }
         public Menu menus { get; set; }
     }
 }

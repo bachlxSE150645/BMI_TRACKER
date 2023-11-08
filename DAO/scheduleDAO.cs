@@ -55,6 +55,21 @@ namespace DataAccess
                 throw new Exception (ex.Message);
             }
         }
+        public List<Schedule> getAllSchedulesByTrackName(string trackName)
+        {
+            try
+            {
+                var TrackS = from i in _context.schedules
+                             where i.trackForms.trackFormName.Contains(trackName)
+                             select i;
+                return TrackS.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<Schedule> CreteNewSchedule(Schedule schedule)
         {
             try

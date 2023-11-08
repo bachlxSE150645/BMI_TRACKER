@@ -26,6 +26,8 @@ builder.Services.AddScoped<IUserBodyMaxRepositorycs, userBodyMaxRepository>();
 builder.Services.AddScoped<IServiceRepository, serviceReposiotry>();
 builder.Services.AddScoped<IServiceTypeRepository, serviceTypeRepository>();
 builder.Services.AddScoped<INotificationRepository, notificationRepository>();
+builder.Services.AddScoped<ITrackFormRepository, trackFormRepository>();
+
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();

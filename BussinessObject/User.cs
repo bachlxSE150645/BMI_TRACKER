@@ -39,6 +39,8 @@ namespace BussinessObject
         [ForeignKey("role")]
         public Guid roleId { get; set; }
         public role roles { get; set; }
+        
+        public ICollection<trackForm> trackForms { get; set; }
 
         [JsonIgnore]
         public userBodyMax userBodyMaxs { get; set; }
