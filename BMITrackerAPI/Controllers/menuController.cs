@@ -6,6 +6,7 @@ using Repository.Interfaces;
 using Repository;
 using BussinessObject.MapData;
 using Microsoft.EntityFrameworkCore;
+using DataAccess;
 
 namespace BMITrackerAPI.Controllers
 {
@@ -60,27 +61,28 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<Menu> updateMenu(Guid menuId, MenuInfo dto)
+        public ActionResult<Menu> updateMenu(Guid menuId,string menuName,string menuDescription ,string menuPrice ,string menuType ,string menuPhoto )
         {
-            var foo = _mapper.Map<Menu>(dto);
-            if (foo.MenuId != menuId)
-            {
-                return BadRequest();
-            }
             try
             {
-                menuRepo.UpdateFood(foo);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (menuRepo.getMenuById(menuId) == null)
+                var us = menuRepo.getMenuById(menuId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
+                menuName = us.menuName;
+                menuDescription = us.menuDescription;
+                menuPrice = us.menuPrice;
+                menuType = us.menuType;
+                menuPhoto = us.menuPhoto;
 
-                throw;
+                menuRepo.UpdateFood(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("menu")]
         public IActionResult DeleteMenu(Guid foo)

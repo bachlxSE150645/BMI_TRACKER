@@ -39,7 +39,6 @@ namespace BMITrackerAPI.Controllers
         public async Task<IActionResult> SignUp(signUpData dto)
         {
             var us = _mapper.Map<user>(dto);
-            us.status = "available";
             var result = await userRepo.addUser(us);
             if (result == null)
             {
@@ -62,8 +61,8 @@ namespace BMITrackerAPI.Controllers
             }
         }
 
-        [HttpGet("AccountID")]
-        public ActionResult<user> GetuserById(Guid userId)
+        [HttpGet("userId")]
+        public ActionResult<user> getUserById(Guid userId)
         {
             try
             {
@@ -75,7 +74,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpGet("email")]
-        public ActionResult<user> searchUsersByEmail(string email)
+        public async Task<IActionResult> searchUsersByEmail(string email)
         {
             try
             {
@@ -87,19 +86,20 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut("Trainer")]
-        public  ActionResult<user> updateUserToTrainer(Guid userId, trainerInfo info,string certId, string certName)
+        public  ActionResult<user> updateUserToTrainer(Guid userId, string certificateId,  string certificateName)
         {
-            var tra = _mapper.Map<user>(info);
+            
             try
             {
-                if (tra.userId !=userId)
+                if( userId == null)
                 {
                     return NotFound();
                 }
-                tra.certificateId = certId;
-                tra.certificateName = certName;
-                tra.roles.roleName = "trainer";
-                return userRepo.updateUser(tra);
+                var tra = userRepo.getUserById(userId);
+                tra.certificateId = certificateId;
+                tra.certificateName = certificateName;
+                userRepo.updateAccount(tra);
+                return Ok();
             }
 
             catch (Exception ex)
@@ -107,35 +107,30 @@ namespace BMITrackerAPI.Controllers
                 return NotFound(ex.Message);
             }
         }
-        [HttpPut("userInfomation")]
-        public ActionResult<user> UpdateUser(Guid userId, string fullName, string passWord, string Email, string phoneNumber, string sex, DateTime birthday)
+        [HttpPut]
+        public ActionResult UpdateUser(Guid userId, string fullname, string Password, string Email,string phoneNumber, string sex )
         {
-            var uid = userRepo.getUserById(userId);
-            if (uid != null)
+
+            try
             {
-                try
+                var us =  userRepo.getUserById(userId);
+                if(us == null)
                 {
-                    uid.email = Email;
-                    uid.fullName = fullName;
-                    uid.phoneNumber = phoneNumber;
-                    uid.sex = sex;
-                    uid.password = passWord;
-                    userRepo.updateUser(uid);
-
+                    return BadRequest();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (userRepo.getUserById(userId) == null)
-                    {
-                        return NotFound();
-                    }
-
-                    throw;
-                }
-                return NoContent();
+                us.phoneNumber = phoneNumber;
+                us.email = Email;
+                us.password = Password;
+                us.sex = sex;
+                us.fullName = fullname;
+                userRepo.updateAccount(us);
+                return Ok();
             }
-            return uid;
-
+            catch(Exception ex)
+            {
+                throw  new Exception(ex.Message);
+            }
+            
         }
     }        
  

@@ -57,27 +57,26 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<trackForm> updateTrackform(Guid trackId, trackformInfo dto)
+        public ActionResult<trackForm> updateTrackform(Guid trackId, string trackFormName, string trackeFormDescription, bool isTracked)
         {
-            var fee = _mapper.Map<trackForm>(dto);
-            if (fee.trackFormId != trackId)
-            {
-                return BadRequest();
-            }
+
             try
             {
-                feedbackRepository.updateTrackform(fee);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (feedbackRepository.GetTrackFormById(trackId) == null)
+                var us = feedbackRepository.GetTrackFormById(trackId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                trackFormName = us.trackFormName;
+                trackeFormDescription = us.trackeFormDescription;
+                isTracked = true;
+                feedbackRepository.updateTrackform(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("trackform")]
         public IActionResult DeleteTrackeForm(Guid trackId)

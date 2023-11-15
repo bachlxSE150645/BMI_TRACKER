@@ -17,6 +17,9 @@ namespace BussinessObject
         public string? content { get; set; }
         public  notificationType? type {get;set;}
         public string status { get; set; }
+
+        [ForeignKey("user")]
+        public Guid userId { get; set; }
         public user users { get; set; }
     }
     public enum notificationType

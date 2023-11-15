@@ -25,13 +25,13 @@ namespace Repository
         public user getUserByEmailandPassword(string email, string passWord) => dao.getUserByEmailandPassword(email, passWord);
 
 
-        public user getUserById(Guid id) => getUserById(id);
+        public user getUserById(Guid id) => dao.getUserById(id);
 
 
         public List<user> searchUsersByEmail(string email) => dao.SearchAccountByEmail(email);
 
 
-        public user updateUser(user user) => dao.updateAccount(user);
+        public user updateAccount(user user) => dao.updateAccount(user);
 
     }
 }

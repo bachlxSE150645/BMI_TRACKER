@@ -17,10 +17,6 @@ namespace BussinessObject
         public string descriptionService {  get; set; }
         public string status { get; set; }
         public ICollection <userBodyMax> userBodyMaxs { get; set; }
-        public string createBy { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
         [ForeignKey("servicetType")]
         public Guid serviceTypeId { get; set; }
         public ServiceType serviceTypes { get; set; }

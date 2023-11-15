@@ -18,9 +18,6 @@ namespace BussinessObject
         public string ingredientName {  get; set; }
         public string ingredientPhoto { get; set; }
         public string status { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
         [JsonIgnore]
 
         public ICollection<recipe> recipes { get; set; }

@@ -14,7 +14,7 @@ namespace Repository.Interfaces
         user getUserById(Guid id);
         user getUserByEmailandPassword(string email, string passWord);
         Task<user> addUser(user user);
-        user updateUser(user user);
+        user updateAccount(user user);
         bool deleteUser(user user);
         List<user> searchUsersByEmail(string email);
     }

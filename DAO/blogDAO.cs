@@ -13,6 +13,7 @@ namespace DataAccess
     {
         private readonly MyDbContext _context;
         public blogDAO(MyDbContext context) { _context = context; }
+       
         public List<blog> GetAllBlogs()
         {
             try

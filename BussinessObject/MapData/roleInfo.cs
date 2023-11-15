@@ -9,7 +9,6 @@ namespace BussinessObject.MapData
     public class roleInfo
     {
         public string roleName { get; set; }
-        public string status { get; set; }
 
     }
 }

@@ -59,27 +59,28 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<userBodyMax> updateUserBodyMax(Guid feedId, userBodyMaxInfo dto)
+        public ActionResult<userBodyMax> updateUserBodyMax(Guid userInfoId, int heght , int weight, int minimum_calories,int maximum_calories, string photo,int age)
         {
-            var fee = _mapper.Map<userBodyMax>(dto);
-            if (fee.userInfoId != feedId)
-            {
-                return BadRequest();
-            }
             try
             {
-                feedbackRepository.updateUserBodyMax(fee);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (feedbackRepository.getUserBodyMaxbyId(feedId) == null)
+                var us = feedbackRepository.getUserBodyMaxbyId(userInfoId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                heght = us.heght;
+                weight = us.weight;
+                minimum_calories  = us.minimum_calories;
+                maximum_calories = us.maximum_calories;
+                photo =us.photo;
+                age = us.age;
+                feedbackRepository.updateUserBodyMax(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("userBoyMax")]
         public IActionResult DeleteUserBodyMax(Guid feedId)

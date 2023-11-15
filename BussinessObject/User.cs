@@ -22,20 +22,14 @@ namespace BussinessObject
         [DataType(DataType.Password)]
         [Required]
         public string password { get; set; }
-        
-        [ForeignKey("notification")]
-        public Guid notificationId { get; set; }
-        public string sex {  get; set; }
+        public string sex { get; set; }
 
         [DataType(DataType.PhoneNumber)]
         public string phoneNumber { get; set; }
         public string certificateId { get; set; }
         public string certificateName { get; set; }
         public string status { get; set; }
-        public string createBy { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
+ 
         [ForeignKey("role")]
         public Guid roleId { get; set; }
         public role roles { get; set; }
@@ -57,7 +51,7 @@ namespace BussinessObject
 
         public ICollection <feedback> feedbacks { get; set; }
         [JsonIgnore]
-        public notification notifications { get; set; }
+        public ICollection <notification> notifications { get; set; }
         [JsonIgnore]
         public ICollection <complement> complements { get; set; }
     }

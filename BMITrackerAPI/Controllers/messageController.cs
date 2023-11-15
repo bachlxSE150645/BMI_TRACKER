@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using Repository;
+using DataAccess;
+using System.Net.Mime;
 
 namespace BMITrackerAPI.Controllers
 {
@@ -60,27 +62,24 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<message> updateMess(Guid blogId, blogInfo dto)
+        public ActionResult<message> updateMess(Guid messId, string Content, string file)
         {
-            var foo = _mapper.Map<message>(dto);
-            if (foo.messageId != blogId)
-            {
-                return BadRequest();
-            }
             try
             {
-                foodRepository.UpdateMessage(foo);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (foodRepository.GetmessagesById(blogId) == null)
+                var us = foodRepository.GetmessagesById(messId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                Content = us.Content;
+                file = us.file;
+                foodRepository.UpdateMessage(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("mess")]
         public IActionResult DeleteMess(Guid foo)

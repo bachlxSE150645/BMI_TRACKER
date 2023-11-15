@@ -51,6 +51,7 @@ namespace DataAccess
                 {
                     roleId = Guid.NewGuid(),
                     roleName = roleInfo.roleName,
+                    status  = "available"
                 };
                 _context.roles.Add(newRole);
                 _context.SaveChanges();

@@ -72,27 +72,29 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public  ActionResult<food> updateFood(Guid foodId, foodInfo dto)
+        public  ActionResult<food> updateFood(Guid foodId, string foodName, string foodTag, string foodNutrition,string foodNotes, string foodPhoto, int foodtimeProcess,  int foodCalorios , string foodProcessingVideo)
         {
-            var foo = _mapper.Map<food>(dto);
-            if (foo.foodId != foodId)
-            {
-                return BadRequest();
-            }
             try
             {
-                foodRepository.UpdateFood(foo);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (foodRepository.getFoodById(foodId) == null)
+                var us = foodRepository.getFoodById(foodId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
+                foodName = us.foodName;
+                foodCalorios = us.foodCalorios;
+                foodNotes = us.foodNotes;
+                foodNutrition = us.foodNutrition;
+                foodPhoto = us.foodPhoto;
+                foodTag = us.foodTag;
 
-                throw;
+                foodRepository.UpdateFood(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("food")]
         public IActionResult DeleteFood(Guid foo)

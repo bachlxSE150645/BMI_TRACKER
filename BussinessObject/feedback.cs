@@ -19,14 +19,7 @@ namespace BussinessObject
         public Guid feebackCategoryId { get; set; }
         public  string title { get; set; }
         public string description { get; set; }
-        
-       
         public string status { get; set; }
-        public string createBy { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
-
         [JsonIgnore]
         public feebackCategory feebackCategorys { get; set; }
 

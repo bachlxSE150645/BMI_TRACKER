@@ -17,12 +17,6 @@ namespace BussinessObject
         public string nameServiceType {  get; set; }
         public string textServiceType { get; set; }
         public string status { get; set; }
-
-        public string createBy { get; set; }
-        
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
         public ICollection <Service> services { get; set; }
     }
 

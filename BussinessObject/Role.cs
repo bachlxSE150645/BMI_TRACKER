@@ -16,11 +16,7 @@ namespace BussinessObject
         public Guid roleId { get; set; }
         public string roleName { get; set; }
         public string status { get; set; }
-
-        public string createBy { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
+       
         [JsonIgnore]
         public virtual ICollection<user> users { get; set; }
         

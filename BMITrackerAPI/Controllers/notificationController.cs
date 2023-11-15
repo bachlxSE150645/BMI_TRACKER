@@ -72,27 +72,25 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<notification> updateNoti(Guid notiId, notiInfo dto)
+        public ActionResult<notification> updateNoti(Guid notiId, string notificationName, string content, notificationType type)
         {
-            var foo = _mapper.Map<notification>(dto);
-            if (foo.notificationId != notiId)
-            {
-                return BadRequest();
-            }
             try
             {
-                notificationRepository.UpdateNoti(foo);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (notificationRepository.GetNotiById(notiId) == null)
+                var us = notificationRepository.GetNotiById(notiId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                notificationName = us.notificationName;
+                content = us.content;
+                type = (notificationType)us.type;
+                notificationRepository.UpdateNoti(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("noti")]
         public IActionResult DeleteNoti(Guid foo)

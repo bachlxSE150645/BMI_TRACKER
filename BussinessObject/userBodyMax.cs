@@ -24,10 +24,6 @@ namespace BussinessObject
         public int maximum_calories { get; set; }
         public string photo { get; set; }
         public string status { get; set; }
-        public string createBy { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public  user users { get; set; }

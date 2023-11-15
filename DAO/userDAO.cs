@@ -28,7 +28,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.FirstOrDefault(u => u.userId.Equals(id));
+                return _context.users.SingleOrDefault(u => u.userId  == id);
             }
             catch (Exception ex)
             {
@@ -71,11 +71,13 @@ namespace DAO
                     password = signUpData.password,
                     phoneNumber = signUpData.phoneNumber,
                     fullName = signUpData.fullName,
+                    sex = signUpData.sex,
                     certificateId = "null",
-                    certificateName= "null",
+                    certificateName = "null",
                     userId = Guid.NewGuid(),
-                    roles = _context.roles.FirstOrDefault(r => r.roleName == "user")
-
+                    roles = await _context.roles!.FirstOrDefaultAsync(c => c.roleName == "user"),
+                    status = "available"
+                    
                 };
                 _context.users.Add(newAccount);
                 await _context.SaveChangesAsync();

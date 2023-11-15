@@ -61,27 +61,25 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<ServiceType> updateService(Guid serviceId, serviveTypeInfo dto)
+        public ActionResult<ServiceType> updateService(Guid serviceId, string nameServiceType, string textServiceType)
         {
-            var foo = _mapper.Map <ServiceType>(dto);
-            if (foo.ServiceTypeId != serviceId)
-            {
-                return BadRequest();
-            }
             try
             {
-                foodRepository.UpdateServiceType(foo);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (foodRepository.getServiceTypeById(serviceId) == null)
+                var us = foodRepository.getServiceTypeById(serviceId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
+                nameServiceType = us.nameServiceType;
+                textServiceType = us.textServiceType;
 
-                throw;
+                foodRepository.UpdateServiceType(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("service")]
         public IActionResult DeleteService(Guid foo)

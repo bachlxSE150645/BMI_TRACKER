@@ -11,7 +11,7 @@ namespace BussinessObject.MapData
         public string fullname { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
+        public string phoneNumber { get; set; }
         public string sex { get; set; }
 
     }

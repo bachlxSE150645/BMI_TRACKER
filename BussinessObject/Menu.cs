@@ -19,15 +19,12 @@ namespace BussinessObject
         public string menuDescription { get; set; }
         public string menuPrice { get; set; }
         public string menuType { get; set; }
-        public string createBy { get; set; }
+        
         public string menuPhoto { get; set; }
         [ForeignKey("category")]
         public Guid categoryId { get; set; }
         public Category categorys { get; set; }
         public string status { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; }
-        public DateTime updateTime { get; set; }
         [JsonIgnore]
 
         public ICollection<Schedule> schedules { get; set; }

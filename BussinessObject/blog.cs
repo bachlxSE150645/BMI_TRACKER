@@ -19,9 +19,7 @@ namespace BussinessObject
         public string link { get; set; }
         public string createBy { get; set; }
         public string status { get; set; }
-        public DateTime? createTime { get; set; }
-        public string? updateBy { get; set; }
-        public DateTime? updateTime { get; set; }
+        
         [JsonIgnore]
         public ICollection <complement> complements { get; set; }
         [JsonIgnore]

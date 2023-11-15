@@ -59,27 +59,23 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<feedback> updateFeedback(Guid feedId, feedbackInfo dto)
+        public ActionResult<feedback> updateFeedback(Guid feedId, string title, string desc)
         {
-            var fee = _mapper.Map<feedback>(dto);
-            if (fee.feedbackId != feedId)
-            {
-                return BadRequest();
-            }
             try
             {
-                feedbackRepository.updateFeedback(fee);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (feedbackRepository.getFeedbackById(feedId) == null)
+                var us = feedbackRepository.getFeedbackById(feedId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                us.title = title;
+                us.description = desc;
+                feedbackRepository.updateFeedback(us);
+                return Ok(us);
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
-            return NoContent();
         }
         [HttpDelete("feedback")]
         public IActionResult DeleteFeedback(Guid feedId)

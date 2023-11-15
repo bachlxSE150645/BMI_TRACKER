@@ -56,31 +56,27 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult<role> updateRole(Guid roleId, roleInfo dto)
+        public ActionResult updateRole(Guid roleId, string roleName)
         {
-            var rol = _mapper.Map<role>(dto);
-            if (rol.roleId != roleId)
-            {
-                return BadRequest();
-            }
             try
             {
-
-                roleRepo.UpdateRole(rol);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (roleRepo.GetRoleById(roleId) == null)
+                var us = roleRepo.GetRoleById(roleId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                us.roleName = roleName;
+                roleRepo.UpdateRole(us);
+                return Ok();
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
         [HttpDelete("role")]
-        public IActionResult DeleteFood(Guid rol)
+        public IActionResult DeleteRole(Guid rol)
         {
             try
             {

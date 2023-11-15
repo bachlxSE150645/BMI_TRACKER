@@ -17,9 +17,7 @@ namespace BussinessObject
         public string? CategoryName { get; set; }
         public string createBy { get; set; }
         public string status { get; set; }
-        public DateTime? createTime { get; set; }
-        public string? updateBy { get; set; }
-        public DateTime? updateTime { get; set; }
+
 
 
         public ICollection< food> foods { get; set; }

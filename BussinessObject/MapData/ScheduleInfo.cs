@@ -9,6 +9,5 @@ namespace BussinessObject.MapData
     public class ScheduleInfo
     {
         public int dateScheduled { get; set; }
-        public string status { get; set; }
     }
 }

@@ -50,7 +50,7 @@ namespace BMITrackerAPI.Controllers
         public async Task<IActionResult> AddBlog(blogInfo dto)
         {
             var food = _mapper.Map<blog>(dto);
-            food.status = "available";
+            
             var result = await foodRepository.addNewBlog(food);
             if (result == null)
             {
@@ -60,27 +60,26 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<blog> updateblog(Guid blogId, blogInfo dto)
+        public ActionResult<blog> updateblog(Guid blogId, string blogName, string blogContent, string blogPhoto, string link)
         {
-            var foo = _mapper.Map < blog>(dto);
-            if (foo.bolgId != blogId)
-            {
-                return BadRequest();
-            }
             try
             {
-                foodRepository.UpdateBlog(foo);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (foodRepository.getBolgById(blogId) == null)
+                var us = foodRepository.getBolgById(blogId);
+                if (us == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-
-                throw;
+                us.blogName = blogName;
+                us.blogContent = blogContent;
+                us.blogPhoto = blogPhoto;
+                us.link = link;
+                foodRepository.UpdateBlog(us);
+                return Ok(us);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete("blog")]
         public IActionResult DeleteBlog(Guid foo)

@@ -24,10 +24,6 @@ namespace BussinessObject
         public int foodCalorios { get; set; }
         public string foodProcessingVideo { get; set; }
         public string status { get; set; }
-        public string createBy { get; set; }
-        public DateTime createTime { get; set; }
-        public string updateBy { get; set; } 
-        public DateTime updateTime { get; set; }
         [ForeignKey("category")]
         public Guid categoryId { get; set; }
         public Category categorys { get; set; }
