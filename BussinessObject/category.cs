@@ -15,15 +15,14 @@ namespace BussinessObject
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid CategoryId {  get; set; }
         public string? CategoryName { get; set; }
-        public string createBy { get; set; }
         public string status { get; set; }
 
 
-
+        [JsonIgnore]
         public ICollection< food> foods { get; set; }
-
+        [JsonIgnore]
         public ICollection<ingredient> ingredients { get; set; }
-
+        [JsonIgnore]
         public ICollection< Menu> menus { get; set; }
 
 

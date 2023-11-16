@@ -16,11 +16,12 @@ namespace BMITrackerAPI.Controllers
     {
 
         private readonly IIngredientRepository ingRepo;
+        private readonly IMapper _mapper;
 
-        public ingredientController(MyDbContext dbContext)
+        public ingredientController(MyDbContext dbContext, IMapper mapper)
         {
             ingRepo = new ingredientRepository(dbContext);
-
+            _mapper = mapper;
         }
 
 
@@ -51,9 +52,10 @@ namespace BMITrackerAPI.Controllers
         }
         [HttpPost]
 
-        public async Task<IActionResult> AddIngredient(ingredient ingredient)
+        public async Task<IActionResult> AddIngredient(ingriInfo dto)
         {
-            var result = await ingRepo.AddIngredient(ingredient);
+            var ing = _mapper.Map<ingredient>(dto);
+             var result =await ingRepo.AddIngredient(ing);
             if (result == null)
             {
                 return BadRequest("Something wrong!");
@@ -62,15 +64,18 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<ingredient> updateIngredinet(Guid ingredientId, ingredient ingredient)
+        public ActionResult<ingredient> updateIngredinet(Guid ingredientId, string ingredientName,  string ingredientPhoto)
         {
-            if(ingredientId != ingredient.ingredientId)
+            var ing = ingRepo.getIngredientById(ingredientId);
+            if(ingredientId ==null)
             {
                 return BadRequest();
             }
             try
             {
-                ingRepo.updateIngredinet(ingredient);
+                ing.ingredientName = ingredientName;
+                ing.ingredientPhoto = ingredientPhoto;
+                ingRepo.updateIngredinet(ing);
             }
             catch (DbUpdateConcurrencyException)
             {

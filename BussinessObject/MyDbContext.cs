@@ -53,7 +53,7 @@ namespace BussinessObject
         
         public virtual DbSet<blog> blogs { get; set; }
         public virtual DbSet<complement> Complements { get; set; }
-        public virtual DbSet<Content> contents { get; set; }
+        
         public virtual DbSet<feebackCategory> feebackCategories { get; set; }
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<chatSection> ChatSections { get; set; }

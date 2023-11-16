@@ -14,10 +14,11 @@ namespace BMITrackerAPI.Controllers
     public class categoryController : ControllerBase
     {
         private readonly ICategoryRepository cateRepo;
-        public categoryController(MyDbContext dbContext)
+        private readonly IMapper _mapper;
+        public categoryController(MyDbContext dbContext, IMapper mapper)
         {
             cateRepo = new categoryRepository(dbContext);
-
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetCategorys()
@@ -34,11 +35,18 @@ namespace BMITrackerAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostCategory(Category category)
+        public ActionResult PostCategory(cateInfo dto)
         {
 
-            cateRepo.AddCategory(category);
-            return Ok();
+            var food = _mapper.Map<Category>(dto);
+
+            var result = cateRepo.AddCategory(food);
+            if (result == null)
+            {
+                return BadRequest("Something wrong!");
+            }
+
+            return Ok(result);
         }
         [HttpGet("cateId")]
         public ActionResult<Category> GetCategoryByiD(Guid categoryId)

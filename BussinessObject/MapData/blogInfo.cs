@@ -12,5 +12,7 @@ namespace BussinessObject.MapData
         public string blogContent { get; set; }
         public string blogPhoto { get; set; }
         public string link { get; set; }
+        public string tag { get; set; }
+        public Guid userId { get; set; }
     }
 }

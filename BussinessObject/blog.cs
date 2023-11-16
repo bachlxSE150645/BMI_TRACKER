@@ -17,13 +17,15 @@ namespace BussinessObject
         public string blogContent { get; set; }
         public string blogPhoto { get; set; }
         public string link { get; set; }
-        public string createBy { get; set; }
+        public string tag { get; set; }
+        public DateTime dateTime { get; set; }
+       
         public string status { get; set; }
-        
+        [ForeignKey("user")]
+        public Guid userId { get; set; }
+        public user users { get; set; }
+
         [JsonIgnore]
         public ICollection <complement> complements { get; set; }
-        [JsonIgnore]
-        public ICollection<Content> contents { get; set; }
-       
     }
 }

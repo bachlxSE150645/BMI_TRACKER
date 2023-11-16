@@ -98,6 +98,28 @@ namespace BMITrackerAPI.Controllers
                 var tra = userRepo.getUserById(userId);
                 tra.certificateId = certificateId;
                 tra.certificateName = certificateName;
+                tra.status = "watting-trainer";
+                userRepo.updateAccount(tra);
+                return Ok();
+            }
+
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        [HttpPut("TrainerApprove")]
+        public ActionResult<user> AdminupdateUserToTrainerApprove(Guid userId)
+        {
+
+            try
+            {
+                if (userId == null)
+                {
+                    return NotFound();
+                }
+                var tra = userRepo.getUserById(userId);
+                tra.status = "trainer";
                 userRepo.updateAccount(tra);
                 return Ok();
             }

@@ -34,7 +34,7 @@ namespace BMITrackerAPI.Controllers
         }
 
         [HttpGet("blogId")]
-        public ActionResult<blog> GetFoodById(Guid foodId)
+        public ActionResult<blog> GetBlogById(Guid foodId)
         {
             try
             {
@@ -59,6 +59,43 @@ namespace BMITrackerAPI.Controllers
 
             return Ok(result);
         }
+        [HttpGet("user")]
+        public ActionResult<blog> GetBlogByUser(string email)
+        {
+            try
+            {
+                return Ok(foodRepository.getBlogByUser(email));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("time")]
+        public ActionResult<blog> GetBlogByUser(DateTime date)
+        {
+            try
+            {
+                return Ok(foodRepository.GetBlogByDatime(date));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("tag")]
+        public ActionResult<blog> GetBlogByTag(string tag)
+        {
+            try
+            {
+                return Ok(foodRepository.selectAllBlogHaveFoodTag(tag));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPut]
         public ActionResult<blog> updateblog(Guid blogId, string blogName, string blogContent, string blogPhoto, string link)
         {

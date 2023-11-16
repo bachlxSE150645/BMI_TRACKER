@@ -33,14 +33,14 @@ namespace BussinessObject
         [ForeignKey("role")]
         public Guid roleId { get; set; }
         public role roles { get; set; }
-        
+        [JsonIgnore]
         public ICollection<trackForm> trackForms { get; set; }
 
         [JsonIgnore]
         public userBodyMax userBodyMaxs { get; set; }
         [JsonIgnore]
 
-        public ICollection<Content> contents { get; set; }
+        public ICollection<blog> blogs { get; set; }
         [JsonIgnore]
 
         public ICollection<favoriteFood> favoriteFoods { get; set; }

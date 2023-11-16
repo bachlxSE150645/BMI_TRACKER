@@ -51,7 +51,7 @@ namespace BMITrackerAPI.Controllers
         public async Task<IActionResult> AddMenu(MenuInfo dto)
         {
             var men = _mapper.Map<Menu>(dto);
-            men.status = "available";
+            
             var result = await menuRepo.AddNewFood(men);
             if (result == null)
             {
