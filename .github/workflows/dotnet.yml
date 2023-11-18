@@ -22,4 +22,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: hotiendat/cakecurious:latest
+          tags: 37180/bmi-api:latest
