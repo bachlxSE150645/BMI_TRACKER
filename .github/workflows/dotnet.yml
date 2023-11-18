@@ -22,4 +22,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: 37180/bmi-api:latest
+          tags: xuanbach3/bmi-api:latest
