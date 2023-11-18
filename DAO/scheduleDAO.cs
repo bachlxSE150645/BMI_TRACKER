@@ -77,7 +77,10 @@ namespace DataAccess
                 var newSche = new Schedule
                 {
                     dateScheduled = schedule.dateScheduled,
-                    userBodyMaxs = _context.userBodyMaxes.Where(u=>u.userInfoId == schedule.userInfoId).FirstOrDefault(),
+                    userInfoId = schedule.userInfoId,
+                    menuId = schedule.menuId,
+                    userBodyMaxs = _context.userBodyMaxes.FirstOrDefault(u => u.userInfoId == schedule.userInfoId),
+                    menus = _context.menus.FirstOrDefault(u => u.MenuId == schedule.menuId),
                     status = "available",
                 };
                 _context.schedules.Add(newSche);

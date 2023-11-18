@@ -17,7 +17,11 @@ namespace DataAccess
         {
             try
             {
-                return _context.userBodyMaxes.Include(u =>u.users).ToList();
+                return _context.userBodyMaxes.
+                    Include(u =>u.users).
+                    Include(u=>u.schedules).
+                    Include(u=>u.services).
+                    ToList();
             }
 
             catch (Exception ex)
@@ -29,7 +33,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).FirstOrDefault();
+                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).Include(s=>s.schedules).FirstOrDefault();
 
             }
             catch (Exception ex)
@@ -50,8 +54,10 @@ namespace DataAccess
                     minimum_calories = feed.minimum_calories,
                     maximum_calories = feed.maximum_calories,
                     photo = feed.photo,
+                    serviceId = feed.serviceId,
                     status = "avaiable",
-                    users = _context.users.Where(u => u.userId == feed.users.userId).FirstOrDefault(),
+                    users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
+                    services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };
                 _context.userBodyMaxes.Add(newUserBodyMax);
                 _context.SaveChanges();
@@ -62,18 +68,25 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public userBodyMax updateUserBodyMax(userBodyMax feedback)
+        public userBodyMax updateUserBodyMax(Guid id,userBodyMax userBody)
         {
             try
             {
-                var check = _context.userBodyMaxes.SingleOrDefault(f => f.userInfoId == feedback.userInfoId);
-                if (check != null)
-                {
-                    _context.Entry<userBodyMax>(check).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    _context.SaveChanges();
-
-                }
-                return check;
+                var foo = _context.userBodyMaxes
+                     .Include(f => f.users)
+                     .Include(f => f.services)
+                     .Where(x => x.userInfoId.Equals(id)).SingleOrDefault();
+                foo.weight = userBody.weight;
+                foo.age = userBody.age;
+                foo.photo = userBody.photo;
+                foo.serviceId = userBody.serviceId;
+                foo.status = userBody.status;
+                foo.BMIPerson = userBody.BMIPerson;
+                foo.maximum_calories = userBody.maximum_calories;
+                foo.minimum_calories = userBody.minimum_calories;
+                this._context.userBodyMaxes.Update(foo);
+                this._context.SaveChanges();
+                return foo;
             }
             catch (Exception ex)
             {

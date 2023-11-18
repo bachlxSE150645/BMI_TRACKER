@@ -42,5 +42,57 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+        public Meal createnewRecipe(Meal re)
+        {
+            try
+            {
+                var recipeNew = new Meal
+                {
+                    menuId = re.menuId,
+                    foodId = re.foodId,
+                    foods = _context.foods.Where(f => f.foodId == re.foodId).FirstOrDefault(),
+                    Menus = _context.menus.Where(f => f.MenuId == re.menuId).FirstOrDefault()
+                };
+                return recipeNew;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void UpdateMeal(Meal recipeDetail)
+        {
+            try
+            {
+                var recipeDetailCheck = _context.meals.SingleOrDefault(x => x.foodId == recipeDetail.foodId && x.menuId == recipeDetail.menuId);
+                if (recipeDetailCheck != null)
+                {
+                    _context.Entry(recipeDetailCheck).CurrentValues.SetValues(recipeDetail);
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        //Delete existing Recipe Detail
+        public void DeleteMeal(Meal recipeDetail)
+        {
+            try
+            {
+                var recipeDetailCheck = _context.meals.SingleOrDefault(x => x.foodId == recipeDetail.foodId && x.menuId == recipeDetail.menuId);
+                if (recipeDetailCheck != null)
+                {
+                    _context.meals.Remove(recipeDetailCheck);
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

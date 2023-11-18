@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using BussinessObject.MapData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Repository.Interfaces
         List<userBodyMax> getAllUserBodyMax();
         userBodyMax getUserBodyMaxbyId(Guid id);
         userBodyMax addUserBodyMax(userBodyMax feed);
-        userBodyMax updateUserBodyMax(userBodyMax feedback);
+        userBodyMax updateUserBodyMax(Guid id, userBodyMaxInfo feedback);
         bool DeleteUserBodyMax(userBodyMax feedback);
     }
 }

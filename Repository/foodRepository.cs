@@ -1,5 +1,6 @@
 ﻿
 using BussinessObject;
+using BussinessObject.MapData;
 using DataAccess;
 using Repository.Interfaces;
 using System;
@@ -26,6 +27,43 @@ namespace Repository
         public List<food> GetFoodByTag(string tag) =>dao.getFoodByTAG(tag);
 
         public List<food> GetFoodList() =>dao.GetFoodList();
-        public food UpdateFood(food food) =>dao.UpdateFood(food);
+
+        public food UpdateFood(Guid id, foodInfo food)
+        {
+            var r = dao.getFoodById(id);
+            if (!String.IsNullOrEmpty(food.foodName))
+            {
+                r.foodName = food.foodName;
+            }
+            if (!String.IsNullOrEmpty(food.foodNutrition))
+            {
+                r.foodNutrition = food.foodNutrition;
+            }
+            if (!String.IsNullOrEmpty(food.foodTag))
+            {
+                r.foodTag = food.foodTag;
+            }
+            if (!String.IsNullOrEmpty(food.foodPhoto))
+            {
+                r.foodPhoto = food.foodPhoto;
+            }
+            if (food.foodtimeProcess ==null)
+            {
+                r.foodtimeProcess = food.foodtimeProcess;
+            }
+            if (!String.IsNullOrEmpty(food.foodNutrition))
+            {
+                r.foodNutrition = food.foodNutrition;
+            }
+            if (!String.IsNullOrEmpty(food.foodProcessingVideo))
+            {
+                r.foodProcessingVideo = food.foodProcessingVideo;
+            }
+            if (!String.IsNullOrEmpty(food.foodNotes))
+            {
+                r.foodNotes = food.foodNotes;
+            }
+            return dao.UpdateFood(id, r);
+        }
     }
 }

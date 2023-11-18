@@ -12,6 +12,9 @@ namespace Repository.Interfaces
          List<blog> GetAllBlogs();
          blog getBolgById(Guid id);
          Task<blog> addNewBlog(blog blogInfo);
+        public List<blog> getBlogByUser(string email);
+        List<blog> GetBlogByDatime(DateTime date);
+        List<blog> selectAllBlogHaveFoodTag(string tag);
         blog UpdateBlog(blog blog);
         bool deleteBlog(blog food);
     }

@@ -21,5 +21,11 @@ namespace BussinessObject.MapData
         public float BMIPerson { get; set; }
         [Required]
         public int age { get; set; }
+        public UserBodyMaxMenus[] UserBodyMaxMenus { get; set; }
     }
+    public class UserBodyMaxMenus
+    {
+        public Guid MenuId { get; set; }
+    }
+
 }

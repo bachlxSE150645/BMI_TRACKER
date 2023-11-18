@@ -11,5 +11,8 @@ namespace Repository.Interfaces
     {
         List<Meal> getFoodsById(Guid foodId);
         List<Meal> getMenusbyId(Guid menuId);
+        void UpdateMeal(Meal recipeDetail);
+        void DeleteMeal(Meal recipeDetail);
+        Meal createnewMeal(Meal re);
     }
 }

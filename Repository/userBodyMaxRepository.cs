@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using BussinessObject.MapData;
 using DataAccess;
 using Repository.Interfaces;
 using System;
@@ -26,6 +27,9 @@ namespace Repository
 
         public userBodyMax getUserBodyMaxbyId(Guid id)=>dao.getUserBodyMaxbyId(id);
 
-        public userBodyMax updateUserBodyMax(userBodyMax userBodyMax) =>dao.updateUserBodyMax(userBodyMax);
+        public userBodyMax updateUserBodyMax(Guid id, userBodyMaxInfo feedback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

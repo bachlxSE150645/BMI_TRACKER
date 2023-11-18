@@ -1,4 +1,5 @@
 ﻿ using BussinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.menus.ToList();
+                return _context.menus.Include(f => f.meals).ToList();
             }
             catch (Exception ex)
             {
@@ -35,18 +36,21 @@ namespace DataAccess
             }
         }
 
-        public Menu UpdateFood(Menu menu)
+        public Menu UpdateMenu(Guid id,Menu menu)
         {
             try
             {
-                var men = _context.menus.FirstOrDefault(m =>m.MenuId == menu.MenuId);
-                if (men != null)
-                {
-                    _context.Entry<Menu>(menu).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    _context.SaveChanges();
-                    return men;
-                }
-                return null;
+                var foo = _context.menus
+                    .Include(f => f.meals)
+                    .Where(x => x.MenuId.Equals(id)).SingleOrDefault();
+                foo.status =menu.status;
+                foo.menuName = menu.menuName;
+                foo.menuPrice = menu.menuPrice;
+                foo.menuType = menu.menuType;
+                foo.menuDescription = menu.menuDescription;
+                this._context.menus.Update(foo);
+                this._context.SaveChanges();
+                return foo;
             }
             catch (Exception ex)
             {

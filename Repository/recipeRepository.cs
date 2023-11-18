@@ -18,9 +18,14 @@ namespace Repository
             dao = new recipeDAO(dbContext);
         }
 
+        public recipe createnewRecipe(recipe re)=>dao.createnewRecipe(re);
+
+        public void DeleteRecipeDetail(recipe recipeDetail)=>dao.DeleteRecipeDetail(recipeDetail);
+
         public List<recipe> getFoodsById(Guid foodId) =>dao.getFoodsById(foodId);
 
         public List<recipe> getIngredientsById(Guid ingId)=>dao.getIngredientsbyId(ingId);
 
+        public void UpdateRecipe(recipe recipeDetail)=>dao.UpdateRecipe(recipeDetail);
     }
 }

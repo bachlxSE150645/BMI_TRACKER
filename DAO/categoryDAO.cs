@@ -47,8 +47,10 @@ namespace DataAccess
                 var newCategory = new Category
                 {
                    CategoryId = Guid.NewGuid(),
-                   CategoryName = category.CategoryName
+                   CategoryName = category.CategoryName,
+                   status = "available"  
                 };
+
                 _context.categories.Add(newCategory);
                 _context.SaveChanges();
                 return newCategory;

@@ -17,10 +17,12 @@ namespace BMITrackerAPI.Controllers
     {
         private IUserBodyMaxRepositorycs feedbackRepository;
         private readonly IMapper _mapper;
+        private IScheduleRepository _scheduleRepository;
         public userBodyMaxController(MyDbContext dbContext, IMapper mapper)
         {
             feedbackRepository = new userBodyMaxRepository(dbContext);
             _mapper = mapper;
+            _scheduleRepository = new scheduleRepository(dbContext);
         }
         [HttpGet]
         public async Task <IActionResult> getAllUserBodyMaxs()
@@ -47,40 +49,65 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPost]
-        public  ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto)
+        public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto)
         {
-            var feedback = _mapper.Map<userBodyMax>(dto);
-            feedback.status = "available";
-            var result = feedbackRepository.addUserBodyMax(feedback);
-            if (result == null)
-            {
-                return BadRequest("Something wrong!");
-            }
-            return Ok(result);
-        }
-        [HttpPut]
-        public ActionResult<userBodyMax> updateUserBodyMax(Guid userInfoId, int heght , int weight, int minimum_calories,int maximum_calories, string photo,int age)
-        {
+            var food = _mapper.Map<userBodyMax>(dto);
+            food.status = "available";
             try
             {
-                var us = feedbackRepository.getUserBodyMaxbyId(userInfoId);
-                if (us == null)
+                if (food == null)
                 {
-                    return BadRequest();
+                    return BadRequest("Something wrong!");
                 }
-                heght = us.heght;
-                weight = us.weight;
-                minimum_calories  = us.minimum_calories;
-                maximum_calories = us.maximum_calories;
-                photo =us.photo;
-                age = us.age;
-                feedbackRepository.updateUserBodyMax(us);
-                return Ok(us);
+                else
+                {
+                    var result = feedbackRepository.addUserBodyMax(food);
+                    foreach (var item in dto.UserBodyMaxMenus)
+                    {
+                        var detail = _mapper.Map<Schedule>(item);
+                        if (detail != null)
+                        {
+                            detail.userInfoId = result.userInfoId;
+                            _scheduleRepository.CreteNewSchedule(detail);
+                        }
+                    }
+                    return Ok(result);
+                }
+
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+        [HttpPut]
+        public ActionResult<userBodyMax> updateUserBodyMax(Guid userInfoId, [FromBody] userBodyMaxInfo dto)
+        {
+            var result = feedbackRepository.updateUserBodyMax(userInfoId, dto);
+            var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
+            if (current == null)
+            {
+                return BadRequest();
+            }
+            foreach (var detail in current.schedules)
+            {
+                Console.WriteLine(detail);
+                if (detail != null)
+                {
+                    _scheduleRepository.DeleteSchedule(detail);
+                }
+            }
+            foreach (var newDetail in dto.UserBodyMaxMenus)
+            {
+                var detail = _mapper.Map<Schedule>(newDetail);
+                detail.userInfoId = result.userInfoId;
+                _scheduleRepository.CreteNewSchedule(detail);
+            }
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
         [HttpDelete("userBoyMax")]
         public IActionResult DeleteUserBodyMax(Guid feedId)
@@ -92,8 +119,7 @@ namespace BMITrackerAPI.Controllers
                 {
                     return NotFound();
                 }
-                fee.status = "hidden";
-                feedbackRepository.updateUserBodyMax(fee);
+                feedbackRepository.DeleteUserBodyMax(fee);
                 return NoContent();
             }
             catch (Exception ex)

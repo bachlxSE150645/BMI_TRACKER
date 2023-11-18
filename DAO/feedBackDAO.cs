@@ -20,7 +20,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.feedbacks.Include(x => x.users).ToList();
+                return _context.feedbacks.Include(x => x.users).Include(u=>u.users.roles.roleName).ToList();
             } catch (Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -30,7 +30,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.feedbacks.Where(feed => feed.feedbackId == id).Include(f => f.users).FirstOrDefault();
+                return _context.feedbacks.Where(feed => feed.feedbackId == id).Include(f => f.users).Include(r=>r.users.roles.roleName).FirstOrDefault();
 
             } catch (Exception ex)
             {
@@ -48,7 +48,8 @@ namespace DataAccess
                     feedbackId = Guid.NewGuid(),
                     title = feed.title,
                     description = feed.description,
-                    users = _context.users.Where(u=>u.userId == feed.users.userId).FirstOrDefault()
+                    userId  = feed.userId,
+                    users = _context.users.Where(u=>u.userId == feed.userId).FirstOrDefault()
                 };
                 _context.feedbacks.Add(newFeedback);
                 _context.SaveChanges();

@@ -57,7 +57,7 @@ namespace DataAccess
                     notificationName = notification.notificationName,
                     content = notification.content,
                     type = notification.type,
-                    status = "available",
+                    status = "available"
                 };
                 _context.notifications.Add(newNoti);
                 _context.SaveChanges();

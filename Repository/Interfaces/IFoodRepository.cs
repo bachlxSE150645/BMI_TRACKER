@@ -13,7 +13,7 @@ namespace Repository.Interfaces
         List<food> GetFoodList();
         List<food> GetFoodByTag(string tag);
         food getFoodById(Guid id);
-        food UpdateFood(food food);
+        food UpdateFood(Guid id,foodInfo food);
         Task<food> AddNewFood(food food);
         void DeleteFood(food food);
     }

@@ -19,7 +19,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.foods.ToList();
+                return _context.foods.Include(f=>f.recipes).ToList();
             }
             catch (Exception ex)
             {
@@ -53,18 +53,25 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public food UpdateFood(food food)
+        public food UpdateFood(Guid id, food food)
         {
             try
             {
-                var foo = _context.foods.FirstOrDefault(f => f.foodId == food.foodId);
-                if (foo != null)
-                {
-                    _context.Entry<food>(foo).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    _context.SaveChanges();
-                    return foo;
-                }
-                return null;
+                var foo = _context.foods
+                    .Include(f=>f.recipes)
+                    .Where(x=>x.foodId.Equals(id)).SingleOrDefault();
+                foo.foodName = food.foodName;
+                foo.foodNutrition = food.foodNutrition;
+                foo.foodNotes = food.foodNotes;
+                foo.foodTag = food.foodTag;
+                foo.foodProcessingVideo = food.foodProcessingVideo;
+                foo.foodtimeProcess = food.foodtimeProcess;
+                foo.status = food.status;
+                foo.foodCalorios = food.foodCalorios;
+                foo.foodPhoto = food.foodPhoto;
+                this._context.foods.Update(foo);
+                this._context.SaveChanges();
+                return foo;
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using BussinessObject.MapData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace Repository.Interfaces
     {
         List<Menu> getAllMenu();
         Menu getMenuById(Guid id);
-        Menu UpdateFood(Menu menu);
-        Task<Menu> AddNewFood(Menu MenuInfo);
-        void deleteFood(Menu menu);
+        Menu UpdateMenu(Guid id, MenuInfo menu);
+        Task<Menu> AddNewMenu(Menu MenuInfo);
+        void deleteMenu(Menu menu);
 
     }
 }

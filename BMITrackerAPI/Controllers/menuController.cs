@@ -16,10 +16,12 @@ namespace BMITrackerAPI.Controllers
     {
         private IMenuRepository menuRepo;
         private readonly IMapper _mapper;
+        private IMealRepository _mealRepository;
         public menuController(MyDbContext dbContext, IMapper mapper)
         {
             menuRepo = new menuRepository(dbContext);
             _mapper = mapper;
+            _mealRepository = new MealRepository(dbContext);
         }
         [HttpGet]
         public async Task<IActionResult> GetAllMenu()
@@ -50,34 +52,65 @@ namespace BMITrackerAPI.Controllers
 
         public async Task<IActionResult> AddMenu(MenuInfo dto)
         {
-            var men = _mapper.Map<Menu>(dto);
-            
-            var result = await menuRepo.AddNewFood(men);
-            if (result == null)
+            var food = _mapper.Map<Menu>(dto);
+            food.status = "available";
+            try
             {
-                return BadRequest("Something wrong!");
+                if (food == null)
+                {
+                    return BadRequest("Something wrong!");
+                }
+                else
+                {
+                    var result = await menuRepo.AddNewMenu(food);
+                    foreach (var item in dto.foods)
+                    {
+                        var detail = _mapper.Map<Meal>(item);
+                        if (detail != null)
+                        {
+                            detail.menuId = result.MenuId;
+                            _mealRepository.createnewMeal(detail);
+                        }
+                    }
+                    return Ok(result);
+                }
             }
-
-            return Ok(result);
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPut]
-        public ActionResult<Menu> updateMenu(Guid menuId,string menuName,string menuDescription ,string menuPrice ,string menuType ,string menuPhoto )
+        public ActionResult<Menu> updateMenu(Guid menuId, [FromBody] MenuInfo dto)
         {
             try
             {
-                var us = menuRepo.getMenuById(menuId);
-                if (us == null)
+
+                var result = menuRepo.UpdateMenu(menuId, dto);
+                var current = menuRepo.getMenuById(menuId);
+                if (current == null)
                 {
                     return BadRequest();
                 }
-                menuName = us.menuName;
-                menuDescription = us.menuDescription;
-                menuPrice = us.menuPrice;
-                menuType = us.menuType;
-                menuPhoto = us.menuPhoto;
-
-                menuRepo.UpdateFood(us);
-                return Ok(us);
+                foreach (var detail in current.meals)
+                {
+                    Console.WriteLine(detail);
+                    if (detail != null)
+                    {
+                        _mealRepository.DeleteMeal(detail);
+                    }
+                }
+                foreach (var newDetail in dto.foods)
+                {
+                    var detail = _mapper.Map<Meal>(newDetail);
+                    detail.menuId = result.MenuId;
+                    _mealRepository.createnewMeal(detail);
+                }
+                if (result == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -95,7 +128,7 @@ namespace BMITrackerAPI.Controllers
                     return NotFound();
                 }
                 fooId.status = "hidden";
-                menuRepo.UpdateFood(fooId);
+                menuRepo.deleteMenu(fooId);
                 return NoContent();
             }
             catch (Exception ex)

@@ -34,15 +34,6 @@ namespace BMITrackerAPI.Controllers
             }
 
         }
-
-        [HttpPost]
-        public async Task <ActionResult> PostSchedule(ScheduleInfo dto)
-        {
-            var sche = _mapper.Map<Schedule>(dto);
-            sche.status = "available";
-            var result = await scheRepo.CreteNewSchedule(sche);
-            return Ok();
-        }
         [HttpGet("schedule")]
         public ActionResult<Schedule> getScheduleByUserIAndmenuId(Guid userId, Guid menuId)
         {

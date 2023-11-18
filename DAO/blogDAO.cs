@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.blogs.ToList();
+                return _context.blogs.Include(u=>u.users).ToList();
             }
             catch (Exception ex)
             {
@@ -39,7 +40,49 @@ namespace DataAccess
             }
         }
 
+        public List<blog> GetBlogByDatime(DateTime dateForm)
+        {
+            try
+            {
+                var dateSelect = from d in _context.blogs
+                                 where d.dateTime.Equals(dateForm) 
+                                 select d;
+                return dateSelect.ToList();
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<blog> selectAllBlogHaveFoodTag(string tag)
+        {
+            try
+            {
 
+                var dateSelect = from d in _context.blogs
+                                 where d.tag.Equals(tag)
+                                 select d;
+                return dateSelect.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<blog> getBlogByUser(string email)
+        {
+            try
+            {
+                var us = from e in _context.blogs
+                         where e.users.email == email
+                         select e;
+                return us.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<blog> addNewBlog(blog blogInfo)
         {
             try
@@ -52,8 +95,12 @@ namespace DataAccess
                     blogPhoto = blogInfo.blogPhoto,
                     link = blogInfo.link,
                     status = "available",
+                    dateTime = DateTime.Now,
+                    tag = blogInfo.tag,
+                    userId = blogInfo.userId,
+                    users = _context.users.SingleOrDefault(u=>u.userId == blogInfo.userId)
                 };
-                _context.blogs.Add(blogInfo);
+                _context.blogs.Add(newBlog);
                 _context.SaveChanges();
                 return newBlog;
             }

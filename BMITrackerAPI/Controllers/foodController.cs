@@ -15,10 +15,12 @@ namespace BMITrackerAPI.Controllers
     {
         private IFoodRepository foodRepository;
         private readonly IMapper _mapper;
+        private IRecipeRepository recRepository;
         public foodController(MyDbContext dbContext, IMapper mapper)
         {
             foodRepository = new foodRepository(dbContext);
             _mapper = mapper;
+            recRepository = new recipeRepository(dbContext);
         }
         [HttpGet]
         public async Task<IActionResult> GetAllFood()
@@ -63,38 +65,60 @@ namespace BMITrackerAPI.Controllers
         {
             var food = _mapper.Map<food>(dto);
             food.status = "available";
-            var result = await foodRepository.AddNewFood(food);
-            if (result == null)
-            {
-                return BadRequest("Something wrong!");
-            }
-
-            return Ok(result);
-        }
-        [HttpPut]
-        public  ActionResult<food> updateFood(Guid foodId, string foodName, string foodTag, string foodNutrition,string foodNotes, string foodPhoto, int foodtimeProcess,  int foodCalorios , string foodProcessingVideo)
-        {
             try
             {
-                var us = foodRepository.getFoodById(foodId);
-                if (us == null)
+                if (food == null)
                 {
-                    return BadRequest();
+                    return BadRequest("Something wrong!");
                 }
-                foodName = us.foodName;
-                foodCalorios = us.foodCalorios;
-                foodNotes = us.foodNotes;
-                foodNutrition = us.foodNutrition;
-                foodPhoto = us.foodPhoto;
-                foodTag = us.foodTag;
-
-                foodRepository.UpdateFood(us);
-                return Ok(us);
+                else
+                {
+                    var result = await foodRepository.AddNewFood(food);
+                    foreach (var item in dto.ingredients)
+                    {
+                        var detail = _mapper.Map<recipe>(item);
+                        if (detail != null)
+                        {
+                            detail.foodId = result.foodId;
+                            recRepository.createnewRecipe(detail);
+                        }
+                    }
+                    return Ok(result);
+                }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
+            }                     
+        }
+        [HttpPut]
+        public  ActionResult<food> updateFood(Guid foodId, [FromBody] foodInfo dto)
+        {
+            var result =  foodRepository.UpdateFood(foodId,dto);
+            var current = foodRepository.getFoodById(foodId);
+            if (current == null)
+            {
+                return BadRequest();
             }
+            foreach (var detail in current.recipes)
+            {
+                Console.WriteLine(detail);
+                if (detail != null)
+                {
+                    recRepository.DeleteRecipeDetail(detail);
+                }
+            }
+            foreach(var newDetail in dto.ingredients)
+            {
+                var detail = _mapper.Map<recipe>(newDetail);
+                detail.foodId = result.foodId;
+                recRepository.createnewRecipe(detail);
+            }
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
         [HttpDelete("food")]
         public IActionResult DeleteFood(Guid foo)
@@ -106,8 +130,7 @@ namespace BMITrackerAPI.Controllers
                 {
                     return NotFound();
                 }
-                fooId.status = "hidden";
-                foodRepository.UpdateFood(fooId);
+                foodRepository.DeleteFood(fooId);
                 return NoContent();
             }
             catch (Exception ex)

@@ -49,7 +49,8 @@ namespace DataAccess
                 {
                     messageId = Guid.NewGuid(),
                     Content = category.Content,
-                    file = category.file
+                    file = category.file,
+                    status = "available"
 
                 };
                 _context.messages.Add(newMess);

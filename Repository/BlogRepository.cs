@@ -24,7 +24,13 @@ namespace Repository
 
         public List<blog> GetAllBlogs()=>dao.GetAllBlogs();
 
+        public List<blog> GetBlogByDatime(DateTime date)=>dao.GetBlogByDatime(date);
+
         public blog getBolgById(Guid id)=>dao.getBolgById(id);
+
+        public List<blog> selectAllBlogHaveFoodTag(string tag) => dao.selectAllBlogHaveFoodTag(tag);
+
+        public List<blog> getBlogByUser(string email) =>dao.getBlogByUser(email);
 
         public blog UpdateBlog(blog blog) =>dao.UpdateBlog(blog);
     }
