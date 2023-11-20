@@ -23,9 +23,6 @@ namespace Repository
         public bool deleteBlog(blog food) =>dao.deleteBlog(food);
 
         public List<blog> GetAllBlogs()=>dao.GetAllBlogs();
-
-        public List<blog> GetBlogByDatime(DateTime date)=>dao.GetBlogByDatime(date);
-
         public blog getBolgById(Guid id)=>dao.getBolgById(id);
 
         public List<blog> selectAllBlogHaveFoodTag(string tag) => dao.selectAllBlogHaveFoodTag(tag);
@@ -33,5 +30,7 @@ namespace Repository
         public List<blog> getBlogByUser(string email) =>dao.getBlogByUser(email);
 
         public blog UpdateBlog(blog blog) =>dao.UpdateBlog(blog);
+
+        public List<blog> GetBlogByDatime(DateTime dateForm, DateTime dateTo) => dao.GetBlogByDatime(dateForm, dateTo);
     }
 }

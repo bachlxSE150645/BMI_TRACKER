@@ -28,6 +28,8 @@ builder.Services.AddScoped<IServiceTypeRepository, serviceTypeRepository>();
 builder.Services.AddScoped<INotificationRepository, notificationRepository>();
 builder.Services.AddScoped<ITrackFormRepository, trackFormRepository>();
 builder.Services.AddScoped<IComplementRepository,ComplementRepository>();
+builder.Services.AddScoped<IFavoriteFoodRepository, FavoritFoodRepository>();
+
 
 
 builder.Services.AddAutoMapper(typeof(Program));

@@ -12,6 +12,7 @@ namespace BussinessObject.MapData
         public string foodTag { get; set; }
         public string foodNutrition { get; set; }
         public string foodNotes { get; set; }
+        public string foodDesciption { get; set; }
         public string foodPhoto { get; set; }
         public int foodtimeProcess { get; set; }
         public int foodCalorios { get; set; }

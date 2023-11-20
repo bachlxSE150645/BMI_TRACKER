@@ -40,12 +40,13 @@ namespace DataAccess
             }
         }
 
-        public List<blog> GetBlogByDatime(DateTime dateForm)
+        public List<blog> GetBlogByDatime(DateTime dateForm, DateTime dateTo)
         {
             try
             {
+                var x = dateForm <= dateTo;
                 var dateSelect = from d in _context.blogs
-                                 where d.dateTime.Equals(dateForm) 
+                                 where d.dateTime.Equals(x)
                                  select d;
                 return dateSelect.ToList();
             }catch (Exception ex)

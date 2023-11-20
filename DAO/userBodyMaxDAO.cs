@@ -33,7 +33,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).Include(s=>s.schedules).FirstOrDefault();
+                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).Include(s=>s.schedules).Include(s=>s.services).FirstOrDefault();
 
             }
             catch (Exception ex)
@@ -55,6 +55,7 @@ namespace DataAccess
                     maximum_calories = feed.maximum_calories,
                     photo = feed.photo,
                     serviceId = feed.serviceId,
+                    userId = feed.userId,
                     status = "avaiable",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
                     services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()

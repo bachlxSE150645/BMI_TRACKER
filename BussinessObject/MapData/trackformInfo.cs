@@ -11,5 +11,8 @@ namespace BussinessObject.MapData
         public string trackFormName { get; set; }
         public string trackeFormDescription { get; set; }
         public bool isTracked { get; set; }
+        public Guid userId { get; set; }
+       
     }
+   
 }

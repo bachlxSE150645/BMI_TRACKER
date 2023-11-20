@@ -15,7 +15,6 @@ namespace BussinessObject
         public Guid foodId { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
-        public string status { get; set; }
         public food foods { get; set; }
         public user users { get; set; }
     }

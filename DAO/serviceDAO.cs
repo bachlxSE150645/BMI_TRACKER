@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.services.ToList();
+                return _context.services.Include(s=>s.serviceTypes).ToList();
             }
             catch (Exception ex)
             {
@@ -27,7 +28,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.services.Where(b => b.serviceId == id).FirstOrDefault();
+                return _context.services.Where(b => b.serviceId == id).Include(s=>s.serviceTypes).FirstOrDefault();
 
             }
             catch (Exception ex)
@@ -46,7 +47,8 @@ namespace DataAccess
                     serviceId = Guid.NewGuid(),
                     nameService = service.nameService,
                     descriptionService = service.descriptionService,
-                    serviceTypes = service.serviceTypes,
+                    serviceTypeId = service.serviceTypeId,
+                    serviceTypes = _context.serviceTypes.FirstOrDefault(s=>s.ServiceTypeId == service.serviceTypeId),
                     status = "available",
                 };
                 _context.services.Add(newService);

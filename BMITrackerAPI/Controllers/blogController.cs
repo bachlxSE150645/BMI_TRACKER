@@ -46,7 +46,6 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPost]
-
         public async Task<IActionResult> AddBlog(blogInfo dto)
         {
             var food = _mapper.Map<blog>(dto);
@@ -72,11 +71,11 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpGet("time")]
-        public ActionResult<blog> GetBlogByUser(DateTime date)
+        public ActionResult<blog> GetBlogByUser(DateTime dateForm, DateTime dateTo)
         {
             try
             {
-                return Ok(foodRepository.GetBlogByDatime(date));
+                return Ok(foodRepository.GetBlogByDatime(dateForm,dateTo));
             }
             catch
             {

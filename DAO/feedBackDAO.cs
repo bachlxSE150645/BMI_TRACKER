@@ -49,7 +49,9 @@ namespace DataAccess
                     title = feed.title,
                     description = feed.description,
                     userId  = feed.userId,
-                    users = _context.users.Where(u=>u.userId == feed.userId).FirstOrDefault()
+                    users = _context.users.Where(u=>u.userId == feed.userId).FirstOrDefault(),
+                    feebackCategoryId  =  feed.feebackCategoryId,
+                    feebackCategorys =_context.feebackCategories.FirstOrDefault(f=>f.feedbackCategoryId ==feed.feebackCategoryId)
                 };
                 _context.feedbacks.Add(newFeedback);
                 _context.SaveChanges();
