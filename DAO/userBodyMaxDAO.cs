@@ -82,6 +82,7 @@ namespace DataAccess
                 foo.BMIPerson = userBody.BMIPerson;
                 foo.BMR = userBody.BMR;
                 foo.TDEE = userBody.TDEE;
+                foo.serviceId = Guid.Empty;
                 this._context.userBodyMaxes.Update(foo);
                 this._context.SaveChanges();
                 return foo;
