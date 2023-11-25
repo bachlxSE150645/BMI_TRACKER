@@ -67,7 +67,7 @@ namespace DataAccess
                     ingredientId = Guid.NewGuid(),
                     ingredientName = ingredient.ingredientName,
                     ingredientPhoto = ingredient.ingredientPhoto,
-                    status = "available",
+                    status = "available-ingre",
                     categorys = _context.categories.FirstOrDefault(r => r.CategoryName == "ingredient")
 
                 };

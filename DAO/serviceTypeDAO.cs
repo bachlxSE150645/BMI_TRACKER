@@ -47,7 +47,7 @@ namespace DataAccess
                     nameServiceType = serviceT.nameServiceType,
                     textServiceType = serviceT.textServiceType,
                      
-                    status = "available",
+                    status = "available-serviceType",
                 };
                 _context.serviceTypes.Add(serviceT);
                 _context.SaveChanges();

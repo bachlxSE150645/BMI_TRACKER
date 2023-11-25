@@ -69,7 +69,7 @@ namespace DataAccess
                     menuPhoto = MenuInfo.menuPhoto,
                     menuPrice = MenuInfo.menuPrice,
                     menuType = MenuInfo.menuType,
-                    status = "available",
+                    status = "available-menu",
                     categorys = _context.categories.FirstOrDefault(r => r.CategoryName == "menu")
 
                 };

@@ -48,7 +48,8 @@ namespace DataAccess
                     feedbackId = Guid.NewGuid(),
                     title = feed.title,
                     description = feed.description,
-                    userId  = feed.userId,
+                    userId = feed.userId,
+                    status = "available-feedback",
                     users = _context.users.Where(u=>u.userId == feed.userId).FirstOrDefault(),
                     feebackCategoryId  =  feed.feebackCategoryId,
                     feebackCategorys =_context.feebackCategories.FirstOrDefault(f=>f.feedbackCategoryId ==feed.feebackCategoryId)

@@ -33,5 +33,6 @@ namespace Repository
 
         public user updateAccount(user user) => dao.updateAccount(user);
 
+        public user updateRoleTrainer(user user) =>dao.updateRoleTrainer(user);
     }
 }

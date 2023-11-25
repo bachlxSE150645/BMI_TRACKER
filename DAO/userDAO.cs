@@ -107,6 +107,25 @@ namespace DAO
                 throw new Exception(ex.Message);
             }
         }
+        public user updateRoleTrainer(user user)
+        {
+            try
+            {
+                var us = _context.users.FirstOrDefault(u => u.userId == user.userId);
+                if (us != null)
+                {
+                    user.roles = _context.roles.FirstOrDefault(u => u.roleName == "trainer");
+                    user.status = "available-trainer";
+                    _context.SaveChanges();
+                    return us;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public bool deleteUser(user user)
         {
             try

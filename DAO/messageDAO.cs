@@ -40,7 +40,7 @@ namespace DataAccess
             }
         }
 
-        //Post new Role
+
         public async Task<message> Addmessages(message category)
         {
             try
@@ -50,7 +50,7 @@ namespace DataAccess
                     messageId = Guid.NewGuid(),
                     Content = category.Content,
                     file = category.file,
-                    status = "available"
+                    status = "available-mess"
 
                 };
                 _context.messages.Add(newMess);

@@ -93,7 +93,7 @@ namespace DataAccess
                     foodtimeProcess = foodInfo.foodtimeProcess,
                     foodCalorios = foodInfo.foodCalorios,
                     foodProcessingVideo = foodInfo.foodProcessingVideo,
-                    status = "available",
+                    status = "available-food",
                     categorys = _context.categories.Where(u => u.CategoryName == "food").FirstOrDefault()
                 };
                 _context.foods.Add(newFood);

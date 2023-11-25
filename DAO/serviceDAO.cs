@@ -49,7 +49,7 @@ namespace DataAccess
                     descriptionService = service.descriptionService,
                     serviceTypeId = service.serviceTypeId,
                     serviceTypes = _context.serviceTypes.FirstOrDefault(s=>s.ServiceTypeId == service.serviceTypeId),
-                    status = "available",
+                    status = "available-service",
                 };
                 _context.services.Add(newService);
                await _context.SaveChangesAsync();

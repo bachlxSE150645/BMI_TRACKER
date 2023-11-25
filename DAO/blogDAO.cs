@@ -95,7 +95,7 @@ namespace DataAccess
                     blogContent = blogInfo.blogContent,
                     blogPhoto = blogInfo.blogPhoto,
                     link = blogInfo.link,
-                    status = "available",
+                    status = "available-blog",
                     dateTime = DateTime.Now,
                     tag = blogInfo.tag,
                     userId = blogInfo.userId,

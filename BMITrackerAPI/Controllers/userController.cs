@@ -119,7 +119,7 @@ namespace BMITrackerAPI.Controllers
                     return NotFound();
                 }
                 var tra = userRepo.getUserById(userId);
-                tra.status = "trainer";
+                userRepo.updateRoleTrainer(tra);
                 userRepo.updateAccount(tra);
                 return Ok();
             }

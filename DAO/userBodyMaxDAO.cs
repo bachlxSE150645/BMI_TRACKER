@@ -56,7 +56,7 @@ namespace DataAccess
                     photo = feed.photo,
                     serviceId = feed.serviceId,
                     userId = feed.userId,
-                    status = "avaiable",
+                    status = "avaiable-userBoyMax",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
                     services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };

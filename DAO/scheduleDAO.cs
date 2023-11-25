@@ -81,7 +81,7 @@ namespace DataAccess
                     menuId = schedule.menuId,
                     userBodyMaxs = _context.userBodyMaxes.FirstOrDefault(u => u.userInfoId == schedule.userInfoId),
                     menus = _context.menus.FirstOrDefault(u => u.MenuId == schedule.menuId),
-                    status = "available",
+                    status = "available-schedule",
                 };
                 _context.schedules.Add(newSche);
                 await _context.AddRangeAsync(schedule);

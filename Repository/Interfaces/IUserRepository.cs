@@ -17,5 +17,6 @@ namespace Repository.Interfaces
         user updateAccount(user user);
         bool deleteUser(user user);
         List<user> searchUsersByEmail(string email);
+        user updateRoleTrainer(user user);
     }
 }

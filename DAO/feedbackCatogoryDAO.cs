@@ -48,7 +48,7 @@ namespace DataAccess
                 {
                    feedbackCategoryId = category.feedbackCategoryId,
                    feedbackCategoryName = category.feedbackCategoryName,
-                   status = "available"
+                   status = "available-feedbackCate"
                 };
                 _context.feebackCategories.Add(newCategory);
                 _context.SaveChanges();
