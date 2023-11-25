@@ -109,6 +109,25 @@ namespace BMITrackerAPI.Controllers
             }
             return Ok(result);
         }
+        [HttpPut("service")]
+        public ActionResult<userBodyMax> updateServiceInUserBodyMax(Guid userInfoId, [FromBody] userBodyMaxServiceInfo dto)
+        {
+            try
+            {
+                if (userInfoId == null)
+                {
+                    return NotFound();
+                }
+                var result = feedbackRepository.updateServiceInUserBodyMax(userInfoId, dto);
+                feedbackRepository.updateUserBodyMax(result);
+                return Ok(result);
+
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
         [HttpDelete("userBoyMax")]
         public IActionResult DeleteUserBodyMax(Guid feedId)
         {

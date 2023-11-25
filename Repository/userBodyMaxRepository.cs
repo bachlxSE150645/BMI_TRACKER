@@ -27,9 +27,48 @@ namespace Repository
 
         public userBodyMax getUserBodyMaxbyId(Guid id)=>dao.getUserBodyMaxbyId(id);
 
-        public userBodyMax updateUserBodyMax(Guid id, userBodyMaxInfo feedback)
+        public userBodyMax updateServiceInUserBodyMax(Guid id, userBodyMaxServiceInfo userBody)
         {
-            throw new NotImplementedException();
+            var r = dao.getUserBodyMaxbyId(id);
+            if(userBody.serviceId == null)
+            {
+                r.serviceId = userBody.serviceId;
+            }
+            return dao.updateServiceInUserBodyMax(id, r);
         }
+        public userBodyMax updateUserBodyMax(Guid id, userBodyMaxInfo user)
+        {
+            var r = dao.getUserBodyMaxbyId(id);
+            if (user.heght !=null)
+            {
+                r.heght = user.heght;
+            }
+            if (user.weight !=null)
+            {
+                r.weight = user.weight;
+            }
+            if(user.BMIPerson != null)
+            {
+                r.BMIPerson = user.BMIPerson;
+            }
+            if (user.age != null)
+            {
+                r.age = user.age;
+            }
+            if (user.BMIPerson != null)
+            {
+                r.BMIPerson = user.BMIPerson;
+            }
+            if(user.TDEE != null)
+            {
+                r.TDEE = user.TDEE;
+            }
+            if(user.BMR != null)
+            {
+                r.BMR = user.BMR;
+            }
+            return dao.updateUserBodyMax(id, r);
+        }
+        public userBodyMax updateUserBodyMax(userBodyMax user) => dao.updateUserBodyMax(user);
     }
 }

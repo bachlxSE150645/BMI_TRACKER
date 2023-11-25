@@ -26,7 +26,8 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<trackForm,trackformInfo>().ReverseMap();
             CreateMap<Category, cateInfo>().ReverseMap();
             CreateMap<ingredient, ingriInfo>().ReverseMap();
-            CreateMap<complement,ComplementInfo>().ReverseMap();  
+            CreateMap<complement,ComplementInfo>().ReverseMap(); 
+            CreateMap<userBodyMax,userBodyMaxServiceInfo>().ReverseMap();
         }
     }
 }

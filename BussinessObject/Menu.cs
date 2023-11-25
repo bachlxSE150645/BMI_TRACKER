@@ -18,8 +18,7 @@ namespace BussinessObject
         public string menuName { get; set; }
         public string menuDescription { get; set; }
         public string menuPrice { get; set; }
-        public string menuType { get; set; }
-        
+        public string menuType { get; set; }        
         public string menuPhoto { get; set; }
         [ForeignKey("category")]
         public Guid categoryId { get; set; }

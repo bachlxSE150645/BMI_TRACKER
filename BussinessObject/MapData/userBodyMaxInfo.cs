@@ -15,12 +15,13 @@ namespace BussinessObject.MapData
         public int heght { get; set; }
         [Required]
         public int weight { get; set; }
-        public int minimum_calories { get; set; }
-        public int maximum_calories { get; set; }
-        public string photo { get; set; }
+        public int BMR { get; set; }
+        public int TDEE { get; set; }
+
         public float BMIPerson { get; set; }
         [Required]
         public int age { get; set; }
+        public Guid userId { get; set; }
         public UserBodyMaxMenus[] UserBodyMaxMenus { get; set; }
     }
     public class UserBodyMaxMenus

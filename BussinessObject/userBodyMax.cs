@@ -20,9 +20,8 @@ namespace BussinessObject
         [Required]
         public int age { get; set; }
         public float BMIPerson { get; set; }
-        public int minimum_calories { get; set; }
-        public int maximum_calories { get; set; }
-        public string photo { get; set; }
+        public int BMR { get; set; }
+        public int TDEE { get; set; }
         public string status { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }

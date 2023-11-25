@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,14 +52,13 @@ namespace DataAccess
                     heght = feed.heght,
                     weight = feed.weight,
                     age = feed.age,
-                    minimum_calories = feed.minimum_calories,
-                    maximum_calories = feed.maximum_calories,
-                    photo = feed.photo,
-                    serviceId = feed.serviceId,
+                    TDEE = feed.TDEE,
+                    BMR = feed.BMR,
+  //                  serviceId = feed.serviceId,
                     userId = feed.userId,
                     status = "avaiable-userBoyMax",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
-                    services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
+ //                   services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };
                 _context.userBodyMaxes.Add(newUserBodyMax);
                 _context.SaveChanges();
@@ -75,16 +75,13 @@ namespace DataAccess
             {
                 var foo = _context.userBodyMaxes
                      .Include(f => f.users)
-                     .Include(f => f.services)
                      .Where(x => x.userInfoId.Equals(id)).SingleOrDefault();
                 foo.weight = userBody.weight;
                 foo.age = userBody.age;
-                foo.photo = userBody.photo;
-                foo.serviceId = userBody.serviceId;
                 foo.status = userBody.status;
                 foo.BMIPerson = userBody.BMIPerson;
-                foo.maximum_calories = userBody.maximum_calories;
-                foo.minimum_calories = userBody.minimum_calories;
+                foo.BMR = userBody.BMR;
+                foo.TDEE = userBody.TDEE;
                 this._context.userBodyMaxes.Update(foo);
                 this._context.SaveChanges();
                 return foo;
@@ -92,6 +89,22 @@ namespace DataAccess
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+        public userBodyMax updateServiceInUserBodyMax (Guid id,userBodyMax userBody)
+        {
+            try
+            {
+                var foo =_context.userBodyMaxes.Include(f => f.services).SingleOrDefault(i=>i.userInfoId.Equals(id));
+                foo.serviceId = userBody.serviceId;
+                foo.services = _context.services.SingleOrDefault(u=>u.serviceId == userBody.serviceId);
+                this._context.userBodyMaxes.Update(foo);
+                this._context.SaveChanges();
+                return foo;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception (ex.Message);
             }
         }
         public bool DeleteUserBodyMax(userBodyMax feedback)
@@ -112,6 +125,23 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
 
+        }
+        public userBodyMax updateUserBodyMax(userBodyMax user)
+        {
+            try
+            {
+                var check = _context.userBodyMaxes.SingleOrDefault(f => f.userInfoId == user.userInfoId);
+                if (check != null)
+                {
+                    _context.userBodyMaxes.Update(check);
+                    _context.SaveChanges();
+                }
+                return check;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
