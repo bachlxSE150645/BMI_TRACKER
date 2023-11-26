@@ -13,12 +13,12 @@ namespace BMITrackerAPI.Controllers
     public class favoriteFoodController : ControllerBase
     {
         private readonly IFavoriteFoodRepository favofoodRepo;
-       
+        private readonly IMapper _mapper;
 
-        public favoriteFoodController(MyDbContext dbContext)
+        public favoriteFoodController(MyDbContext dbContext, IMapper mapper)
         {
             favofoodRepo = new FavoritFoodRepository(dbContext);
-            
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,12 +36,13 @@ namespace BMITrackerAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostFavoriteFood(favoriteFood ff)
+        public ActionResult PostFavoriteFood(favoriteFoodInfo ff)
         {
             try
             {
-                favofoodRepo.AddFavoriteFood(ff);
-                return Ok();
+                var foo = _mapper.Map<favoriteFood>(ff);
+                favofoodRepo.AddFavoriteFood(foo);
+                return Ok(foo);
             }
             catch (Exception ex)
             {
@@ -50,7 +51,7 @@ namespace BMITrackerAPI.Controllers
             
         }
         [HttpGet("faavoriteFood/userId")]
-        public ActionResult<favoriteFood> GetfavoriteFoodById(Guid userId)
+        public ActionResult<favoriteFood> GetfavoriteFoodByUserId(Guid userId)
         {
             try
             {

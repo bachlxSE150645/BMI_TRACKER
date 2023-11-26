@@ -10,6 +10,8 @@ namespace BMITrackerAPI.Controllers.Helpers
     {
         public autoMapperProfile() 
         {
+            CreateMap<favoriteFood,favoriteFoodInfo>().ReverseMap();
+            CreateMap<user,loginData>().ReverseMap();
             CreateMap<user,signUpData>().ReverseMap();
             CreateMap<food,foodInfo>().ReverseMap();
             CreateMap<user,trainerInfo>().ReverseMap();

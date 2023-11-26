@@ -20,8 +20,7 @@ namespace BussinessObject
         public  string title { get; set; }
         public string description { get; set; }
         public string status { get; set; }
-        [JsonIgnore]
-        public feebackCategory feebackCategorys { get; set; }
+        public string type { get; set; }
 
         [ForeignKey("user")]
         public Guid userId { get;set; }

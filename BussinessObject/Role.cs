@@ -16,7 +16,6 @@ namespace BussinessObject
         public Guid roleId { get; set; }
         public string roleName { get; set; }
         public string status { get; set; }
-       
         [JsonIgnore]
         public virtual ICollection<user> users { get; set; }
         

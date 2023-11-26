@@ -23,9 +23,10 @@ namespace BMITrackerAPI.Controllers
             _mapper = mapper;
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(loginData inf)
+        public async Task<IActionResult> Login(loginData inf )
         {
-            var check = userRepo.getUserByEmailandPassword(inf.Email, inf.passWord);
+            var us = _mapper.Map<user>(inf);
+            var check = userRepo.getUserByEmailandPassword(us);
 
             if (check == null)
             {

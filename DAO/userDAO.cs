@@ -35,11 +35,12 @@ namespace DAO
                 throw new Exception(ex.Message);
             }
         }
-        public user getUserByEmailandPassword(string email, string passWord)
+        public user getUserByEmailandPassword(user us)
         {
             try
             {
-                return _context.users.FirstOrDefault(u => u.email.Equals(email) && u.password.Equals(passWord));
+                us.roles = _context.roles.FirstOrDefault(u => u.roleName == "user");
+                return _context.users.FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
             }
             catch (Exception ex)
             {

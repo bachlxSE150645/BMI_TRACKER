@@ -22,7 +22,7 @@ namespace Repository
         public List<user> GetAllUsers() => dao.GetAllUsers();
 
 
-        public user getUserByEmailandPassword(string email, string passWord) => dao.getUserByEmailandPassword(email, passWord);
+        public user getUserByEmailandPassword(user user) => dao.getUserByEmailandPassword(user);
 
 
         public user getUserById(Guid id) => dao.getUserById(id);

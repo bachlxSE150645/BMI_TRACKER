@@ -12,7 +12,7 @@ namespace Repository.Interfaces
     {
         List<user> GetAllUsers();
         user getUserById(Guid id);
-        user getUserByEmailandPassword(string email, string passWord);
+        user getUserByEmailandPassword(user user);
         Task<user> addUser(user user);
         user updateAccount(user user);
         bool deleteUser(user user);
