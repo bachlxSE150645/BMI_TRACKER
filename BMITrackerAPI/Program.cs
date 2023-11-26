@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Repository;
 using Repository.Interfaces;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,13 +25,13 @@ builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<IMessageRepository, messageRepository>();
 builder.Services.AddScoped<IUserBodyMaxRepositorycs, userBodyMaxRepository>();
 builder.Services.AddScoped<IServiceRepository, serviceReposiotry>();
-builder.Services.AddScoped<IServiceTypeRepository, serviceTypeRepository>();
 builder.Services.AddScoped<INotificationRepository, notificationRepository>();
 builder.Services.AddScoped<ITrackFormRepository, trackFormRepository>();
 builder.Services.AddScoped<IComplementRepository,ComplementRepository>();
 builder.Services.AddScoped<IFavoriteFoodRepository, FavoritFoodRepository>();
 
-
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();

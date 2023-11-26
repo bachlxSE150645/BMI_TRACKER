@@ -11,6 +11,9 @@ namespace BMITrackerAPI.Controllers.Helpers
         public autoMapperProfile() 
         {
             CreateMap<favoriteFood,favoriteFoodInfo>().ReverseMap();
+            CreateMap<recipe, FoodIngredientDTO>().ReverseMap();
+            CreateMap<Meal, foodMenuDTO>().ReverseMap();
+            CreateMap<Schedule,UserBodyMaxMenus>().ReverseMap();
             CreateMap<user,loginData>().ReverseMap();
             CreateMap<user,signUpData>().ReverseMap();
             CreateMap<food,foodInfo>().ReverseMap();
@@ -23,7 +26,6 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<message,messInfo>().ReverseMap();
             CreateMap<userBodyMax,userBodyMaxInfo>().ReverseMap();
             CreateMap<Service,serviceInfo>().ReverseMap();
-            CreateMap<ServiceType, serviveTypeInfo>().ReverseMap();
             CreateMap<notification,notiInfo>().ReverseMap();
             CreateMap<trackForm,trackformInfo>().ReverseMap();
             CreateMap<Category, cateInfo>().ReverseMap();

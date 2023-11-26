@@ -69,6 +69,7 @@ namespace DataAccess
                 foo.status = food.status;
                 foo.foodCalorios = food.foodCalorios;
                 foo.foodPhoto = food.foodPhoto;
+                foo.foodDesciption = food.foodDesciption;
                 this._context.foods.Update(foo);
                 this._context.SaveChanges();
                 return foo;
@@ -93,6 +94,7 @@ namespace DataAccess
                     foodtimeProcess = foodInfo.foodtimeProcess,
                     foodCalorios = foodInfo.foodCalorios,
                     foodProcessingVideo = foodInfo.foodProcessingVideo,
+                    foodDesciption = foodInfo.foodDesciption,
                     status = "available-food",
                     categorys = _context.categories.Where(u => u.CategoryName == "food").FirstOrDefault()
                 };

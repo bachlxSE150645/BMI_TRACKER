@@ -54,11 +54,12 @@ namespace DataAccess
                     age = feed.age,
                     TDEE = feed.TDEE,
                     BMR = feed.BMR,
-  //                  serviceId = feed.serviceId,
+                    BMIPerson =feed.BMIPerson,
+                    serviceId = feed.serviceId,
                     userId = feed.userId,
                     status = "avaiable-userBoyMax",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
- //                   services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
+                    services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };
                 _context.userBodyMaxes.Add(newUserBodyMax);
                 _context.SaveChanges();
@@ -82,7 +83,7 @@ namespace DataAccess
                 foo.BMIPerson = userBody.BMIPerson;
                 foo.BMR = userBody.BMR;
                 foo.TDEE = userBody.TDEE;
-                foo.serviceId = Guid.Empty;
+                foo.serviceId = Guid.NewGuid();
                 this._context.userBodyMaxes.Update(foo);
                 this._context.SaveChanges();
                 return foo;
@@ -98,7 +99,8 @@ namespace DataAccess
             {
                 var foo =_context.userBodyMaxes.Include(f => f.services).SingleOrDefault(i=>i.userInfoId.Equals(id));
                 foo.serviceId = userBody.serviceId;
-                foo.services = _context.services.SingleOrDefault(u=>u.serviceId == userBody.serviceId);
+                foo.services = _context.services.SingleOrDefault(u => u.serviceId == userBody.serviceId);
+
                 this._context.userBodyMaxes.Update(foo);
                 this._context.SaveChanges();
                 return foo;

@@ -22,6 +22,7 @@ namespace BussinessObject.MapData
         [Required]
         public int age { get; set; }
         public Guid userId { get; set; }
+        public Guid serviceId { get; set; }
         public UserBodyMaxMenus[] UserBodyMaxMenus { get; set; }
     }
     public class UserBodyMaxMenus

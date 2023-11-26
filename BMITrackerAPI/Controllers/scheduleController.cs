@@ -70,27 +70,19 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
-        [HttpPut]
+        
+        [HttpPost]
         public async Task<ActionResult> CreteNewSchedule( ScheduleInfo dto)
         {
             var sche = _mapper.Map<Schedule>(dto);
-            try
+            
+            var result = await scheRepo.CreteNewSchedule(sche);
+            if (result == null)
             {
-                if (sche == null)
-                {
-                    return BadRequest("Something wrong!");
-                }
-                else
-                {
-                    var result = await scheRepo.CreteNewSchedule(sche);
-                    
-                    return Ok(result);
-                }
+                return BadRequest("Something wrong!");
             }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+
+            return Ok(result);
         }
         [HttpDelete("schedule")]
         public IActionResult DeleteSchedule(Guid menuId, Guid userId)

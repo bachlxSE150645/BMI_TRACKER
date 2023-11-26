@@ -16,7 +16,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.services.Include(s=>s.serviceTypes).ToList();
+                return _context.services.ToList();
             }
             catch (Exception ex)
             {
@@ -28,7 +28,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.services.Where(b => b.serviceId == id).Include(s=>s.serviceTypes).FirstOrDefault();
+                return _context.services.Where(b => b.serviceId == id).FirstOrDefault();
 
             }
             catch (Exception ex)
@@ -47,8 +47,6 @@ namespace DataAccess
                     serviceId = Guid.NewGuid(),
                     nameService = service.nameService,
                     descriptionService = service.descriptionService,
-                    serviceTypeId = service.serviceTypeId,
-                    serviceTypes = _context.serviceTypes.FirstOrDefault(s=>s.ServiceTypeId == service.serviceTypeId),
                     status = "available-service",
                 };
                 _context.services.Add(newService);

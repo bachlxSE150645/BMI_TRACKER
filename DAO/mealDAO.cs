@@ -53,6 +53,8 @@ namespace DataAccess
                     foods = _context.foods.Where(f => f.foodId == re.foodId).FirstOrDefault(),
                     Menus = _context.menus.Where(f => f.MenuId == re.menuId).FirstOrDefault()
                 };
+                _context.meals.Add(recipeNew);
+                _context.SaveChanges();
                 return recipeNew;
             }
             catch (Exception ex)

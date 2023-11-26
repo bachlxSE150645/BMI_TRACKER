@@ -47,7 +47,7 @@ namespace Repository
             {
                 r.foodPhoto = food.foodPhoto;
             }
-            if (food.foodtimeProcess ==null)
+            if (food.foodtimeProcess != null)
             {
                 r.foodtimeProcess = food.foodtimeProcess;
             }
@@ -62,6 +62,14 @@ namespace Repository
             if (!String.IsNullOrEmpty(food.foodNotes))
             {
                 r.foodNotes = food.foodNotes;
+            }
+            if (!String.IsNullOrEmpty(food.foodDesciption))
+            {
+                r.foodDesciption = food.foodDesciption;
+            }
+            if(food.foodCalorios != null)
+            {
+                r.foodCalorios = food.foodCalorios;
             }
             return dao.UpdateFood(id, r);
         }

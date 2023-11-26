@@ -79,14 +79,14 @@ namespace DataAccess
                     dateScheduled = schedule.dateScheduled,
                     userInfoId = schedule.userInfoId,
                     menuId = schedule.menuId,
+                    trackFormId = Guid.NewGuid(),
                     userBodyMaxs = _context.userBodyMaxes.FirstOrDefault(u => u.userInfoId == schedule.userInfoId),
                     menus = _context.menus.FirstOrDefault(u => u.MenuId == schedule.menuId),
                     status = "available-schedule",
                 };
-                _context.schedules.Add(newSche);
-                await _context.AddRangeAsync(schedule);
+               await _context.schedules.AddAsync(newSche);
                 _context.SaveChangesAsync();
-                return schedule;
+                return newSche;
 
             }
             catch (Exception ex)

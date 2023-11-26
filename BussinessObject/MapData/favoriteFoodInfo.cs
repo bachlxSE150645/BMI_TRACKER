@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace BussinessObject.MapData
 {
-    public class serviveTypeInfo
+    public class favoriteFoodInfo
     {
-        public string nameServiceType { get; set; }
-        public string textServiceType { get; set; }
+        public Guid userId { get; set; }
+        public Guid foodId { get; set; }
+
     }
 }

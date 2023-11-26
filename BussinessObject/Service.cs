@@ -16,11 +16,9 @@ namespace BussinessObject
         public string nameService { get; set; }
         public string descriptionService {  get; set; }
         public string status { get; set; }
+        [JsonIgnore]
         public ICollection <userBodyMax> userBodyMaxs { get; set; }
-        [ForeignKey("servicetType")]
-        public Guid serviceTypeId { get; set; }
-        public ServiceType serviceTypes { get; set; }
-      
+        [JsonIgnore]
         public ICollection<complement> complements { get; set; }
     }
 

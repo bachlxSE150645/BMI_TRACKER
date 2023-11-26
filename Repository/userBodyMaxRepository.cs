@@ -30,7 +30,7 @@ namespace Repository
         public userBodyMax updateServiceInUserBodyMax(Guid id, userBodyMaxServiceInfo userBody)
         {
             var r = dao.getUserBodyMaxbyId(id);
-            if(userBody.serviceId == null)
+            if(userBody.serviceId != null)
             {
                 r.serviceId = userBody.serviceId;
             }

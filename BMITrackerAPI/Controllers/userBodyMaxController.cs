@@ -52,7 +52,7 @@ namespace BMITrackerAPI.Controllers
         public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto)
         {
             var food = _mapper.Map<userBodyMax>(dto);
-            food.status = "available";
+            
             try
             {
                 if (food == null)
