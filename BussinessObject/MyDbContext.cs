@@ -31,6 +31,7 @@ namespace BussinessObject
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfigurationRoot config = builder.Build();
             optionsBuilder.UseSqlServer(config.GetConnectionString("BMITracker"));
+            optionsBuilder.EnableSensitiveDataLogging();
         }
         public virtual DbSet<feedback> feedbacks { get; set; }
         public virtual DbSet<food> foods { get; set; }

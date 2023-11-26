@@ -42,7 +42,7 @@ namespace DataAccess
                     trackFormId = Guid.NewGuid(),
                     trackeFormDescription = trackForm.trackeFormDescription,
                     trackFormName = trackForm.trackFormName,
-                    isTracked = trackForm.isTracked,
+                    isTracked = true,
                     userId = trackForm.userId,
                     users = _context.users.Where(u=>u.userId == trackForm.users.userId).FirstOrDefault(), 
                     status = "available-trackForm"

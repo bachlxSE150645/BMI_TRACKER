@@ -10,20 +10,18 @@ using System.Threading.Tasks;
 
 namespace BussinessObject
 {
-    [PrimaryKey(nameof(menuId),nameof(userInfoId))]
+    [PrimaryKey(nameof(MenuId),nameof(userInfoId))]
     public class Schedule
     {
         [ForeignKey("menu")]
-        public Guid menuId { get; set; }
+        public Guid MenuId { get; set; }
         [ForeignKey("userBodyMax")]
         public Guid userInfoId { get; set; }
         public int dateScheduled {  get; set; }
         public string status { get; set; }
 
         public userBodyMax userBodyMaxs { get; set; }
-        [ForeignKey("trackForm")]
-        public Guid trackFormId { get; set; }
-        public trackForm trackForms { get; set; }
+        
         public Menu menus { get; set; }
     }
 }

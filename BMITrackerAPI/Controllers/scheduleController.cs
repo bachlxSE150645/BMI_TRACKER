@@ -58,18 +58,7 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
-        [HttpGet("trackName")]
-        public ActionResult<Schedule> getAllSchedulesByTrackName(string trackName)
-        {
-            try
-            {
-                return Ok(scheRepo.getAllSchedulesByTrackName(trackName));
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
+       
         
         [HttpPost]
         public async Task<ActionResult> CreteNewSchedule( ScheduleInfo dto)

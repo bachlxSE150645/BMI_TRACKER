@@ -55,21 +55,7 @@ namespace DataAccess
                 throw new Exception (ex.Message);
             }
         }
-        public List<Schedule> getAllSchedulesByTrackName(string trackName)
-        {
-            try
-            {
-                var TrackS = from i in _context.schedules
-                             where i.trackForms.trackFormName.Contains(trackName)
-                             select i;
-                return TrackS.ToList();
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+       
         public async Task<Schedule> CreteNewSchedule(Schedule schedule)
         {
             try
@@ -78,10 +64,9 @@ namespace DataAccess
                 {
                     dateScheduled = schedule.dateScheduled,
                     userInfoId = schedule.userInfoId,
-                    menuId = schedule.menuId,
-                    trackFormId = Guid.NewGuid(),
+                    MenuId = schedule.MenuId,
                     userBodyMaxs = _context.userBodyMaxes.FirstOrDefault(u => u.userInfoId == schedule.userInfoId),
-                    menus = _context.menus.FirstOrDefault(u => u.MenuId == schedule.menuId),
+                    menus = _context.menus.FirstOrDefault(u => u.MenuId == schedule.MenuId),
                     status = "available-schedule",
                 };
                await _context.schedules.AddAsync(newSche);
@@ -94,11 +79,11 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public Schedule getScheduleByUserIAndmenuId(Guid userInfoId, Guid menuId)
+        public Schedule getScheduleByUserIAndMenuId(Guid userInfoId, Guid MenuId)
         {
             try
             {
-                return _context.schedules.FirstOrDefault(s => s.userInfoId == userInfoId && s.menuId == menuId);
+                return _context.schedules.FirstOrDefault(s => s.userInfoId == userInfoId && s.MenuId == MenuId);
             }
             catch (Exception ex)
             {
@@ -109,7 +94,7 @@ namespace DataAccess
         {
             try
             {
-                var check = _context.schedules.FirstOrDefault(s => s.userInfoId == schedule.userInfoId && s.menuId == schedule.menuId);
+                var check = _context.schedules.FirstOrDefault(s => s.userInfoId == schedule.userInfoId && s.MenuId == schedule.MenuId);
                 if (check != null)
                 {
                     _context.schedules.Remove(check);
@@ -125,7 +110,7 @@ namespace DataAccess
         {
             try
             {
-                var men = _context.schedules.FirstOrDefault(m => m.menuId == sche.menuId && m.userInfoId == sche.userInfoId);
+                var men = _context.schedules.FirstOrDefault(m => m.MenuId == sche.MenuId && m.userInfoId == sche.userInfoId);
                 if (men != null)
                 {
                     _context.Entry<Schedule>(sche).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
