@@ -17,11 +17,7 @@ namespace BussinessObject
         public Guid MenuId { get; set; }
         [ForeignKey("userBodyMax")]
         public Guid userInfoId { get; set; }
-        public int dateScheduled {  get; set; }
-        public string status { get; set; }
-
         public userBodyMax userBodyMaxs { get; set; }
-        
         public Menu menus { get; set; }
     }
 }
