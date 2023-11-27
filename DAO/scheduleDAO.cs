@@ -21,7 +21,10 @@ namespace DataAccess
         {
             try
             {
-                return _context.schedules.ToList();
+                return _context.schedules.
+                    Include(u=>u.userBodyMaxs)
+                    .Include(u=>u.menus)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -55,7 +58,7 @@ namespace DataAccess
                 throw new Exception (ex.Message);
             }
         }
-       
+
         public async Task<Schedule> CreteNewSchedule(Schedule schedule)
         {
             try
@@ -67,7 +70,7 @@ namespace DataAccess
                     userBodyMaxs = _context.userBodyMaxes.FirstOrDefault(u => u.userInfoId == schedule.userInfoId),
                     menus = _context.menus.FirstOrDefault(u => u.MenuId == schedule.MenuId),
                 };
-               await _context.schedules.AddAsync(newSche);
+                await _context.schedules.AddAsync(newSche);
                 _context.SaveChangesAsync();
                 return newSche;
 
@@ -81,7 +84,8 @@ namespace DataAccess
         {
             try
             {
-                return _context.schedules.FirstOrDefault(s => s.userInfoId == userInfoId && s.MenuId == MenuId);
+                return _context.schedules.Include(u => u.userBodyMaxs)
+                    .Include(m => m.menus).FirstOrDefault(s => s.userInfoId == userInfoId && s.MenuId == MenuId);
             }
             catch (Exception ex)
             {

@@ -58,8 +58,8 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
-       
         
+
         [HttpPost]
         public async Task<ActionResult> CreteNewSchedule( ScheduleInfo dto)
         {

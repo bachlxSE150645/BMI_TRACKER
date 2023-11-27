@@ -23,5 +23,6 @@ namespace BussinessObject
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public user users { get; set; }
+         
     }
 }
