@@ -57,7 +57,9 @@ namespace DataAccess
                     notificationName = notification.notificationName,
                     content = notification.content,
                     type = notification.type,
-                    status = "available-noti"
+                    status = "available-noti",
+                    userId = notification.userId,
+                    users  =_context.users.FirstOrDefault(u=>u.userId == notification.userId)
                 };
                 _context.notifications.Add(newNoti);
                 _context.SaveChanges();

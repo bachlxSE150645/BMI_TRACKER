@@ -83,7 +83,7 @@ namespace BMITrackerAPI.Controllers
                 }
                 notificationName = us.notificationName;
                 content = us.content;
-                type = (notificationType)us.type;
+                type = us.type;
                 notificationRepository.UpdateNoti(us);
                 return Ok(us);
             }
