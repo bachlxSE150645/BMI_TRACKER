@@ -19,7 +19,7 @@ namespace BussinessObject
         [JsonIgnore]
         public ICollection <userBodyMax> userBodyMaxs { get; set; }
         [JsonIgnore]
-        public ICollection<complement> complements { get; set; }
+        public ICollection<ComplementService> complementServices { get; set; }
     }
 
 }

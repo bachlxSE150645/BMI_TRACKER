@@ -27,7 +27,9 @@ builder.Services.AddScoped<IUserBodyMaxRepositorycs, userBodyMaxRepository>();
 builder.Services.AddScoped<IServiceRepository, serviceReposiotry>();
 builder.Services.AddScoped<INotificationRepository, notificationRepository>();
 builder.Services.AddScoped<ITrackFormRepository, trackFormRepository>();
-builder.Services.AddScoped<IComplementRepository,ComplementRepository>();
+builder.Services.AddScoped<IComplementBlogRepository,complementBlogRepository>();
+builder.Services.AddScoped<IComplementServiceRepository, ComplementServiceRepository>();
+
 builder.Services.AddScoped<IFavoriteFoodRepository, FavoritFoodRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(x =>

@@ -101,7 +101,7 @@ namespace BMITrackerAPI.Controllers
                 tra.certificateName = certificateName;
                 tra.status = "watting-trainer";
                 userRepo.updateAccount(tra);
-                return Ok();
+                return Ok(tra);
             }
 
             catch (Exception ex)

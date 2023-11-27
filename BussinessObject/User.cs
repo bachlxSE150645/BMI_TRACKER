@@ -53,6 +53,8 @@ namespace BussinessObject
         [JsonIgnore]
         public ICollection <notification> notifications { get; set; }
         [JsonIgnore]
-        public ICollection <complement> complements { get; set; }
+        public ICollection <complementBlog> complementBlogs { get; set; }
+        [JsonIgnore]
+        public ICollection<ComplementService> ComplementServices { get; set; }
     }
 }

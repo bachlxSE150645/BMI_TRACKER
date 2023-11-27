@@ -28,6 +28,7 @@ namespace BussinessObject.MapData
     public class UserBodyMaxMenus
     {
         public Guid MenuId { get; set; }
+
     }
 
 }

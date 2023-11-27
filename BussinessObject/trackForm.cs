@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BussinessObject
@@ -19,9 +20,9 @@ namespace BussinessObject
         public string trackeFormDescription {  get; set; }
         public bool isTracked { get; set; }
         public string status { get; set; }
-        public ICollection <Schedule> schedules { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public user users { get; set; }
+         
     }
 }

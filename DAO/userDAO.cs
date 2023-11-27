@@ -17,7 +17,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.ToList();
+                return _context.users.Include(u=>u.roles).ToList();
             }
             catch (Exception ex)
             {
@@ -28,7 +28,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.SingleOrDefault(u => u.userId  == id);
+                return _context.users.Include(u=>u.roles).SingleOrDefault(u => u.userId  == id);
             }
             catch (Exception ex)
             {
@@ -39,8 +39,7 @@ namespace DAO
         {
             try
             {
-                us.roles = _context.roles.FirstOrDefault(u => u.roleName == "user");
-                return _context.users.FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
+                return _context.users.Include(u => u.roles).FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
             }
             catch (Exception ex)
             {

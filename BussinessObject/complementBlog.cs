@@ -3,30 +3,24 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BussinessObject
 {
-    public class notification
+    public class complementBlog
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid notificationId { get; set; }
-        public string? notificationName { get; set; }
-        public string? content { get; set; }
-        public  notificationType type {get;set;}
+        public Guid complementBlogId { get; set; }
         public string status { get; set; }
-
+        public int quantity { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public user users { get; set; }
-    }
-    public enum notificationType
-    {
-        ingredient = 0,
-        food = 1, 
-        menu = 2,
-        othher = 3,
+        
+        [ForeignKey("blog")]
+        public Guid blogId { get; set; }
+        public blog blogs { get; set; }
     }
 }

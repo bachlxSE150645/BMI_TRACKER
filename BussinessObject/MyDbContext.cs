@@ -24,6 +24,7 @@ namespace BussinessObject
            : base(options)
         {
         }
+
         public virtual DbSet<feedback> feedbacks { get; set; }
         public virtual DbSet<food> foods { get; set; }
         public virtual DbSet<ingredient> ingredients { get; set; }
@@ -42,7 +43,9 @@ namespace BussinessObject
         public virtual DbSet<Meal> meals { get; set; }
         
         public virtual DbSet<blog> blogs { get; set; }
-        public virtual DbSet<complement> Complements { get; set; }
+        public virtual DbSet<complementBlog> ComplementBlogs { get; set; }
+        public virtual DbSet<ComplementService> ComplementServices { get; set; }
+
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<chatSection> ChatSections { get; set; }
         public virtual DbSet<notification> notifications { get; set; }

@@ -10,7 +10,10 @@ namespace BussinessObject.MapData
     {
         public string? notificationName { get; set; }
         public string? content { get; set; }
-      
+        public Guid userId { get; set; }
+        public notificationType type { get; set; }
+        
+
     }
     
 }
