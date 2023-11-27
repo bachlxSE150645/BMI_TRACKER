@@ -28,10 +28,11 @@ namespace BussinessObject
         public  user users { get; set; }
         [ForeignKey("service")]
         public Guid serviceId { get; set; }
+        public Service services { get; set; }
 
         [JsonIgnore]
         public ICollection<Schedule> schedules { get; set; }
 
-        public Service services { get; set; }
+        
     }
 }

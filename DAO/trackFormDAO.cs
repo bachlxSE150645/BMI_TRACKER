@@ -44,7 +44,7 @@ namespace DataAccess
                     trackFormName = trackForm.trackFormName,
                     isTracked = true,
                     userId = trackForm.userId,
-                    users = _context.users.Where(u=>u.userId == trackForm.users.userId).FirstOrDefault(), 
+                    users = _context.users.Where(u=>u.userId == trackForm.userId).FirstOrDefault(), 
                     status = "available-trackForm"
                 };
                 _context.trackForms.Add(NewTrackForm);
