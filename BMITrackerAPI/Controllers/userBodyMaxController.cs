@@ -49,7 +49,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto)
+        public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, double activeRate)
         {
             var food = _mapper.Map<userBodyMax>(dto);
             
@@ -61,7 +61,7 @@ namespace BMITrackerAPI.Controllers
                 }
                 else
                 {
-                    var result = feedbackRepository.addUserBodyMax(food);
+                    var result = feedbackRepository.addUserBodyMax(food,activeRate);
                     foreach (var item in dto.UserBodyMaxMenus)
                     {
                         var detail = _mapper.Map<Schedule>(item);

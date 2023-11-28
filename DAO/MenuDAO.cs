@@ -70,7 +70,8 @@ namespace DataAccess
                     menuPrice = MenuInfo.menuPrice,
                     menuType = MenuInfo.menuType,
                     status = "available-menu",
-                    categorys = _context.categories.FirstOrDefault(r => r.CategoryName == "menu")
+                    categoryId = MenuInfo.categoryId,
+                    categorys = _context.categories.FirstOrDefault(r => r.CategoryId == MenuInfo.categoryId)
 
                 };
                 _context.menus.Add(newMenu);

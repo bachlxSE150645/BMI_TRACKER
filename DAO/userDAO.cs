@@ -71,7 +71,6 @@ namespace DAO
                     password = signUpData.password,
                     phoneNumber = signUpData.phoneNumber,
                     fullName = signUpData.fullName,
-                    sex = signUpData.sex,
                     certificateId = "null",
                     certificateName = "null",
                     userId = Guid.NewGuid(),

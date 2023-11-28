@@ -28,8 +28,6 @@ namespace BussinessObject
         [ForeignKey("category")]
         public Guid categoryId { get; set; }
         public Category categorys { get; set; }
-        [JsonIgnore]
-
         public ICollection<recipe> recipes { get; set; }
         [JsonIgnore]
         public ICollection<Meal> meals { get; set; }

@@ -17,6 +17,7 @@ namespace BussinessObject.MapData
         public int foodtimeProcess { get; set; }
         public int foodCalorios { get; set; }
         public string foodProcessingVideo { get; set; }
+        public Guid categoryId { get; set; }
         public  FoodIngredientDTO[] ingredients{get;set;}
     }
     public class FoodIngredientDTO

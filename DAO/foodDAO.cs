@@ -31,7 +31,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.foods.FirstOrDefault(i => i.foodId.Equals(id));
+                return _context.foods.Include(f=>f.recipes).FirstOrDefault(i => i.foodId.Equals(id));
             }
             catch (Exception ex)
             {
@@ -96,7 +96,8 @@ namespace DataAccess
                     foodProcessingVideo = foodInfo.foodProcessingVideo,
                     foodDesciption = foodInfo.foodDesciption,
                     status = "available-food",
-                    categorys = _context.categories.Where(u => u.CategoryName == "food").FirstOrDefault()
+                    categoryId = foodInfo.categoryId,
+                    categorys = _context.categories.Where(u => u.CategoryId == foodInfo.categoryId).FirstOrDefault()
                 };
                 _context.foods.Add(newFood);
                 await _context.SaveChangesAsync();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BussinessObject.user;
 
 namespace BussinessObject.MapData
 {
@@ -12,7 +13,6 @@ namespace BussinessObject.MapData
         public string Password { get; set; }
         public string Email { get; set; }
         public string phoneNumber { get; set; }
-        public string sex { get; set; }
 
     }
 }

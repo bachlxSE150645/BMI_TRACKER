@@ -27,7 +27,6 @@ namespace BussinessObject
         [JsonIgnore]
 
         public ICollection<Schedule> schedules { get; set; }
-        [JsonIgnore]
 
         public ICollection<Meal> meals { get; set; }
         

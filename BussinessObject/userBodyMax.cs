@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
+
 namespace BussinessObject
 {
     public class userBodyMax
@@ -19,9 +20,10 @@ namespace BussinessObject
         public int weight {  get; set; }
         [Required]
         public int age { get; set; }
-        public float BMIPerson { get; set; }
-        public int BMR { get; set; }
-        public int TDEE { get; set; }
+        public double BMIPerson { get; set; }
+        public double BMR { get; set; }
+        public double TDEE { get; set; }
+        public sexType sex { get; set; }
         public string status { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
@@ -29,10 +31,13 @@ namespace BussinessObject
         [ForeignKey("service")]
         public Guid serviceId { get; set; }
         public Service services { get; set; }
-
-        [JsonIgnore]
         public ICollection<Schedule> schedules { get; set; }
+       
 
-        
+    }
+    public enum sexType
+    {
+        male = 0,
+        female = 1
     }
 }

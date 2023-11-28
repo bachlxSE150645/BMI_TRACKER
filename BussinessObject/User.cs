@@ -22,7 +22,7 @@ namespace BussinessObject
         [DataType(DataType.Password)]
         [Required]
         public string password { get; set; }
-        public string sex { get; set; }
+        
 
         [DataType(DataType.PhoneNumber)]
         public string phoneNumber { get; set; }
@@ -56,5 +56,6 @@ namespace BussinessObject
         public ICollection <complementBlog> complementBlogs { get; set; }
         [JsonIgnore]
         public ICollection<ComplementService> ComplementServices { get; set; }
+       
     }
 }

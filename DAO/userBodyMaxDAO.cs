@@ -1,4 +1,5 @@
-﻿using BussinessObject;
+﻿using Azure;
+using BussinessObject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
@@ -42,7 +43,8 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public userBodyMax addUserBodyMax(userBodyMax feed)
+     
+        public userBodyMax addUserBodyMax(userBodyMax feed, double activeRate)
         {
             try
             {
@@ -52,15 +54,49 @@ namespace DataAccess
                     heght = feed.heght,
                     weight = feed.weight,
                     age = feed.age,
-                    TDEE = feed.TDEE,
-                    BMR = feed.BMR,
-                    BMIPerson =feed.BMIPerson,
+                    sex =feed.sex,
+                    BMR = calcutateNum(feed.weight,feed.heght, feed.age,feed.sex),
+                    BMIPerson = calculateBMI(feed.heght,feed.weight),
+                    TDEE = (calcutateNum(feed.weight, feed.heght, feed.age, feed.sex) * activeRate),
                     serviceId = feed.serviceId,
                     userId = feed.userId,
                     status = "avaiable-userBoyMax",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
                     services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };
+                double calculateBMI(int heght, int weight)
+                {
+                    try
+                    {
+                        feed.BMIPerson = (double)(weight / ((heght * heght)));
+                        return (double)feed.BMIPerson;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
+                 double calcutateNum(int heght, int weight, int age , sexType sex)
+                {
+                    try
+                    {
+                        if (sex == 0)
+                        {
+                            feed.BMR = (double)(66 + (13.7 * weight) + 5 + (heght) + (6.8 * age));
+
+                        }
+                        else
+                        {
+                            feed.BMR = (double)((10 * weight) + (6.25 * heght) - (5 * age) - 161);
+                        }
+                        return (double)feed.BMR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
+
                 _context.userBodyMaxes.Add(newUserBodyMax);
                 _context.SaveChanges();
                 return newUserBodyMax;

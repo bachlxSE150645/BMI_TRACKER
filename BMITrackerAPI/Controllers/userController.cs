@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Identity.Client;
 using Repository;
 using Repository.Interfaces;
+using static BussinessObject.user;
 
 namespace BMITrackerAPI.Controllers
 {
@@ -131,7 +132,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult UpdateUser(Guid userId, string fullname, string Password, string Email,string phoneNumber, string sex )
+        public ActionResult UpdateUser(Guid userId, string fullname, string Password, string Email,string phoneNumber )
         {
 
             try
@@ -144,7 +145,7 @@ namespace BMITrackerAPI.Controllers
                 us.phoneNumber = phoneNumber;
                 us.email = Email;
                 us.password = Password;
-                us.sex = sex;
+              
                 us.fullName = fullname;
                 userRepo.updateAccount(us);
                 return Ok();
@@ -154,6 +155,26 @@ namespace BMITrackerAPI.Controllers
                 throw  new Exception(ex.Message);
             }
             
+        }
+        [HttpDelete]
+        public IActionResult DeleteUser(Guid userId)
+        {
+            try
+            {
+                var fooId = userRepo.getUserById(userId);
+                if (fooId == null)
+                {
+                    return NotFound();
+                }
+                fooId.status = "hidden";
+                userRepo.updateAccount(fooId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound(ex.Message);
+            }
         }
     }        
  

@@ -19,7 +19,7 @@ namespace Repository
             dao = new userBodyMaxDAO(dbContext);
         }
 
-        public userBodyMax addUserBodyMax(userBodyMax feed)=>dao.addUserBodyMax(feed);
+        public userBodyMax addUserBodyMax(userBodyMax feed, double activeRate)=>dao.addUserBodyMax(feed,activeRate);
 
         public bool DeleteUserBodyMax(userBodyMax userBodyMax)=>dao.DeleteUserBodyMax(userBodyMax);
 
@@ -46,26 +46,6 @@ namespace Repository
             if (user.weight !=null)
             {
                 r.weight = user.weight;
-            }
-            if(user.BMIPerson != null)
-            {
-                r.BMIPerson = user.BMIPerson;
-            }
-            if (user.age != null)
-            {
-                r.age = user.age;
-            }
-            if (user.BMIPerson != null)
-            {
-                r.BMIPerson = user.BMIPerson;
-            }
-            if(user.TDEE != null)
-            {
-                r.TDEE = user.TDEE;
-            }
-            if(user.BMR != null)
-            {
-                r.BMR = user.BMR;
             }
             return dao.updateUserBodyMax(id, r);
         }

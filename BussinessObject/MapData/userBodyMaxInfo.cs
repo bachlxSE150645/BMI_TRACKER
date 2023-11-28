@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BussinessObject.MapData
 {
     public class userBodyMaxInfo
@@ -15,12 +16,9 @@ namespace BussinessObject.MapData
         public int heght { get; set; }
         [Required]
         public int weight { get; set; }
-        public int BMR { get; set; }
-        public int TDEE { get; set; }
-
-        public float BMIPerson { get; set; }
         [Required]
         public int age { get; set; }
+        public sexType sex { get; set; }
         public Guid userId { get; set; }
         public Guid serviceId { get; set; }
         public UserBodyMaxMenus[] UserBodyMaxMenus { get; set; }
