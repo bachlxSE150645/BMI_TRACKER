@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+builder.Services.AddCors();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:BMITracker"));
 
 builder.Services.AddScoped<IUserRepository, userRepository>();
@@ -53,7 +53,10 @@ if (app.Environment.IsDevelopment()
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(options =>
+{
+	options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+});
 app.UseAuthorization();
 
 app.MapControllers();
