@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using Repository;
+using Microsoft.AspNetCore.Cors;
 
 namespace BMITrackerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class blogController : ControllerBase
     {
         private IBlogRepository foodRepository;
