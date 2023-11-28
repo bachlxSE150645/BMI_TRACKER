@@ -56,7 +56,7 @@ namespace DataAccess
                     age = feed.age,
                     sex =feed.sex,
                     BMR = calcutateNum(feed.weight,feed.heght, feed.age,feed.sex),
-                    BMIPerson = calculateBMI(feed.heght,feed.weight),
+                    BMIPerson = calculateBMI(feed.weight,feed.heght),
                     TDEE = (calcutateNum(feed.weight, feed.heght, feed.age, feed.sex) * activeRate),
                     serviceId = feed.serviceId,
                     userId = feed.userId,
@@ -64,12 +64,12 @@ namespace DataAccess
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
                     services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };
-                double calculateBMI(int heght, int weight)
+                double calculateBMI(int weight, int heght)
                 {
                     try
                     {
-                        feed.BMIPerson = (double)(weight / ((heght * heght)));
-                        return (double)feed.BMIPerson;
+                         return feed.BMIPerson = weight/(heght * heght);
+                       
                     }
                     catch (Exception ex)
                     {
@@ -82,14 +82,13 @@ namespace DataAccess
                     {
                         if (sex == 0)
                         {
-                            feed.BMR = (double)(66 + (13.7 * weight) + 5 + (heght) + (6.8 * age));
+                          return  feed.BMR = (double)(66 + (13.7 * weight) + 5 + (heght) + (6.8 * age));
 
                         }
                         else
                         {
-                            feed.BMR = (double)((10 * weight) + (6.25 * heght) - (5 * age) - 161);
+                           return feed.BMR = (double)((10 * weight) + (6.25 * heght) - (5 * age) - 161);
                         }
-                        return (double)feed.BMR;
                     }
                     catch (Exception ex)
                     {
