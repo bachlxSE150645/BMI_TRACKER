@@ -43,8 +43,38 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-     
-        public userBodyMax addUserBodyMax(userBodyMax feed, double activeRate)
+        public float calculateBMI(float weight, float heght)
+        {
+            try
+            {
+                return weight / (heght / 100 * heght / 100);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public float calcutateNum(float heght, float weight,int age, sexType sex)
+        {
+            try
+            {
+                if (sex == 0)
+                {
+                    return (float)(66 + (13.7 * weight) + 5 + (heght) + (6.8 * age));
+
+                }
+                else
+                {
+                    return (float)((10 * weight) + (6.25 * heght) - (5 * age) - 161);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public userBodyMax addUserBodyMax(userBodyMax feed, float activeRate)
         {
             try
             {
@@ -60,41 +90,14 @@ namespace DataAccess
                     TDEE = (calcutateNum(feed.weight, feed.heght, feed.age, feed.sex) * activeRate),
                     serviceId = feed.serviceId,
                     userId = feed.userId,
+                    dateInput = DateTime.Now,
                     status = "avaiable-userBoyMax",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
                     services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
                 };
-                double calculateBMI(int weight, int heght)
-                {
-                    try
-                    {
-                         return feed.BMIPerson = weight/(heght * heght);
-                       
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception(ex.Message);
-                    }
-                }
-                 double calcutateNum(int heght, int weight, int age , sexType sex)
-                {
-                    try
-                    {
-                        if (sex == 0)
-                        {
-                          return  feed.BMR = (double)(66 + (13.7 * weight) + 5 + (heght) + (6.8 * age));
-
-                        }
-                        else
-                        {
-                           return feed.BMR = (double)((10 * weight) + (6.25 * heght) - (5 * age) - 161);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception(ex.Message);
-                    }
-                }
+                
+                 
+              
 
                 _context.userBodyMaxes.Add(newUserBodyMax);
                 _context.SaveChanges();
@@ -105,7 +108,7 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public userBodyMax updateUserBodyMax(Guid id,userBodyMax userBody)
+        public userBodyMax updateUserBodyMax(Guid id,userBodyMax userBody, float  activeRate)
         {
             try
             {
@@ -115,10 +118,11 @@ namespace DataAccess
                 foo.weight = userBody.weight;
                 foo.age = userBody.age;
                 foo.status = userBody.status;
-                foo.BMIPerson = userBody.BMIPerson;
-                foo.BMR = userBody.BMR;
-                foo.TDEE = userBody.TDEE;
-                foo.serviceId = Guid.NewGuid();
+                foo.BMR = calcutateNum(userBody.weight, userBody.heght, userBody.age, userBody.sex);
+                foo.BMIPerson = calculateBMI(userBody.weight, userBody.heght);
+                foo.TDEE = (calcutateNum(userBody.weight, userBody.heght, userBody.age, userBody.sex) * activeRate);
+                foo.serviceId = foo.serviceId;
+                foo.services = _context.services.Where(u => u.serviceId == foo.serviceId).FirstOrDefault();
                 this._context.userBodyMaxes.Update(foo);
                 this._context.SaveChanges();
                 return foo;

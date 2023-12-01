@@ -8,6 +8,7 @@ namespace DAO
 {
     public class userDAO
     {
+        
         private readonly MyDbContext _context;
         public userDAO(MyDbContext context)
         {
@@ -65,28 +66,50 @@ namespace DAO
         {
             try
             {
-                var newAccount = new user
+                    var newAccount = new user
+                    {
+                        email = signUpData.email,
+                        password = signUpData.password,
+                        phoneNumber = signUpData.phoneNumber,
+                        fullName = signUpData.fullName,
+                        certificateId = "null",
+                        certificateName = "null",
+                        userId = Guid.NewGuid(),
+                        roles = await _context.roles!.FirstOrDefaultAsync(c => c.roleName == "user"),
+                        status = "available"
+                    };
+                var a = checkDupplicatedEmail(signUpData.email);
+                if (a == true)
                 {
-                    email = signUpData.email,
-                    password = signUpData.password,
-                    phoneNumber = signUpData.phoneNumber,
-                    fullName = signUpData.fullName,
-                    certificateId = "null",
-                    certificateName = "null",
-                    userId = Guid.NewGuid(),
-                    roles = await _context.roles!.FirstOrDefaultAsync(c => c.roleName == "user"),
-                    status = "available"
-                    
-                };
-                _context.users.Add(newAccount);
-                await _context.SaveChangesAsync();
-                return newAccount;
+                     throw new Exception("email dupplicated");
+                }
+                else
+                {
+                    _context.users.Add(newAccount);
+                    await _context.SaveChangesAsync();
+                    return newAccount;
+
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
+        }
+        public Boolean checkDupplicatedEmail(string email)
+        {
+            try
+            {
+                var userEmail = from u in _context.users
+                                where u.email.Equals(email)
+                                select u;
+                return userEmail.Any();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         public user updateAccount(user user)
         {

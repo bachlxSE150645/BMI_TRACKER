@@ -33,6 +33,7 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<complementBlog,ComplementBlogInfo>().ReverseMap();
             CreateMap<ComplementService, ComplementServiceInfo>().ReverseMap();
             CreateMap<userBodyMax,userBodyMaxServiceInfo>().ReverseMap();
+            CreateMap<userBodyMax,userBodyMaxUpdateInfo>().ReverseMap();
         }
     }
 }

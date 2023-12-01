@@ -13,9 +13,9 @@ namespace BussinessObject.MapData
     public class userBodyMaxInfo
     {
         [Required]
-        public int heght { get; set; }
+        public float heght { get; set; }
         [Required]
-        public int weight { get; set; }
+        public float weight { get; set; }
         [Required]
         public int age { get; set; }
         public sexType sex { get; set; }
@@ -28,5 +28,15 @@ namespace BussinessObject.MapData
         public Guid MenuId { get; set; }
 
     }
-
+    public class userBodyMaxUpdateInfo
+    {
+        [Required]
+        public float heght { get; set; }
+        [Required]
+        public float weight { get; set; }
+        [Required]
+        public int age { get; set; }
+        public Guid serviceId { get; set; }
+        public UserBodyMaxMenus[] UserBodyMaxMenus { get; set; }
+    }
 }

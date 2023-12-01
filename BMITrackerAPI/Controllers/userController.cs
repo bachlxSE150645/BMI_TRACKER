@@ -132,7 +132,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult UpdateUser(Guid userId, string fullname, string Password, string Email,string phoneNumber )
+        public ActionResult UpdateUser(Guid userId, string fullname, string Password,string phoneNumber )
         {
 
             try
@@ -143,9 +143,7 @@ namespace BMITrackerAPI.Controllers
                     return BadRequest();
                 }
                 us.phoneNumber = phoneNumber;
-                us.email = Email;
                 us.password = Password;
-              
                 us.fullName = fullname;
                 userRepo.updateAccount(us);
                 return Ok();

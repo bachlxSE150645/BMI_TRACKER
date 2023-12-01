@@ -15,16 +15,17 @@ namespace BussinessObject
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid userInfoId {  get; set; }
         [Required]
-        public int heght { get; set; }
+        public float heght { get; set; }
         [Required]
-        public int weight {  get; set; }
+        public float weight {  get; set; }
         [Required]
         public int age { get; set; }
-        public double BMIPerson { get; set; }
-        public double BMR { get; set; }
-        public double TDEE { get; set; }
+        public float BMIPerson { get; set; }
+        public float BMR { get; set; }
+        public float TDEE { get; set; }
         public sexType sex { get; set; }
         public string status { get; set; }
+        public DateTime dateInput { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public  user users { get; set; }

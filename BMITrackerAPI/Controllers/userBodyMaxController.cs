@@ -49,7 +49,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, double activeRate)
+        public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, float activeRate)
         {
             var food = _mapper.Map<userBodyMax>(dto);
             
@@ -81,9 +81,9 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult<userBodyMax> updateUserBodyMax(Guid userInfoId, [FromBody] userBodyMaxInfo dto)
+        public ActionResult<userBodyMax> updateUserBodyMax(Guid userInfoId, [FromBody] userBodyMaxUpdateInfo dto, float activeRate)
         {
-            var result = feedbackRepository.updateUserBodyMax(userInfoId, dto);
+            var result = feedbackRepository.updateUserBodyMax(userInfoId, dto, activeRate);
             var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
             if (current == null)
             {

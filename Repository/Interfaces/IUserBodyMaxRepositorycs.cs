@@ -12,8 +12,8 @@ namespace Repository.Interfaces
     {
         List<userBodyMax> getAllUserBodyMax();
         userBodyMax getUserBodyMaxbyId(Guid id);
-        userBodyMax addUserBodyMax(userBodyMax feed, double activeRate);
-        userBodyMax updateUserBodyMax(Guid id, userBodyMaxInfo feedback);
+        userBodyMax addUserBodyMax(userBodyMax feed, float activeRate);
+        userBodyMax updateUserBodyMax(Guid id, userBodyMaxUpdateInfo feedback, float activeRate);
         bool DeleteUserBodyMax(userBodyMax feedback);
         userBodyMax updateServiceInUserBodyMax(Guid id, userBodyMaxServiceInfo userBody);
         userBodyMax updateUserBodyMax(userBodyMax user);
