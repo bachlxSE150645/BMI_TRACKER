@@ -20,7 +20,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.feedbacks.Include(x => x.users).Include(u=>u.users.roles.roleName).ToList();
+                return _context.feedbacks.Include(x => x.users).ToList();
             } catch (Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -30,7 +30,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.feedbacks.Where(feed => feed.feedbackId == id).Include(f => f.users).Include(r=>r.users.roles.roleName).FirstOrDefault();
+                return _context.feedbacks.Where(feed => feed.feedbackId == id).Include(f => f.users).FirstOrDefault();
 
             } catch (Exception ex)
             {
