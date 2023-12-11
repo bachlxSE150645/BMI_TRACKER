@@ -61,7 +61,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult<Category> updateCategory(Guid cateId, Category category)
+        public ActionResult<Category> updateCategory(Guid cateId, string categoryName)
         {
             var cate = cateRepo.GetCategoryById(cateId);
             if (cate.CategoryId!= cateId)
@@ -70,7 +70,7 @@ namespace BMITrackerAPI.Controllers
             }
             try
             {
-
+                cate.CategoryName = categoryName;
                 cateRepo.UpdateCategory(cate);
             }
             catch (DbUpdateConcurrencyException)
@@ -82,7 +82,7 @@ namespace BMITrackerAPI.Controllers
 
                 throw;
             }
-            return NoContent();
+            return Ok(cate);
         }
         [HttpDelete("category")]
         public IActionResult DeleteCategory(Guid cat)
