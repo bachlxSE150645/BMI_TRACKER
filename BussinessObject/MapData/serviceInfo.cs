@@ -10,5 +10,6 @@ namespace BussinessObject.MapData
     {
         public string nameService { get; set; }
         public string descriptionService { get; set; }
+        public Guid userId { get; set; }
     }
 }

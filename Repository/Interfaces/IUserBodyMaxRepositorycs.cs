@@ -15,7 +15,6 @@ namespace Repository.Interfaces
         userBodyMax addUserBodyMax(userBodyMax feed, float activeRate);
         userBodyMax updateUserBodyMax(Guid id, userBodyMaxUpdateInfo feedback, float activeRate);
         bool DeleteUserBodyMax(userBodyMax feedback);
-        userBodyMax updateServiceInUserBodyMax(Guid id, userBodyMaxServiceInfo userBody);
         userBodyMax updateUserBodyMax(userBodyMax user);
     }
 }

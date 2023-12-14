@@ -21,8 +21,6 @@ namespace DataAccess
             {
                 return _context.userBodyMaxes.
                     Include(u =>u.users).
-                    Include(u=>u.schedules).
-                    Include(u=>u.services).
                     ToList();
             }
 
@@ -35,7 +33,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).Include(s=>s.schedules).Include(s=>s.services).FirstOrDefault();
+                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).FirstOrDefault();
 
             }
             catch (Exception ex)
@@ -88,12 +86,11 @@ namespace DataAccess
                     BMR = calcutateNum(feed.weight,feed.heght, feed.age,feed.sex),
                     BMIPerson = calculateBMI(feed.weight,feed.heght),
                     TDEE = (calcutateNum(feed.weight, feed.heght, feed.age, feed.sex) * activeRate),
-                    serviceId = feed.serviceId,
                     userId = feed.userId,
                     dateInput = DateTime.Now,
                     status = "avaiable-userBoyMax",
                     users = _context.users.Where(u => u.userId == feed.userId).FirstOrDefault(),
-                    services =_context.services.Where(u=>u.serviceId == feed.serviceId).FirstOrDefault()
+
                 };
                 
                  
@@ -121,8 +118,7 @@ namespace DataAccess
                 foo.BMR = calcutateNum(userBody.weight, userBody.heght, userBody.age, userBody.sex);
                 foo.BMIPerson = calculateBMI(userBody.weight, userBody.heght);
                 foo.TDEE = (calcutateNum(userBody.weight, userBody.heght, userBody.age, userBody.sex) * activeRate);
-                foo.serviceId = foo.serviceId;
-                foo.services = _context.services.Where(u => u.serviceId == foo.serviceId).FirstOrDefault();
+               
                 this._context.userBodyMaxes.Update(foo);
                 this._context.SaveChanges();
                 return foo;
@@ -132,23 +128,7 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public userBodyMax updateServiceInUserBodyMax (Guid id,userBodyMax userBody)
-        {
-            try
-            {
-                var foo =_context.userBodyMaxes.Include(f => f.services).SingleOrDefault(i=>i.userInfoId.Equals(id));
-                foo.serviceId = userBody.serviceId;
-                foo.services = _context.services.SingleOrDefault(u => u.serviceId == userBody.serviceId);
-
-                this._context.userBodyMaxes.Update(foo);
-                this._context.SaveChanges();
-                return foo;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception (ex.Message);
-            }
-        }
+        
         public bool DeleteUserBodyMax(userBodyMax feedback)
         {
             try

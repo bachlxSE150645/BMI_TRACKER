@@ -17,7 +17,6 @@ namespace BussinessObject
         public Guid ingredientId { get; set; }
         [ForeignKey("food")]
         public Guid foodId { get; set; }
-
         public food foods { get; set; }
         public  ingredient ingredients { get; set; }
 

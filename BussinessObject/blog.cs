@@ -25,7 +25,6 @@ namespace BussinessObject
         public Guid userId { get; set; }
         public user users { get; set; }
 
-        [JsonIgnore]
-        public ICollection <complementBlog> complementBlogs { get; set; }
+        
     }
 }

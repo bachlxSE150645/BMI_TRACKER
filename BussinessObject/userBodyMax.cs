@@ -29,11 +29,8 @@ namespace BussinessObject
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public  user users { get; set; }
-        [ForeignKey("service")]
-        public Guid serviceId { get; set; }
-        public Service services { get; set; }
         public ICollection<Schedule> schedules { get; set; }
-       
+        public ICollection<order> orders { get; set; }
 
     }
     public enum sexType

@@ -42,10 +42,7 @@ namespace Repository
             {
                 r.menuPhoto = menu.menuPhoto;
             }
-            if (!String.IsNullOrEmpty(menu.menuPrice))
-            {
-                r.menuPrice = menu.menuPrice;
-            }
+           
             if (menu.menuDescription == null)
             {
                 r.menuDescription = menu.menuDescription;

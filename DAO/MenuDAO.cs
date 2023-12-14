@@ -45,7 +45,6 @@ namespace DataAccess
                     .Where(x => x.MenuId.Equals(id)).SingleOrDefault();
                 foo.status =menu.status;
                 foo.menuName = menu.menuName;
-                foo.menuPrice = menu.menuPrice;
                 foo.menuType = menu.menuType;
                 foo.menuDescription = menu.menuDescription;
                 this._context.menus.Update(foo);
@@ -67,7 +66,6 @@ namespace DataAccess
                     menuName = MenuInfo.menuName,
                     menuDescription = MenuInfo.menuDescription,
                     menuPhoto = MenuInfo.menuPhoto,
-                    menuPrice = MenuInfo.menuPrice,
                     menuType = MenuInfo.menuType,
                     status = "available-menu",
                     categoryId = MenuInfo.categoryId,

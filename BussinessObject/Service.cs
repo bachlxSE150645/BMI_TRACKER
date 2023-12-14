@@ -16,10 +16,13 @@ namespace BussinessObject
         public string nameService { get; set; }
         public string descriptionService {  get; set; }
         public string status { get; set; }
+        [NotMapped]
+        [ForeignKey("user")]
+        public Guid userId { get; set; }
+        public user users { get; set; }
         [JsonIgnore]
-        public ICollection <userBodyMax> userBodyMaxs { get; set; }
-        [JsonIgnore]
-        public ICollection<ComplementService> complementServices { get; set; }
+        public ICollection <order> orders { get; set; }
+       
     }
 
 }
