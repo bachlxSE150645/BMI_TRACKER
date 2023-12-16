@@ -21,7 +21,7 @@ namespace BMITrackerAPI.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllBlogs()
+        public async Task<IActionResult> GetAllServices()
         {
             try
             {
@@ -50,7 +50,6 @@ namespace BMITrackerAPI.Controllers
         public async Task<IActionResult> AddService(serviceInfo dto)
         {
             var food = _mapper.Map<Service>(dto);
-            food.status = "available";
             var result = await foodRepository.addNewService(food);
             if (result == null)
             {

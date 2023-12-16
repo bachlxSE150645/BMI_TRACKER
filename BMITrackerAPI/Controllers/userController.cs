@@ -123,7 +123,7 @@ namespace BMITrackerAPI.Controllers
                 var tra = userRepo.getUserById(userId);
                 userRepo.updateRoleTrainer(tra);
                 userRepo.updateAccount(tra);
-                return Ok();
+                return Ok(tra);
             }
 
             catch (Exception ex)

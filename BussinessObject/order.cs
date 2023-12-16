@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 namespace BussinessObject
 {
 
-    [PrimaryKey(nameof(userInfoId), nameof(serviceId))]
+    [PrimaryKey(nameof(userInfoId), nameof(serviceId),nameof(orderId))]
     public class order
     {
+        public Guid orderId { get; set; } 
         public string orderName { get; set; }
         public string orderDescription { get; set; }
         public string orderStatus { get; set; }

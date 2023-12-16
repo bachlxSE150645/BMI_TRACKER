@@ -52,9 +52,9 @@ namespace BussinessObject
         public ICollection <feedback> feedbacks { get; set; }
         [JsonIgnore]
         public ICollection <notification> notifications { get; set; }
-        [NotMapped]
         [JsonIgnore]
+
         public ICollection<Service> services { get; set; }
-       
+
     }
 }
