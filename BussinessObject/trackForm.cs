@@ -11,18 +11,21 @@ using System.Threading.Tasks;
 
 namespace BussinessObject
 {
-    
+    [PrimaryKey(nameof(trackFormId), nameof(serviceId), nameof(userId))]
+
     public class trackForm
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid trackFormId { get; set; }
         public string trackFormName { get; set; }
         public string trackeFormDescription {  get; set; }
-        public bool isTracked { get; set; }
         public string status { get; set; }
         [ForeignKey("user")]
         public Guid userId { get; set; }
         public user users { get; set; }
-         
+        [ForeignKey("service")]
+        public Guid serviceId { get; set; }
+        public Service services { get; set; }
+
     }
 }

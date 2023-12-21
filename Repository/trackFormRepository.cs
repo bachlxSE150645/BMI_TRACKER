@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using BussinessObject.MapData;
 using DataAccess;
 using Repository.Interfaces;
 using System;
@@ -26,6 +27,18 @@ namespace Repository
 
         public List<trackForm> GetTracksFromList()=>dao.GetTracksFromList();
 
-        public trackForm updateTrackform(trackForm feedback)=>dao.updateTrackform(feedback);
+        public trackForm updateTrackform(Guid id, trackFormUpdateInfo trackFormUpdateInfo)
+        {
+            var c = dao.GetTrackFormById(id);
+            if(c.trackFormName != null)
+            {
+                c.trackFormName = trackFormUpdateInfo.trackFormName;
+            }
+            if(c.trackeFormDescription != null)
+            {
+                c.trackeFormDescription = trackFormUpdateInfo.trackeFormDescription;
+            }
+            return dao.updateTrackform(id,c);
+        }
     }
 }

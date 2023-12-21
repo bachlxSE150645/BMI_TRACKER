@@ -57,26 +57,20 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public ActionResult<trackForm> updateTrackform(Guid trackId, string trackFormName, string trackeFormDescription, bool isTracked)
+        public ActionResult<trackForm> updateTrackform(Guid trackId, [FromBody] trackFormUpdateInfo dto)
         {
 
-            try
+            var result = feedbackRepository.updateTrackform(trackId, dto);
+            var current = feedbackRepository.GetTrackFormById(trackId);
+            if (current == null)
             {
-                var us = feedbackRepository.GetTrackFormById(trackId);
-                if (us == null)
-                {
-                    return BadRequest();
-                }
-                trackFormName = us.trackFormName;
-                trackeFormDescription = us.trackeFormDescription;
-                isTracked = true;
-                feedbackRepository.updateTrackform(us);
-                return Ok(us);
+                return BadRequest();
             }
-            catch (Exception ex)
+            if (result == null)
             {
-                throw new Exception(ex.Message);
+                return BadRequest();
             }
+            return Ok(result);
         }
         [HttpDelete("trackform")]
         public IActionResult DeleteTrackeForm(Guid trackId)
@@ -88,8 +82,8 @@ namespace BMITrackerAPI.Controllers
                 {
                     return NotFound();
                 }
-                fee.status = "hidden";
-                feedbackRepository.updateTrackform(fee);
+                feedbackRepository.DeleteTrackForm(fee);
+                
                 return NoContent();
             }
             catch (Exception ex)

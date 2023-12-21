@@ -22,7 +22,9 @@ namespace BussinessObject
 
         [JsonIgnore]
         public ICollection <order> orders { get; set; }
-       
+        [JsonIgnore]
+        public ICollection<trackForm> trackForms { get; set; }
+
     }
 
 }
