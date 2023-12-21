@@ -48,6 +48,18 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("menuName")]
+        public ActionResult<Menu> getMenuByName(string name)
+        {
+            try
+            {
+                return Ok(menuRepo.getMenuByName(name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpPost]
 
         public async Task<IActionResult> AddMenu(MenuInfo dto)

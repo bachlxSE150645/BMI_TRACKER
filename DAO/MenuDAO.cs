@@ -24,6 +24,17 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+        public Menu getMenuByName(string nemuName)
+        {
+            try
+            {
+                return _context.menus.FirstOrDefault(i => i.menuName.Equals(nemuName));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public Menu getMenuById(Guid id)
         {
             try
