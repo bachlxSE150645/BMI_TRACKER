@@ -17,7 +17,7 @@ namespace BussinessObject
         public  string title { get; set; }
         public string description { get; set; }
         public string status { get; set; }
-        public enum type { get; set; }
+        public string type { get; set; }
 
         [ForeignKey("user")]
         public Guid userId { get;set; }
