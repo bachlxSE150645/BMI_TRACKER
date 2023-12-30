@@ -17,7 +17,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.menus.Include(f => f.meals).ToList();
+                return _context.menus.Include(f => f.meals).Include(f=>f.schedules).ToList();
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.menus.FirstOrDefault(i => i.MenuId.Equals(id));
+                return _context.menus.Include(f => f.meals).Include(f => f.schedules).FirstOrDefault(i => i.MenuId.Equals(id));
             }
             catch (Exception ex)
             {

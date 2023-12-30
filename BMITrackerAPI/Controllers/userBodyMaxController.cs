@@ -25,7 +25,7 @@ namespace BMITrackerAPI.Controllers
             _scheduleRepository = new scheduleRepository(dbContext);
         }
         [HttpGet]
-        public async Task <IActionResult> getAllUserBodyMaxs()
+        public async Task<IActionResult> getAllUserBodyMaxs()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpGet("feedbackId")]
-        public  ActionResult<userBodyMax> getFeedBackById(Guid id)
+        public ActionResult<userBodyMax> getFeedBackById(Guid id)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace BMITrackerAPI.Controllers
         public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, float activeRate)
         {
             var food = _mapper.Map<userBodyMax>(dto);
-            
+
             try
             {
                 if (food == null)
@@ -61,7 +61,7 @@ namespace BMITrackerAPI.Controllers
                 }
                 else
                 {
-                    var result = feedbackRepository.addUserBodyMax(food,activeRate);
+                    var result = feedbackRepository.addUserBodyMax(food, activeRate);
                     foreach (var item in dto.UserBodyMaxMenus)
                     {
                         var detail = _mapper.Map<Schedule>(item);
@@ -109,18 +109,26 @@ namespace BMITrackerAPI.Controllers
             }
             return Ok(result);
         }
-        
+
         [HttpDelete("userBoyMax")]
-        public IActionResult DeleteUserBodyMax(Guid feedId)
+        public IActionResult DeleteUserBodyMax(Guid userInfoId)
         {
             try
             {
-                var fee = feedbackRepository.getUserBodyMaxbyId(feedId);
-                if (fee == null)
+                var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
+                if (current == null)
                 {
                     return NotFound();
                 }
-                feedbackRepository.DeleteUserBodyMax(fee);
+                foreach (var detail in current.schedules)
+                {
+                    Console.WriteLine(detail);
+                    if (detail != null)
+                    {
+                        _scheduleRepository.DeleteSchedule(detail);
+                    }
+                }
+                feedbackRepository.DeleteUserBodyMax(current);
                 return NoContent();
             }
             catch (Exception ex)
@@ -128,6 +136,7 @@ namespace BMITrackerAPI.Controllers
 
                 return NotFound(ex.Message);
             }
+
         }
     }
 }

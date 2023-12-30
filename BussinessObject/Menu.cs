@@ -23,7 +23,6 @@ namespace BussinessObject
         public Guid categoryId { get; set; }
         public Category categorys { get; set; }
         public string status { get; set; }
-        [JsonIgnore]
 
         public ICollection<Schedule> schedules { get; set; }
 

@@ -1,4 +1,6 @@
-﻿using BussinessObject;
+﻿using AutoMapper;
+using BussinessObject;
+using BussinessObject.MapData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -41,5 +43,6 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+       
     }
 }
