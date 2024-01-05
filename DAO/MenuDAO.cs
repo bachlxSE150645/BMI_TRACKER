@@ -28,7 +28,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.menus.FirstOrDefault(i => i.menuName.Equals(nemuName));
+                return _context.menus.Include(d=>d.meals).FirstOrDefault(i => i.menuName.Equals(nemuName));
             }
             catch (Exception ex)
             {
