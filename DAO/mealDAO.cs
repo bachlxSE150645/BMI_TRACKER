@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace DataAccess
             {
                 var result = (from r in _context.meals
                               where (r.foodId == foodId)
-                              select r).ToList();
+                              select r).Include(f => f.Menus).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -34,7 +35,7 @@ namespace DataAccess
             {
                 var result = (from r in _context.meals
                               where (r.menuId == menuId)
-                              select r).ToList();
+                              select r).Include(f=>f.foods).ToList();
                 return result;
             }
             catch (Exception ex)
