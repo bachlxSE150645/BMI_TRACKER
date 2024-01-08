@@ -36,8 +36,8 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
-        [HttpGet("feedbackId")]
-        public ActionResult<userBodyMax> getFeedBackById(Guid id)
+        [HttpGet("UserBodyMax")]
+        public ActionResult<userBodyMax> getUserBodyMaxById(Guid id)
         {
             try
             {
