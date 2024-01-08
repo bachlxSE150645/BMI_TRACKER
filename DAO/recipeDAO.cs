@@ -21,7 +21,7 @@ namespace DataAccess
             {
                 var result = (from r in _context.recipes
                               where (r.foodId == foodId)
-                              select r).ToList();
+                              select r).Include(i=>i.ingredients).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace DataAccess
             {
                 var result = (from r in _context.recipes
                               where (r.ingredientId == ingredientId)
-                              select r).ToList();
+                              select r).Include(f=>f.foods).ToList();
                 return result;
             }
             catch (Exception ex)
