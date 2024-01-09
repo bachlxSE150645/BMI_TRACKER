@@ -58,7 +58,17 @@ namespace DataAccess
                 throw new Exception (ex.Message);
             }
         }
-
+        public Schedule getMenuIdByuserBodyMax(Guid userInfoId)
+        {
+            try
+            {
+                return _context.schedules.Where(u => u.userInfoId == userInfoId).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<Schedule> CreteNewSchedule(Schedule schedule)
         {
             try

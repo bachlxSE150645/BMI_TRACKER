@@ -73,6 +73,28 @@ namespace BMITrackerAPI.Controllers
 
             return Ok(result);
         }
+        [HttpPut("menuId")]
+        public ActionResult updateMenuByUserBoyMaxInfo(Guid userInfoId, Guid menuId)
+        {
+            try
+            {
+                var us = scheRepo.getScheduleByUserIAndmenuId(userInfoId,menuId);
+                if (us == null)
+                {
+                    return BadRequest();
+                }
+                us.userInfoId = userInfoId;
+                us.MenuId = menuId;
+                scheRepo.UpdateSchedule(us);
+                return Ok(us);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         [HttpDelete("schedule")]
         public IActionResult DeleteSchedule(Guid menuId, Guid userId)
         {
