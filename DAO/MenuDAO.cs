@@ -24,11 +24,16 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public Menu getMenuByName(string nemuName)
+        public List<food> getFoodByMenuId(Guid nemuId)
         {
             try
             {
-                return _context.menus.Include(d=>d.meals).FirstOrDefault(i => i.menuName.Equals(nemuName));
+                var menus = from menu in _context.menus
+                            where menu.MenuId == nemuId
+                            join meal in _context.meals on menu.MenuId equals meal.menuId
+                            join food in _context.foods on meal.foodId equals food.foodId
+                            select food;
+                return menus.ToList();
             }
             catch (Exception ex)
             {

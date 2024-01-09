@@ -12,7 +12,7 @@ namespace Repository.Interfaces
     {
         List<Menu> getAllMenu();
         Menu getMenuById(Guid id);
-        Menu getMenuByName(string name);
+        List<food> getFoodByMenuId(Guid menuId);
         Menu UpdateMenu(Guid id, MenuInfo menu);
         Task<Menu> AddNewMenu(Menu MenuInfo);
         void deleteMenu(Menu menu);

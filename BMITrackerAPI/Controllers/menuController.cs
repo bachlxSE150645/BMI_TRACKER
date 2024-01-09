@@ -37,23 +37,23 @@ namespace BMITrackerAPI.Controllers
         }
 
         [HttpGet("menuId")]
-        public ActionResult<Menu> getMenuById(Guid foodId)
+        public ActionResult<Menu> getMenuById(Guid menuId)
         {
             try
             {
-                return Ok(menuRepo.getMenuById(foodId));
+                return Ok(menuRepo.getMenuById(menuId));
             }
             catch
             {
                 return BadRequest();
             }
         }
-        [HttpGet("menuName")]
-        public ActionResult<Menu> getMenuByName(string name)
+        [HttpGet("foodByMenuId")]
+        public async Task<IActionResult> GetFoodByMenuId(Guid menuId)
         {
             try
             {
-                return Ok(menuRepo.getMenuByName(name));
+                return Ok(menuRepo.getFoodByMenuId(menuId));
             }
             catch
             {

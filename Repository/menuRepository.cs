@@ -26,8 +26,7 @@ namespace Repository
         public List<Menu> getAllMenu() =>dao.getAllMenu();
 
         public Menu getMenuById(Guid id) =>dao.getMenuById(id);
-
-        public Menu getMenuByName(string name) => dao.getMenuByName(name);
+        public List<food> getFoodByMenuId(Guid menuId) => dao.getFoodByMenuId(menuId);
 
         public Menu UpdateMenu(Guid id, MenuInfo menu)
         {
