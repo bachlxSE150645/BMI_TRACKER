@@ -17,12 +17,10 @@ namespace BMITrackerAPI.Controllers
     {
         private IUserBodyMaxRepositorycs feedbackRepository;
         private readonly IMapper _mapper;
-        private IScheduleRepository _scheduleRepository;
         public userBodyMaxController(MyDbContext dbContext, IMapper mapper)
         {
             feedbackRepository = new userBodyMaxRepository(dbContext);
             _mapper = mapper;
-            _scheduleRepository = new scheduleRepository(dbContext);
         }
         [HttpGet]
         public async Task<IActionResult> getAllUserBodyMaxs()
@@ -62,15 +60,6 @@ namespace BMITrackerAPI.Controllers
                 else
                 {
                     var result = feedbackRepository.addUserBodyMax(food, activeRate);
-                    foreach (var item in dto.UserBodyMaxMenus)
-                    {
-                        var detail = _mapper.Map<Schedule>(item);
-                        if (detail != null)
-                        {
-                            detail.userInfoId = result.userInfoId;
-                            _scheduleRepository.CreteNewSchedule(detail);
-                        }
-                    }
                     return Ok(result);
                 }
 
@@ -89,20 +78,6 @@ namespace BMITrackerAPI.Controllers
             {
                 return BadRequest();
             }
-            foreach (var detail in current.schedules)
-            {
-                Console.WriteLine(detail);
-                if (detail != null)
-                {
-                    _scheduleRepository.DeleteSchedule(detail);
-                }
-            }
-            foreach (var newDetail in dto.UserBodyMaxMenus)
-            {
-                var detail = _mapper.Map<Schedule>(newDetail);
-                detail.userInfoId = result.userInfoId;
-                _scheduleRepository.CreteNewSchedule(detail);
-            }
             if (result == null)
             {
                 return BadRequest();
@@ -119,14 +94,6 @@ namespace BMITrackerAPI.Controllers
                 if (current == null)
                 {
                     return NotFound();
-                }
-                foreach (var detail in current.schedules)
-                {
-                    Console.WriteLine(detail);
-                    if (detail != null)
-                    {
-                        _scheduleRepository.DeleteSchedule(detail);
-                    }
                 }
                 feedbackRepository.DeleteUserBodyMax(current);
                 return NoContent();

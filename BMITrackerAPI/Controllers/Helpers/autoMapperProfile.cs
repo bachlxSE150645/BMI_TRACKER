@@ -13,7 +13,6 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<favoriteFood,favoriteFoodInfo>().ReverseMap();
             CreateMap<recipe, FoodIngredientDTO>().ReverseMap();
             CreateMap<Meal, foodMenuDTO>().ReverseMap();
-            CreateMap<Schedule,UserBodyMaxMenus>().ReverseMap();
             CreateMap<user,loginData>().ReverseMap();
             CreateMap<user,signUpData>().ReverseMap();
             CreateMap<food,foodInfo>().ReverseMap();
