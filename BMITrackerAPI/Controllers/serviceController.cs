@@ -68,9 +68,8 @@ namespace BMITrackerAPI.Controllers
                 {
                     return BadRequest();
                 }
-                nameService  = us.nameService;
-                descriptionService = us.descriptionService;
-                
+                us.nameService = nameService;
+                us.descriptionService = descriptionService;
                 foodRepository.UpdateService(us);
                 return Ok(us);
             }
