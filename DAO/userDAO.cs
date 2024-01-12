@@ -47,6 +47,21 @@ namespace DAO
                 throw new Exception(ex.Message);
             }
         }
+        public List<Guid> GetUserBodyMaxByUserId(Guid id)
+        {
+            try
+            {
+                var menus = from u in _context.users
+                            where u.userId == id
+                            join userBodyMax in _context.userBodyMaxes on u.userId equals userBodyMax.userId
+                            select u.userBodyMaxs.userInfoId;
+                return menus.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public List<user> SearchAccountByEmail(string email)
         {
             try

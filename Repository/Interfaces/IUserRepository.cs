@@ -11,6 +11,7 @@ namespace Repository.Interfaces
     public interface IUserRepository
     {
         List<user> GetAllUsers();
+        List<Guid> GetUserBodyMaxByUserId(Guid userId);
         user getUserById(Guid id);
         user getUserByEmailandPassword(user user);
         Task<user> addUser(user user);

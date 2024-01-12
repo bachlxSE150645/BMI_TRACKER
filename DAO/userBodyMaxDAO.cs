@@ -30,6 +30,21 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+        public List<user> getUserByUserInfoId(Guid id)
+        {
+            try
+            {
+                var menus = from u in _context.userBodyMaxes
+                            where u.userInfoId == id
+                            join user in _context.users on u.userId equals user.userId
+                            select user;
+                return menus.ToList();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public userBodyMax getUserBodyMaxbyId(Guid id)
         {
             try

@@ -49,6 +49,18 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUserByUserBodyMax(Guid userInfoId)
+        {
+            try
+            {
+                return Ok(feedbackRepository.getUserByUserInfoId(userInfoId));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpPost]
         public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, float activeRate)
         {
