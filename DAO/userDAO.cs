@@ -40,7 +40,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.Include(u => u.roles).FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
+                return _context.users.Include(u=>u.userBodyMaxs).Include(u => u.roles).FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
             }
             catch (Exception ex)
             {
