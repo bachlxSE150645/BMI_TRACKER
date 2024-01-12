@@ -24,12 +24,12 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public List<food> getFoodByMenuId(Guid nemuId)
+        public List<food> getFoodByMenuId(string mennuName)
         {
             try
             {
                 var menus = from menu in _context.menus
-                            where menu.MenuId == nemuId
+                            where menu.menuName == mennuName
                             join meal in _context.meals on menu.MenuId equals meal.menuId
                             join food in _context.foods on meal.foodId equals food.foodId
                             select food;

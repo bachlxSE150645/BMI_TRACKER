@@ -36,7 +36,6 @@ namespace BussinessObject
         [JsonIgnore]
         public ICollection<trackForm> trackForms { get; set; }
 
-        [JsonIgnore]
         public userBodyMax userBodyMaxs { get; set; }
         [JsonIgnore]
 

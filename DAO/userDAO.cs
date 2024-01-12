@@ -18,7 +18,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.Include(u=>u.roles).ToList();
+                return _context.users.Include(u=>u.roles).Include(u=>u.userBodyMaxs).ToList();
             }
             catch (Exception ex)
             {
@@ -29,7 +29,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.Include(u=>u.roles).SingleOrDefault(u => u.userId  == id);
+                return _context.users.Include(u=>u.roles).Include(u=>u.userBodyMaxs).SingleOrDefault(u => u.userId  == id);
             }
             catch (Exception ex)
             {
