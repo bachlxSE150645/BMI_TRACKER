@@ -24,12 +24,12 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        public List<food> getFoodByMenuId(Guid nemuId)
+        public List<food> getFoodByMenuId(string mennuName)
         {
             try
             {
                 var menus = from menu in _context.menus
-                            where menu.MenuId == nemuId
+                            where menu.menuName == mennuName
                             join meal in _context.meals on menu.MenuId equals meal.menuId
                             join food in _context.foods on meal.foodId equals food.foodId
                             select food;
@@ -57,7 +57,7 @@ namespace DataAccess
             try
             {
                 var foo = _context.menus
-                    .Include(f => f.meals)
+                    .Include(f => f.meals).Include(u=>u.users)
                     .Where(x => x.MenuId.Equals(id)).SingleOrDefault();
                 foo.status =menu.status;
                 foo.menuName = menu.menuName;
@@ -84,6 +84,8 @@ namespace DataAccess
                     menuPhoto = MenuInfo.menuPhoto,
                     menuType = MenuInfo.menuType,
                     status = "available-menu",
+                    userId = MenuInfo.userId,
+                    users = _context.users.FirstOrDefault(u=>u.userId == MenuInfo.userId),
                     categoryId = MenuInfo.categoryId,
                     categorys = _context.categories.FirstOrDefault(r => r.CategoryId == MenuInfo.categoryId)
 

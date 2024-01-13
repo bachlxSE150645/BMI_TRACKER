@@ -18,7 +18,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.Include(u=>u.roles).ToList();
+                return _context.users.Include(u=>u.roles).Include(u=>u.userBodyMaxs).ToList();
             }
             catch (Exception ex)
             {
@@ -29,7 +29,7 @@ namespace DAO
         {
             try
             {
-                return _context.users.Include(u=>u.roles).SingleOrDefault(u => u.userId  == id);
+                return _context.users.Include(u=>u.roles).Include(u=>u.userBodyMaxs).SingleOrDefault(u => u.userId  == id);
             }
             catch (Exception ex)
             {
@@ -40,7 +40,22 @@ namespace DAO
         {
             try
             {
-                return _context.users.Include(u => u.roles).FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
+                return _context.users.Include(u=>u.userBodyMaxs).Include(u => u.roles).FirstOrDefault(u => u.email.Equals(us.email) && u.password.Equals(us.password));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<Guid> GetUserBodyMaxByUserId(Guid id)
+        {
+            try
+            {
+                var menus = from u in _context.users
+                            where u.userId == id
+                            join userBodyMax in _context.userBodyMaxes on u.userId equals userBodyMax.userId
+                            select u.userBodyMaxs.userInfoId;
+                return menus.ToList();
             }
             catch (Exception ex)
             {

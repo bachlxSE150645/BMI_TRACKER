@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Collections.Specialized;
 using BussinessObject.MapData;
 using Microsoft.EntityFrameworkCore;
+using DataAccess;
 
 namespace BMITrackerAPI.Controllers
 {
@@ -17,10 +18,12 @@ namespace BMITrackerAPI.Controllers
     {
         private IUserBodyMaxRepositorycs feedbackRepository;
         private readonly IMapper _mapper;
+        private IScheduleRepository _scheRepository;
         public userBodyMaxController(MyDbContext dbContext, IMapper mapper)
         {
             feedbackRepository = new userBodyMaxRepository(dbContext);
             _mapper = mapper;
+            _scheRepository = new scheduleRepository(dbContext);    
         }
         [HttpGet]
         public async Task<IActionResult> getAllUserBodyMaxs()
@@ -40,6 +43,18 @@ namespace BMITrackerAPI.Controllers
             try
             {
                 return Ok(feedbackRepository.getUserBodyMaxbyId(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUserByUserBodyMax(Guid userInfoId)
+        {
+            try
+            {
+                return Ok(feedbackRepository.getUserByUserInfoId(userInfoId));
             }
             catch
             {
@@ -72,17 +87,41 @@ namespace BMITrackerAPI.Controllers
         [HttpPut]
         public ActionResult<userBodyMax> updateUserBodyMax(Guid userInfoId, [FromBody] userBodyMaxUpdateInfo dto, float activeRate)
         {
-            var result = feedbackRepository.updateUserBodyMax(userInfoId, dto, activeRate);
-            var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
-            if (current == null)
+            try
             {
-                return BadRequest();
+                var result = feedbackRepository.updateUserBodyMax(userInfoId, dto, activeRate);
+                var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
+
+                if (current == null)
+                {
+                    return BadRequest();
+                }
+                foreach (var detail in current.schedules)
+                {
+                    Console.WriteLine(detail);
+                    if (detail != null)
+                    {
+                        _scheRepository.DeleteSchedule(detail);
+                    }
+                }
+                foreach (var newDetail in dto.userBodyMaxMenus)
+                {
+                    var detail = _mapper.Map<Schedule>(newDetail);
+                    detail.userInfoId = result.userInfoId;
+                    _scheRepository.CreteNewSchedule(detail);
+                }
+                if (result == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(result);
             }
-            if (result == null)
+            catch (Exception ex)
             {
-                return BadRequest();
+                throw new Exception(ex.Message);
             }
-            return Ok(result);
+
+
         }
 
         [HttpDelete("userBoyMax")]
@@ -91,6 +130,14 @@ namespace BMITrackerAPI.Controllers
             try
             {
                 var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
+                foreach (var detail in current.schedules)
+                {
+                    Console.WriteLine(detail);
+                    if (detail != null)
+                    {
+                        _scheRepository.DeleteSchedule(detail);
+                    }
+                }
                 if (current == null)
                 {
                     return NotFound();

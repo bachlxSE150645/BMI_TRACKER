@@ -27,7 +27,8 @@ namespace Repository
 
         public userBodyMax getUserBodyMaxbyId(Guid id)=>dao.getUserBodyMaxbyId(id);
 
-       
+        public List<user> getUserByUserInfoId(Guid id)=>dao.getUserByUserInfoId(id);
+
         public userBodyMax updateUserBodyMax(Guid id, userBodyMaxUpdateInfo user, float activeRate)
         {
             var r = dao.getUserBodyMaxbyId(id);

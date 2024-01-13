@@ -23,7 +23,9 @@ namespace BussinessObject
         public Guid categoryId { get; set; }
         public Category categorys { get; set; }
         public string status { get; set; }
-
+        [ForeignKey("user")]
+        public Guid userId { get; set; }
+        public user users { get; set; }
         public ICollection<Schedule> schedules { get; set; }
 
         public ICollection<Meal> meals { get; set; }

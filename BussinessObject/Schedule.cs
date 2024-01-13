@@ -17,9 +17,10 @@ namespace BussinessObject
         public Guid MenuId { get; set; }
         [ForeignKey("userBodyMax")]
         public Guid userInfoId { get; set; }
+        [JsonIgnore]
         public userBodyMax userBodyMaxs { get; set; }
+        [JsonIgnore]
         public Menu menus { get; set; }
-        public string status { get; set; }
        
     }
 }

@@ -83,8 +83,7 @@ namespace BMITrackerAPI.Controllers
                 {
                     return NotFound();
                 }
-                sche.status = "hidden";
-                scheRepo.UpdateSchedule(schedule);
+                scheRepo.DeleteSchedule(schedule);
                 return NoContent();
             }
             catch (Exception ex)

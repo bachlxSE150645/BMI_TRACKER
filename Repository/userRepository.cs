@@ -21,6 +21,7 @@ namespace Repository
 
         public List<user> GetAllUsers() => dao.GetAllUsers();
 
+        public List<Guid> GetUserBodyMaxByUserId(Guid userId) => dao.GetUserBodyMaxByUserId(userId);
 
         public user getUserByEmailandPassword(user user) => dao.getUserByEmailandPassword(user);
 
