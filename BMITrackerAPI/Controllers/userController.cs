@@ -170,7 +170,7 @@ namespace BMITrackerAPI.Controllers
                 us.password = Password;
                 us.fullName = fullname;
                 userRepo.updateAccount(us);
-                return Ok();
+                return Ok(us);
             }
             catch(Exception ex)
             {
