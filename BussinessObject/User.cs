@@ -54,6 +54,8 @@ namespace BussinessObject
         [JsonIgnore]
 
         public ICollection<Service> services { get; set; }
+        [JsonIgnore]
+        public ICollection<Menu> menus {  get; set; }    
 
     }
 }

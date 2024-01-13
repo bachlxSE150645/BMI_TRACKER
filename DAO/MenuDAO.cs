@@ -57,7 +57,7 @@ namespace DataAccess
             try
             {
                 var foo = _context.menus
-                    .Include(f => f.meals)
+                    .Include(f => f.meals).Include(u=>u.users)
                     .Where(x => x.MenuId.Equals(id)).SingleOrDefault();
                 foo.status =menu.status;
                 foo.menuName = menu.menuName;
@@ -84,6 +84,8 @@ namespace DataAccess
                     menuPhoto = MenuInfo.menuPhoto,
                     menuType = MenuInfo.menuType,
                     status = "available-menu",
+                    userId = MenuInfo.userId,
+                    users = _context.users.FirstOrDefault(u=>u.userId == MenuInfo.userId),
                     categoryId = MenuInfo.categoryId,
                     categorys = _context.categories.FirstOrDefault(r => r.CategoryId == MenuInfo.categoryId)
 
