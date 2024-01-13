@@ -24,20 +24,19 @@ namespace BussinessObject
            : base(options)
         {
         }
-       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfigurationRoot config = builder.Build();
             optionsBuilder.UseSqlServer(config.GetConnectionString("BMITracker"));
-        } */
+        } 
         public virtual DbSet<feedback> feedbacks { get; set; }
         public virtual DbSet<food> foods { get; set; }
         public virtual DbSet<ingredient> ingredients { get; set; }
         public virtual DbSet<Category> categories { get; set; }
         public virtual DbSet<Menu> menus { get; set; }
-       
         public virtual DbSet<trackForm> trackForms { get; set; }
         public virtual DbSet<role> roles { get; set; }
         public virtual DbSet<Service> services { get; set; }

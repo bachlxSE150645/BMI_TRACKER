@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BussinessObject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20231107053523_relationshipServiceAndUserBody")]
-    partial class relationshipServiceAndUserBody
+    [Migration("20240113053451_InitDB")]
+    partial class InitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,41 +34,13 @@ namespace BussinessObject.Migrations
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("updateTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("CategoryId");
 
                     b.ToTable("categories");
-                });
-
-            modelBuilder.Entity("BussinessObject.Content", b =>
-                {
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("blogId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("userId", "blogId");
-
-                    b.HasIndex("blogId");
-
-                    b.ToTable("contents");
                 });
 
             modelBuilder.Entity("BussinessObject.Meal", b =>
@@ -95,13 +67,6 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("categoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("menuDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,10 +79,6 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("menuPrice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("menuType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -126,50 +87,27 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MenuId");
 
                     b.HasIndex("categoryId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("menus");
                 });
 
             modelBuilder.Entity("BussinessObject.Schedule", b =>
                 {
-                    b.Property<Guid>("menuId")
+                    b.Property<Guid>("MenuId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("userInfoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("dateScheduled")
-                        .HasColumnType("int");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("menuId", "userInfoId");
+                    b.HasKey("MenuId", "userInfoId");
 
                     b.HasIndex("userInfoId");
 
@@ -182,13 +120,6 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("descriptionService")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -197,66 +128,18 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ratingId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("serviceTypeId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("serviceId");
 
-                    b.HasIndex("serviceTypeId");
+                    b.HasIndex("userId");
 
                     b.ToTable("services");
-                });
-
-            modelBuilder.Entity("BussinessObject.ServiceType", b =>
-                {
-                    b.Property<Guid>("ServiceTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("nameServiceType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("textServiceType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ServiceTypeId");
-
-                    b.ToTable("serviceTypes");
                 });
 
             modelBuilder.Entity("BussinessObject.blog", b =>
@@ -277,31 +160,27 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("createTime")
+                    b.Property<DateTime>("dateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("link")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ratingId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
+                    b.Property<string>("tag")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("updateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("bolgId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("blogs");
                 });
@@ -321,42 +200,6 @@ namespace BussinessObject.Migrations
                     b.ToTable("chatSection");
                 });
 
-            modelBuilder.Entity("BussinessObject.complement", b =>
-                {
-                    b.Property<Guid>("ratingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("blogId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("serviceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ratingId");
-
-                    b.HasIndex("blogId")
-                        .IsUnique();
-
-                    b.HasIndex("serviceId")
-                        .IsUnique();
-
-                    b.HasIndex("userId")
-                        .IsUnique();
-
-                    b.ToTable("Complements");
-                });
-
             modelBuilder.Entity("BussinessObject.favoriteFood", b =>
                 {
                     b.Property<Guid>("foodId")
@@ -365,48 +208,11 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("userId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("foodId", "userId");
 
                     b.HasIndex("userId");
 
                     b.ToTable("favoriteFoods");
-                });
-
-            modelBuilder.Entity("BussinessObject.feebackCategory", b =>
-                {
-                    b.Property<Guid>("feedbackCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("feedbackCategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("feedbackCategoryId");
-
-                    b.ToTable("feebackCategories");
                 });
 
             modelBuilder.Entity("BussinessObject.feedback", b =>
@@ -415,19 +221,9 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("feebackCategoryId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("status")
                         .IsRequired()
@@ -437,19 +233,14 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
+                    b.Property<string>("type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("userId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("feedbackId");
-
-                    b.HasIndex("feebackCategoryId");
 
                     b.HasIndex("userId");
 
@@ -465,15 +256,12 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("categoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("foodCalorios")
                         .HasColumnType("int");
+
+                    b.Property<string>("foodDesciption")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("foodName")
                         .IsRequired()
@@ -506,13 +294,6 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("foodId");
 
                     b.HasIndex("categoryId");
@@ -529,9 +310,6 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("categoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ingredientName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -543,13 +321,6 @@ namespace BussinessObject.Migrations
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ingredientId");
 
@@ -595,12 +366,53 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("type")
+                    b.Property<int>("type")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("notificationId");
 
+                    b.HasIndex("userId");
+
                     b.ToTable("notifications");
+                });
+
+            modelBuilder.Entity("BussinessObject.order", b =>
+                {
+                    b.Property<Guid>("userInfoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("serviceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("orderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("orderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("orderDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("orderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("orderPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("orderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userInfoId", "serviceId", "orderId");
+
+                    b.HasIndex("serviceId");
+
+                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("BussinessObject.recipe", b =>
@@ -624,13 +436,6 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("roleName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -639,16 +444,42 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("roleId");
 
                     b.ToTable("roles");
+                });
+
+            modelBuilder.Entity("BussinessObject.trackForm", b =>
+                {
+                    b.Property<Guid>("trackFormId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("serviceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("trackFormName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("trackeFormDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("trackFormId", "serviceId", "userId");
+
+                    b.HasIndex("serviceId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("trackForms");
                 });
 
             modelBuilder.Entity("BussinessObject.user", b =>
@@ -665,13 +496,6 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -679,9 +503,6 @@ namespace BussinessObject.Migrations
                     b.Property<string>("fullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("notificationId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("password")
                         .IsRequired()
@@ -694,25 +515,11 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("roleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("sex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("userId");
-
-                    b.HasIndex("notificationId")
-                        .IsUnique();
 
                     b.HasIndex("roleId");
 
@@ -728,76 +535,40 @@ namespace BussinessObject.Migrations
                     b.Property<float>("BMIPerson")
                         .HasColumnType("real");
 
+                    b.Property<float>("BMR")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TDEE")
+                        .HasColumnType("real");
+
                     b.Property<int>("age")
                         .HasColumnType("int");
 
-                    b.Property<string>("createBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("createTime")
+                    b.Property<DateTime>("dateInput")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("heght")
+                    b.Property<float>("heght")
+                        .HasColumnType("real");
+
+                    b.Property<int>("sex")
                         .HasColumnType("int");
-
-                    b.Property<int>("maximum_calories")
-                        .HasColumnType("int");
-
-                    b.Property<int>("minimum_calories")
-                        .HasColumnType("int");
-
-                    b.Property<string>("photo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("serviceId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("updateBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("updateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("userId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("weight")
-                        .HasColumnType("int");
+                    b.Property<float>("weight")
+                        .HasColumnType("real");
 
                     b.HasKey("userInfoId");
-
-                    b.HasIndex("serviceId");
 
                     b.HasIndex("userId")
                         .IsUnique();
 
                     b.ToTable("userBodyMaxes");
-                });
-
-            modelBuilder.Entity("BussinessObject.Content", b =>
-                {
-                    b.HasOne("BussinessObject.blog", "blogs")
-                        .WithMany("contents")
-                        .HasForeignKey("blogId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BussinessObject.user", "users")
-                        .WithMany("contents")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("blogs");
-
-                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("BussinessObject.Meal", b =>
@@ -827,14 +598,22 @@ namespace BussinessObject.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("BussinessObject.user", "users")
+                        .WithMany("menus")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("categorys");
+
+                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("BussinessObject.Schedule", b =>
                 {
                     b.HasOne("BussinessObject.Menu", "menus")
                         .WithMany("schedules")
-                        .HasForeignKey("menuId")
+                        .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -851,13 +630,24 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.Service", b =>
                 {
-                    b.HasOne("BussinessObject.ServiceType", "serviceTypes")
+                    b.HasOne("BussinessObject.user", "users")
                         .WithMany("services")
-                        .HasForeignKey("serviceTypeId")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("serviceTypes");
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("BussinessObject.blog", b =>
+                {
+                    b.HasOne("BussinessObject.user", "users")
+                        .WithMany("blogs")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("BussinessObject.chatSection", b =>
@@ -875,33 +665,6 @@ namespace BussinessObject.Migrations
                         .IsRequired();
 
                     b.Navigation("messages");
-
-                    b.Navigation("users");
-                });
-
-            modelBuilder.Entity("BussinessObject.complement", b =>
-                {
-                    b.HasOne("BussinessObject.blog", "blogs")
-                        .WithOne("complements")
-                        .HasForeignKey("BussinessObject.complement", "blogId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BussinessObject.Service", "services")
-                        .WithOne("complements")
-                        .HasForeignKey("BussinessObject.complement", "serviceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BussinessObject.user", "users")
-                        .WithOne("complements")
-                        .HasForeignKey("BussinessObject.complement", "userId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("blogs");
-
-                    b.Navigation("services");
 
                     b.Navigation("users");
                 });
@@ -927,19 +690,11 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.feedback", b =>
                 {
-                    b.HasOne("BussinessObject.feebackCategory", "feebackCategorys")
-                        .WithMany("feedbacks")
-                        .HasForeignKey("feebackCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BussinessObject.user", "users")
                         .WithMany("feedbacks")
                         .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("feebackCategorys");
 
                     b.Navigation("users");
                 });
@@ -966,6 +721,36 @@ namespace BussinessObject.Migrations
                     b.Navigation("categorys");
                 });
 
+            modelBuilder.Entity("BussinessObject.notification", b =>
+                {
+                    b.HasOne("BussinessObject.user", "users")
+                        .WithMany("notifications")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("BussinessObject.order", b =>
+                {
+                    b.HasOne("BussinessObject.Service", "services")
+                        .WithMany("orders")
+                        .HasForeignKey("serviceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BussinessObject.userBodyMax", "userBodyMaxs")
+                        .WithMany("orders")
+                        .HasForeignKey("userInfoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("services");
+
+                    b.Navigation("userBodyMaxs");
+                });
+
             modelBuilder.Entity("BussinessObject.recipe", b =>
                 {
                     b.HasOne("BussinessObject.food", "foods")
@@ -985,40 +770,43 @@ namespace BussinessObject.Migrations
                     b.Navigation("ingredients");
                 });
 
-            modelBuilder.Entity("BussinessObject.user", b =>
+            modelBuilder.Entity("BussinessObject.trackForm", b =>
                 {
-                    b.HasOne("BussinessObject.notification", "notifications")
-                        .WithOne("users")
-                        .HasForeignKey("BussinessObject.user", "notificationId")
+                    b.HasOne("BussinessObject.Service", "services")
+                        .WithMany("trackForms")
+                        .HasForeignKey("serviceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("BussinessObject.user", "users")
+                        .WithMany("trackForms")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("services");
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("BussinessObject.user", b =>
+                {
                     b.HasOne("BussinessObject.role", "roles")
                         .WithMany("users")
                         .HasForeignKey("roleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("notifications");
-
                     b.Navigation("roles");
                 });
 
             modelBuilder.Entity("BussinessObject.userBodyMax", b =>
                 {
-                    b.HasOne("BussinessObject.Service", "services")
-                        .WithMany("userBodyMaxs")
-                        .HasForeignKey("serviceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BussinessObject.user", "users")
                         .WithOne("userBodyMaxs")
                         .HasForeignKey("BussinessObject.userBodyMax", "userId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("services");
 
                     b.Navigation("users");
                 });
@@ -1041,28 +829,9 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.Service", b =>
                 {
-                    b.Navigation("complements")
-                        .IsRequired();
+                    b.Navigation("orders");
 
-                    b.Navigation("userBodyMaxs");
-                });
-
-            modelBuilder.Entity("BussinessObject.ServiceType", b =>
-                {
-                    b.Navigation("services");
-                });
-
-            modelBuilder.Entity("BussinessObject.blog", b =>
-                {
-                    b.Navigation("complements")
-                        .IsRequired();
-
-                    b.Navigation("contents");
-                });
-
-            modelBuilder.Entity("BussinessObject.feebackCategory", b =>
-                {
-                    b.Navigation("feedbacks");
+                    b.Navigation("trackForms");
                 });
 
             modelBuilder.Entity("BussinessObject.food", b =>
@@ -1084,12 +853,6 @@ namespace BussinessObject.Migrations
                     b.Navigation("chatSections");
                 });
 
-            modelBuilder.Entity("BussinessObject.notification", b =>
-                {
-                    b.Navigation("users")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BussinessObject.role", b =>
                 {
                     b.Navigation("users");
@@ -1097,16 +860,21 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.user", b =>
                 {
+                    b.Navigation("blogs");
+
                     b.Navigation("chatSections");
-
-                    b.Navigation("complements")
-                        .IsRequired();
-
-                    b.Navigation("contents");
 
                     b.Navigation("favoriteFoods");
 
                     b.Navigation("feedbacks");
+
+                    b.Navigation("menus");
+
+                    b.Navigation("notifications");
+
+                    b.Navigation("services");
+
+                    b.Navigation("trackForms");
 
                     b.Navigation("userBodyMaxs")
                         .IsRequired();
@@ -1114,6 +882,8 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.userBodyMax", b =>
                 {
+                    b.Navigation("orders");
+
                     b.Navigation("schedules");
                 });
 #pragma warning restore 612, 618
