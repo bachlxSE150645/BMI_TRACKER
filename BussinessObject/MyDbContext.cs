@@ -24,18 +24,6 @@ namespace BussinessObject
            : base(options)
         {
         }
-<<<<<<< HEAD
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-=======
-       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
->>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            IConfigurationRoot config = builder.Build();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("BMITracker"));
-        } 
         public virtual DbSet<feedback> feedbacks { get; set; }
         public virtual DbSet<food> foods { get; set; }
         public virtual DbSet<ingredient> ingredients { get; set; }
