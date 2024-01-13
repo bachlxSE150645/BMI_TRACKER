@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BussinessObject.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-<<<<<<<< HEAD:BussinessObject/Migrations/20240113053451_InitDB.Designer.cs
-    [Migration("20240113053451_InitDB")]
+    [Migration("20231217140804_InitDB")]
     partial class InitDB
-========
-    [Migration("20240109062115_InitDB2.5")]
-    partial class InitDB25
->>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94:BussinessObject/Migrations/20240109062115_InitDB2.5.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,17 +87,9 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<<< HEAD:BussinessObject/Migrations/20240113053451_InitDB.Designer.cs
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uniqueidentifier");
-
-========
->>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94:BussinessObject/Migrations/20240109062115_InitDB2.5.Designer.cs
                     b.HasKey("MenuId");
 
                     b.HasIndex("categoryId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("menus");
                 });
@@ -115,13 +102,6 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("userInfoId")
                         .HasColumnType("uniqueidentifier");
 
-<<<<<<<< HEAD:BussinessObject/Migrations/20240113053451_InitDB.Designer.cs
-========
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
->>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94:BussinessObject/Migrations/20240109062115_InitDB2.5.Designer.cs
                     b.HasKey("MenuId", "userInfoId");
 
                     b.HasIndex("userInfoId");
@@ -470,11 +450,8 @@ namespace BussinessObject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("serviceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("isTracked")
+                        .HasColumnType("bit");
 
                     b.Property<string>("status")
                         .IsRequired()
@@ -488,9 +465,10 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("trackFormId", "serviceId", "userId");
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("serviceId");
+                    b.HasKey("trackFormId");
 
                     b.HasIndex("userId");
 
@@ -613,15 +591,7 @@ namespace BussinessObject.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("BussinessObject.user", "users")
-                        .WithMany("menus")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("categorys");
-
-                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("BussinessObject.Schedule", b =>
@@ -787,19 +757,11 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.trackForm", b =>
                 {
-                    b.HasOne("BussinessObject.Service", "services")
-                        .WithMany("trackForms")
-                        .HasForeignKey("serviceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BussinessObject.user", "users")
                         .WithMany("trackForms")
                         .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("services");
 
                     b.Navigation("users");
                 });
@@ -845,8 +807,6 @@ namespace BussinessObject.Migrations
             modelBuilder.Entity("BussinessObject.Service", b =>
                 {
                     b.Navigation("orders");
-
-                    b.Navigation("trackForms");
                 });
 
             modelBuilder.Entity("BussinessObject.food", b =>
@@ -883,11 +843,6 @@ namespace BussinessObject.Migrations
 
                     b.Navigation("feedbacks");
 
-<<<<<<<< HEAD:BussinessObject/Migrations/20240113053451_InitDB.Designer.cs
-                    b.Navigation("menus");
-
-========
->>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94:BussinessObject/Migrations/20240109062115_InitDB2.5.Designer.cs
                     b.Navigation("notifications");
 
                     b.Navigation("services");

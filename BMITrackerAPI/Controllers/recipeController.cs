@@ -18,7 +18,7 @@ namespace BMITrackerAPI.Controllers
         {
             reciePro = new recipeRepository(dbContext);
         }
-        [HttpGet("foodId")]
+        [HttpGet("ingredientId")]
         public ActionResult<recipe> GetFoodById(Guid foodId)
         {
             try
@@ -31,7 +31,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
 
-        [HttpGet("ingredientId")]
+        [HttpGet("foodId")]
         public ActionResult<recipe> getIngredientById(Guid ingId)
         {
             try

@@ -24,7 +24,11 @@ namespace BussinessObject
            : base(options)
         {
         }
+<<<<<<< HEAD
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+=======
+       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

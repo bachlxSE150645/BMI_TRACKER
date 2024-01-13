@@ -84,9 +84,12 @@ namespace BussinessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
                     b.Property<Guid>("userId")
                         .HasColumnType("uniqueidentifier");
 
+=======
+>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94
                     b.HasKey("MenuId");
 
                     b.HasIndex("categoryId");
@@ -104,6 +107,13 @@ namespace BussinessObject.Migrations
                     b.Property<Guid>("userInfoId")
                         .HasColumnType("uniqueidentifier");
 
+<<<<<<< HEAD
+=======
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94
                     b.HasKey("MenuId", "userInfoId");
 
                     b.HasIndex("userInfoId");
@@ -865,8 +875,11 @@ namespace BussinessObject.Migrations
 
                     b.Navigation("feedbacks");
 
+<<<<<<< HEAD
                     b.Navigation("menus");
 
+=======
+>>>>>>> 0dfa92a9280286804d5ac8d3500958d657ab7d94
                     b.Navigation("notifications");
 
                     b.Navigation("services");
