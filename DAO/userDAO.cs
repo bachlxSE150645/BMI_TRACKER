@@ -25,6 +25,17 @@ namespace DAO
                 throw new Exception(ex.Message);
             }
         }
+        public List<user> getAllTrainer()
+        {
+            try
+            {
+                return _context.users.Include(r=>r.roles).Where(u=>u.status == "available-trainer").ToList();
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public user getUserById(Guid id)
         {
             try

@@ -62,6 +62,18 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("trainer")]
+        public async Task<IActionResult> GetTrainerAccounts()
+        {
+            try
+            {
+                return Ok(userRepo.getAllTrainer());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpGet("checkUserInfoInUserId")]
         public async Task<IActionResult> GetUserBodyMaxByUserId(Guid userId)
         {

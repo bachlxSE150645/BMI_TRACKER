@@ -18,6 +18,7 @@ namespace Repository
 
         public bool deleteUser(user user) => dao.deleteUser(user);
 
+        public List<user> getAllTrainer()=>dao.getAllTrainer();
 
         public List<user> GetAllUsers() => dao.GetAllUsers();
 
