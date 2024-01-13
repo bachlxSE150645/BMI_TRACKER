@@ -19,7 +19,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.foods.Include(f=>f.recipes).ToList();
+                return _context.foods.Include(f=>f.recipes).Include(f=>f.meals).ToList();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.foods.Include(f=>f.recipes).FirstOrDefault(i => i.foodId.Equals(id));
+                return _context.foods.Include(f=>f.recipes).Include(f=>f.meals).FirstOrDefault(i => i.foodId.Equals(id));
             }
             catch (Exception ex)
             {

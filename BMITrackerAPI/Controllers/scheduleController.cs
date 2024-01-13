@@ -74,7 +74,7 @@ namespace BMITrackerAPI.Controllers
             return Ok(result);
         }
         [HttpDelete("schedule")]
-        public IActionResult DeleteSchedule(Guid menuId, Guid userId)
+        public IActionResult DeleteSchedule(Guid menuId, Guid userId, Schedule sche)
         {
             try
             {
@@ -83,8 +83,8 @@ namespace BMITrackerAPI.Controllers
                 {
                     return NotFound();
                 }
-                
-                scheRepo.DeleteSchedule(schedule);
+                sche.status = "hidden";
+                scheRepo.UpdateSchedule(schedule);
                 return NoContent();
             }
             catch (Exception ex)

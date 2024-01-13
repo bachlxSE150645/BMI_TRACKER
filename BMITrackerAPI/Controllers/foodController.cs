@@ -125,12 +125,28 @@ namespace BMITrackerAPI.Controllers
         {
             try
             {
-                var fooId = foodRepository.getFoodById(foo);
-                if (fooId == null)
+                var current = foodRepository.getFoodById(foo);
+                if (current == null)
                 {
                     return NotFound();
                 }
-                foodRepository.DeleteFood(fooId);
+                foreach (var detail in current.meals)
+                {
+                    if (detail != null)
+                    {
+                        throw new Exception(" cant delete this food its belong to meal");
+                    }
+                }
+                foreach (var detail in current.recipes)
+                {
+                    Console.WriteLine(detail);
+                    if (detail != null)
+                    {
+                        recRepository.DeleteRecipeDetail(detail);
+                    }
+                }
+                
+                foodRepository.DeleteFood(current);
                 return NoContent();
             }
             catch (Exception ex)

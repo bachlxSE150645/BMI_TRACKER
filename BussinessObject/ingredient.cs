@@ -18,7 +18,6 @@ namespace BussinessObject
         public string ingredientName {  get; set; }
         public string ingredientPhoto { get; set; }
         public string status { get; set; }
-        [JsonIgnore]
         public ICollection<recipe> recipes { get; set; }
         [ForeignKey("category")]
         public Guid  categoryId { get; set; }

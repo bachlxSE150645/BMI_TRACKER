@@ -12,4 +12,9 @@ namespace BussinessObject.MapData
         public Guid menuId { get; set; }
 
     }
+    public class ScheduleInfoUpdate
+    {
+        public Guid userInfoId { get; set; }
+        public Guid menuId { get; set; }
+    }
 }

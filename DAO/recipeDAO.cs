@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,10 @@ namespace DataAccess
             {
                 var result = (from r in _context.recipes
                               where (r.foodId == foodId)
-                              select r).ToList();
+                              select r).Include(i=>i.ingredients).ToList();
                 return result;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -34,7 +35,7 @@ namespace DataAccess
             {
                 var result = (from r in _context.recipes
                               where (r.ingredientId == ingredientId)
-                              select r).ToList();
+                              select r).Include(f=>f.foods).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -50,13 +51,14 @@ namespace DataAccess
                 {
                     foodId = re.foodId,
                     ingredientId = re.ingredientId,
-                    foods = _context.foods.Where(f=>f.foodId == re.foodId).FirstOrDefault(),
+                    foods = _context.foods.Where(f => f.foodId == re.foodId).FirstOrDefault(),
                     ingredients = _context.ingredients.Where(f => f.ingredientId == re.ingredientId).FirstOrDefault()
                 };
                 _context.recipes.Add(recipeNew);
                 _context.SaveChanges();
                 return recipeNew;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

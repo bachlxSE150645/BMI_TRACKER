@@ -19,6 +19,7 @@ namespace BussinessObject
         public Guid userInfoId { get; set; }
         public userBodyMax userBodyMaxs { get; set; }
         public Menu menus { get; set; }
+        public string status { get; set; }
        
     }
 }

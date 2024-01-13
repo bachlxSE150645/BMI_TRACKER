@@ -17,15 +17,13 @@ namespace BMITrackerAPI.Controllers
     {
         private IUserBodyMaxRepositorycs feedbackRepository;
         private readonly IMapper _mapper;
-        private IScheduleRepository _scheduleRepository;
         public userBodyMaxController(MyDbContext dbContext, IMapper mapper)
         {
             feedbackRepository = new userBodyMaxRepository(dbContext);
             _mapper = mapper;
-            _scheduleRepository = new scheduleRepository(dbContext);
         }
         [HttpGet]
-        public async Task <IActionResult> getAllUserBodyMaxs()
+        public async Task<IActionResult> getAllUserBodyMaxs()
         {
             try
             {
@@ -36,8 +34,8 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
-        [HttpGet("feedbackId")]
-        public  ActionResult<userBodyMax> getFeedBackById(Guid id)
+        [HttpGet("UserBodyMax")]
+        public ActionResult<userBodyMax> getUserBodyMaxById(Guid id)
         {
             try
             {
@@ -52,7 +50,7 @@ namespace BMITrackerAPI.Controllers
         public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, float activeRate)
         {
             var food = _mapper.Map<userBodyMax>(dto);
-            
+
             try
             {
                 if (food == null)
@@ -61,16 +59,7 @@ namespace BMITrackerAPI.Controllers
                 }
                 else
                 {
-                    var result = feedbackRepository.addUserBodyMax(food,activeRate);
-                    foreach (var item in dto.UserBodyMaxMenus)
-                    {
-                        var detail = _mapper.Map<Schedule>(item);
-                        if (detail != null)
-                        {
-                            detail.userInfoId = result.userInfoId;
-                            _scheduleRepository.CreteNewSchedule(detail);
-                        }
-                    }
+                    var result = feedbackRepository.addUserBodyMax(food, activeRate);
                     return Ok(result);
                 }
 
@@ -89,38 +78,24 @@ namespace BMITrackerAPI.Controllers
             {
                 return BadRequest();
             }
-            foreach (var detail in current.schedules)
-            {
-                Console.WriteLine(detail);
-                if (detail != null)
-                {
-                    _scheduleRepository.DeleteSchedule(detail);
-                }
-            }
-            foreach (var newDetail in dto.UserBodyMaxMenus)
-            {
-                var detail = _mapper.Map<Schedule>(newDetail);
-                detail.userInfoId = result.userInfoId;
-                _scheduleRepository.CreteNewSchedule(detail);
-            }
             if (result == null)
             {
                 return BadRequest();
             }
             return Ok(result);
         }
-        
+
         [HttpDelete("userBoyMax")]
-        public IActionResult DeleteUserBodyMax(Guid feedId)
+        public IActionResult DeleteUserBodyMax(Guid userInfoId)
         {
             try
             {
-                var fee = feedbackRepository.getUserBodyMaxbyId(feedId);
-                if (fee == null)
+                var current = feedbackRepository.getUserBodyMaxbyId(userInfoId);
+                if (current == null)
                 {
                     return NotFound();
                 }
-                feedbackRepository.DeleteUserBodyMax(fee);
+                feedbackRepository.DeleteUserBodyMax(current);
                 return NoContent();
             }
             catch (Exception ex)
@@ -128,6 +103,7 @@ namespace BMITrackerAPI.Controllers
 
                 return NotFound(ex.Message);
             }
+
         }
     }
 }

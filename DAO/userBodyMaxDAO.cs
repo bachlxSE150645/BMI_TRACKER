@@ -21,6 +21,7 @@ namespace DataAccess
             {
                 return _context.userBodyMaxes.
                     Include(u =>u.users).
+                    Include(u=>u.schedules).
                     ToList();
             }
 
@@ -33,7 +34,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).FirstOrDefault();
+                return _context.userBodyMaxes.Where(feed => feed.userInfoId == id).Include(f => f.users).Include(u=>u.schedules).FirstOrDefault();
 
             }
             catch (Exception ex)

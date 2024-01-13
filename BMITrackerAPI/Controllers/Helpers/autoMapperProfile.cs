@@ -13,7 +13,6 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<favoriteFood,favoriteFoodInfo>().ReverseMap();
             CreateMap<recipe, FoodIngredientDTO>().ReverseMap();
             CreateMap<Meal, foodMenuDTO>().ReverseMap();
-            CreateMap<Schedule,UserBodyMaxMenus>().ReverseMap();
             CreateMap<user,loginData>().ReverseMap();
             CreateMap<user,signUpData>().ReverseMap();
             CreateMap<food,foodInfo>().ReverseMap();
@@ -21,6 +20,7 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<Menu,MenuInfo>().ReverseMap();
             CreateMap<role,roleInfo>().ReverseMap();
             CreateMap<Schedule,ScheduleInfo>().ReverseMap();
+            CreateMap<Schedule, ScheduleInfoUpdate>().ReverseMap();
             CreateMap<feedback,feedbackInfo>().ReverseMap();
             CreateMap<blog,blogInfo>().ReverseMap();
             CreateMap<message,messInfo>().ReverseMap();

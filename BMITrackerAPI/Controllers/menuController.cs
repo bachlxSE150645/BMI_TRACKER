@@ -37,23 +37,23 @@ namespace BMITrackerAPI.Controllers
         }
 
         [HttpGet("menuId")]
-        public ActionResult<Menu> getMenuById(Guid foodId)
+        public ActionResult<Menu> getMenuById(Guid menuId)
         {
             try
             {
-                return Ok(menuRepo.getMenuById(foodId));
+                return Ok(menuRepo.getMenuById(menuId));
             }
             catch
             {
                 return BadRequest();
             }
         }
-        [HttpGet("menuName")]
-        public ActionResult<Menu> getMenuByName(string name)
+        [HttpGet("foodByMenuId")]
+        public async Task<IActionResult> GetFoodByMenuId(Guid menuId)
         {
             try
             {
-                return Ok(menuRepo.getMenuByName(name));
+                return Ok(menuRepo.getFoodByMenuId(menuId));
             }
             catch
             {
@@ -130,17 +130,31 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpDelete("menu")]
-        public IActionResult DeleteMenu(Guid foo)
+        public IActionResult DeleteMenu(Guid menuId)
         {
             try
             {
-                var fooId = menuRepo.getMenuById(foo);
-                if (fooId == null)
+                var current = menuRepo.getMenuById(menuId);
+                if (current == null)
                 {
                     return NotFound();
                 }
-                fooId.status = "hidden";
-                menuRepo.deleteMenu(fooId);
+                foreach (var detail in current.schedules)
+                {
+                    if (detail != null)
+                    {
+                        throw new Exception(" cant delete this menu its belong to some userBodyMaxs");
+                    }
+                }
+                foreach (var detail in current.meals)
+                {
+                    Console.WriteLine(detail);
+                    if (detail != null)
+                    {
+                        _mealRepository.DeleteMeal(detail);
+                    }
+                }
+                menuRepo.deleteMenu(current);
                 return NoContent();
             }
             catch (Exception ex)

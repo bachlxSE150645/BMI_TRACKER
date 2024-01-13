@@ -29,7 +29,6 @@ namespace BussinessObject
         public Guid categoryId { get; set; }
         public Category categorys { get; set; }
         public ICollection<recipe> recipes { get; set; }
-        [JsonIgnore]
         public ICollection<Meal> meals { get; set; }
         [JsonIgnore]
         public ICollection<favoriteFood> favoriteFoods { get; set; }

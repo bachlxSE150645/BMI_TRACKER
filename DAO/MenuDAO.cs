@@ -17,18 +17,23 @@ namespace DataAccess
         {
             try
             {
-                return _context.menus.Include(f => f.meals).ToList();
+                return _context.menus.Include(f => f.meals).Include(f=>f.schedules).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        public Menu getMenuByName(string nemuName)
+        public List<food> getFoodByMenuId(Guid nemuId)
         {
             try
             {
-                return _context.menus.FirstOrDefault(i => i.menuName.Equals(nemuName));
+                var menus = from menu in _context.menus
+                            where menu.MenuId == nemuId
+                            join meal in _context.meals on menu.MenuId equals meal.menuId
+                            join food in _context.foods on meal.foodId equals food.foodId
+                            select food;
+                return menus.ToList();
             }
             catch (Exception ex)
             {
@@ -39,7 +44,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.menus.FirstOrDefault(i => i.MenuId.Equals(id));
+                return _context.menus.Include(f => f.meals).Include(f => f.schedules).FirstOrDefault(i => i.MenuId.Equals(id));
             }
             catch (Exception ex)
             {

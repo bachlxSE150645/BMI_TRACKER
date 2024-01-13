@@ -1,4 +1,6 @@
-﻿using BussinessObject;
+﻿using AutoMapper;
+using BussinessObject;
+using BussinessObject.MapData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +18,7 @@ namespace BMITrackerAPI.Controllers
         {
             reciePro = new recipeRepository(dbContext);
         }
-        [HttpGet("FoodId")]
+        [HttpGet("ingredientId")]
         public ActionResult<recipe> GetFoodById(Guid foodId)
         {
             try
@@ -29,7 +31,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
 
-        [HttpGet("IngredientId")]
+        [HttpGet("foodId")]
         public ActionResult<recipe> getIngredientById(Guid ingId)
         {
             try
@@ -41,5 +43,6 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+       
     }
 }
