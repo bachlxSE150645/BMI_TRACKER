@@ -26,7 +26,7 @@ namespace Repository
         public List<Menu> getAllMenu() =>dao.getAllMenu();
 
         public Menu getMenuById(Guid id) =>dao.getMenuById(id);
-        public List<food> getFoodByMenuName(string menuName) => dao.getFoodByMenuId(menuName);
+        public List<food> getFoodByMenuName(string menuName) => dao.getFoodByMenuName(menuName);
 
         public Menu UpdateMenu(Guid id, MenuInfo menu)
         {
@@ -51,6 +51,6 @@ namespace Repository
              return dao.UpdateMenu(id, r);
         }
 
-
+        public List<food> getFoodByMenuId(Guid menuId) => dao.getFoodByMenuId(menuId);
     }
 }

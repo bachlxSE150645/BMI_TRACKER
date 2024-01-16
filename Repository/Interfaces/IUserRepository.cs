@@ -10,6 +10,7 @@ namespace Repository.Interfaces
 {
     public interface IUserRepository
     {
+        List<Menu> getMenuByUserId(Guid userId);
         List<user> GetAllUsers();
         public List<user> getAllTrainer();
         List<Guid> GetUserBodyMaxByUserId(Guid userId);

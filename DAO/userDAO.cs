@@ -25,6 +25,22 @@ namespace DAO
                 throw new Exception(ex.Message);
             }
         }
+        public List<Menu> getMenuByUserId(Guid userId)
+        {
+            try
+            {
+                var data = from u in _context.users where u.userId == userId
+                           join body in _context.userBodyMaxes on u.userId equals body.userId
+                           join sche in _context.schedules on body.userInfoId equals sche.userInfoId
+                           join menu in _context.menus on sche.MenuId equals menu.MenuId
+                           select menu;
+                return data.ToList();
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public List<user> getAllTrainer()
         {
             try

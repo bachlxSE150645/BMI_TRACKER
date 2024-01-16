@@ -86,6 +86,20 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpGet("getMenuByUserId")]
+
+        public async Task<IActionResult> getMenuByUserId(Guid userId)
+        {
+            try
+            {
+                return Ok(userRepo.getMenuByUserId(userId));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
 
         [HttpGet("userId")]
         public ActionResult<user> getUserById(Guid userId)
