@@ -9,6 +9,7 @@ namespace Repository.Interfaces
 {
     public interface IBlogRepository
     {
+        List<blog> getBlogByuserId(Guid userId);
          List<blog> GetAllBlogs();
          blog getBolgById(Guid id);
          Task<blog> addNewBlog(blog blogInfo);

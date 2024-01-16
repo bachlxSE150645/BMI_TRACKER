@@ -60,12 +60,24 @@ namespace BMITrackerAPI.Controllers
 
             return Ok(result);
         }
-        [HttpGet("user")]
+        [HttpGet("userEmail")]
         public ActionResult<blog> GetBlogByUser(string email)
         {
             try
             {
                 return Ok(foodRepository.getBlogByUser(email));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("userId")]
+        public ActionResult<blog> GetBlogByUserId(Guid userId)
+        {
+            try
+            {
+                return Ok(foodRepository.getBlogByuserId(userId));
             }
             catch
             {

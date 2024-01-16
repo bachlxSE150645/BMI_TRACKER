@@ -1,4 +1,5 @@
-﻿using BussinessObject;
+﻿using Azure;
+using BussinessObject;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,21 @@ namespace DataAccess
 
                 var dateSelect = from d in _context.blogs
                                  where d.tag.Equals(tag)
+                                 select d;
+                return dateSelect.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<blog> getBlogByuserId(Guid userId)
+        {
+            try
+            {
+
+                var dateSelect = from d in _context.blogs
+                                 where d.userId.Equals(userId)
                                  select d;
                 return dateSelect.ToList();
             }

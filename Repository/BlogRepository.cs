@@ -32,5 +32,7 @@ namespace Repository
         public blog UpdateBlog(blog blog) =>dao.UpdateBlog(blog);
 
         public List<blog> GetBlogByDatime(DateTime dateForm, DateTime dateTo) => dao.GetBlogByDatime(dateForm, dateTo);
+
+        public List<blog> getBlogByuserId(Guid userId) =>dao.getBlogByuserId(userId);
     }
 }
