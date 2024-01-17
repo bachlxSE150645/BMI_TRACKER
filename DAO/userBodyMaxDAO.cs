@@ -64,7 +64,7 @@ namespace DataAccess
                 var data = from u in _context.users where u.email == email && u.password == password
                            join body in _context.userBodyMaxes on u.userId equals body.userId
                            select body;
-                return data.Include(s =>s.schedules).ToList();
+                return data.Include(s =>s.schedules).Include(u=>u.users).ToList();
 
             }
             catch (Exception ex)
