@@ -10,6 +10,7 @@ namespace Repository.Interfaces
 {
     public interface IUserBodyMaxRepositorycs
     {
+        List<userBodyMax> LoginByUserBodyMax(string email, string password);
         List<userBodyMax> getAllUserBodyMax();
         List<user> getUserByUserInfoId(Guid id);
         userBodyMax getUserBodyMaxbyId(Guid id);

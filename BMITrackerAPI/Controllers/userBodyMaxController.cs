@@ -61,6 +61,19 @@ namespace BMITrackerAPI.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            
+            var check = feedbackRepository.LoginByUserBodyMax(email,password);
+
+            if (check == null)
+            {
+                return BadRequest("Something wrong!");
+            }
+
+            return Ok(check);
+        }
         [HttpPost]
         public ActionResult<userBodyMax> AddUserBodyMax(userBodyMaxInfo dto, float activeRate)
         {

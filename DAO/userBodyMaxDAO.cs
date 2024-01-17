@@ -57,6 +57,22 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
+        public List<userBodyMax> LoginByUserBodyMax(string email, string password)
+        {
+            try
+            {
+                var data = from u in _context.users where u.email == email && u.password == password
+                           join body in _context.userBodyMaxes on u.userId equals body.userId
+                           select body;
+                return data.Include(s =>s.schedules).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
         public float calculateBMI(float weight, float heght)
         {
             try
