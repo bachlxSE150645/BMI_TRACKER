@@ -32,7 +32,7 @@ namespace DataAccess
         {
             try
             {
-                return _context.blogs.Where(b => b.bolgId == id).FirstOrDefault();
+                return _context.blogs.Where(b => b.bolgId == id).Include(u=>u.users).FirstOrDefault();
 
             }
             catch (Exception ex)
@@ -49,7 +49,7 @@ namespace DataAccess
                 var dateSelect = from d in _context.blogs
                                  where d.dateTime.Equals(x)
                                  select d;
-                return dateSelect.ToList();
+                return dateSelect.Include(u => u.users).ToList();
             }catch (Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -78,7 +78,7 @@ namespace DataAccess
                 var dateSelect = from d in _context.blogs
                                  where d.userId.Equals(userId)
                                  select d;
-                return dateSelect.ToList();
+                return dateSelect.Include(u => u.users).ToList();
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace DataAccess
                 var us = from e in _context.blogs
                          where e.users.email == email
                          select e;
-                return us.ToList();
+                return us.Include(u => u.users).ToList();
 
             }
             catch (Exception ex)
