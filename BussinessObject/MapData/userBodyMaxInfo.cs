@@ -20,7 +20,11 @@ namespace BussinessObject.MapData
         public int age { get; set; }
         public sexType sex { get; set; }
         public Guid userId { get; set; }
-        public userBodyMaxMenus[] userBodyMaxMenus { get; set; }
+        public schedules[] schedules { get; set; }
+    }
+    public class schedules
+    {
+        public Guid menuId { get; set; }
     }
     public class userBodyMaxMenus
     {
