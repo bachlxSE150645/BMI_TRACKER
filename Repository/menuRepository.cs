@@ -48,7 +48,12 @@ namespace Repository
             {
                 r.menuDescription = menu.menuDescription;
             }
-             return dao.UpdateMenu(id, r);
+            if (menu.userId == null)
+            {
+                r.userId.Equals(menu.userId);
+            }
+            return dao.UpdateMenu(id, r);
+            
         }
 
         public List<food> getFoodByMenuId(Guid menuId) => dao.getFoodByMenuId(menuId);
