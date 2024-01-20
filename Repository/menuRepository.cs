@@ -44,14 +44,11 @@ namespace Repository
                 r.menuPhoto = menu.menuPhoto;
             }
            
-            if (menu.menuDescription == null)
+            if (!String.IsNullOrEmpty(menu.menuDescription))
             {
                 r.menuDescription = menu.menuDescription;
             }
-            if (menu.userId == Guid.Empty)
-            {
-                r.userId.Equals(menu.userId);
-            }
+            
             return dao.UpdateMenu(id, r);
             
         }

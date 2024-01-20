@@ -75,10 +75,6 @@ namespace DataAccess
                 var foo = _context.menus
                     .Include(f => f.meals).Include(u=>u.users)
                     .Where(x => x.MenuId.Equals(id)).SingleOrDefault();
-                foo.status =menu.status;
-                foo.menuName = menu.menuName;
-                foo.menuType = menu.menuType;
-                foo.menuDescription = menu.menuDescription;
                 this._context.menus.Update(foo);
                 this._context.SaveChanges();
                 return foo;

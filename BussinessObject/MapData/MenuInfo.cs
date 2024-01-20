@@ -13,7 +13,6 @@ namespace BussinessObject.MapData
         public string menuType { get; set; }
         public string menuPhoto { get; set; }
         public Guid categoryId { get; set; }
-        public Guid userId { get; set; }
         public foodMenuDTO[] foods { get; set; }
     }
     public class foodMenuDTO

@@ -105,12 +105,13 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult<Menu> updateMenu(Guid menuId, [FromBody] MenuInfo dto)
+        public ActionResult<Menu> updateMenu(Guid menuId, [FromBody] MenuInfo dto,Guid userId)
         {
             try
             {
-
-                var result = menuRepo.UpdateMenu(menuId, dto);
+                var result = menuRepo.getMenuById(menuId);
+                result.userId = userId;
+                menuRepo.UpdateMenu(menuId, dto);
                 var current = menuRepo.getMenuById(menuId);
                 if (current == null)
                 {
