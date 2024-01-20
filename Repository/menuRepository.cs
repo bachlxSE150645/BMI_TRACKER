@@ -48,7 +48,7 @@ namespace Repository
             {
                 r.menuDescription = menu.menuDescription;
             }
-            if (menu.userId == null)
+            if (menu.userId == Guid.Empty)
             {
                 r.userId.Equals(menu.userId);
             }
