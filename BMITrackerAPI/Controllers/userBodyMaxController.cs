@@ -87,7 +87,16 @@ namespace BMITrackerAPI.Controllers
                 }
                 else
                 {
-                    var result = feedbackRepository.addUserBodyMax(food, activeRate);
+                    var result =  feedbackRepository.addUserBodyMax(food,activeRate);
+                    foreach (var item in dto.userBodyMaxMenus)
+                    {
+                        var detail = _mapper.Map<Schedule>(item);
+                        if (detail != null)
+                        {
+                            detail.userInfoId = result.userInfoId;
+                            _scheRepository.CreteNewSchedule(detail);
+                        }
+                    }
                     return Ok(result);
                 }
 

@@ -20,6 +20,7 @@ namespace BMITrackerAPI.Controllers.Helpers
             CreateMap<Menu,MenuInfo>().ReverseMap();
             CreateMap<role,roleInfo>().ReverseMap();
             CreateMap<Schedule,ScheduleInfo>().ReverseMap();
+            CreateMap<Schedule, userBodyMaxMenus>().ReverseMap();
             CreateMap<Schedule, ScheduleInfoUpdate>().ReverseMap();
             CreateMap<Schedule,userBodyMaxMenus>().ReverseMap();
             CreateMap<feedback,feedbackInfo>().ReverseMap();
