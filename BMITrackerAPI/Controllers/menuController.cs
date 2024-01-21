@@ -105,7 +105,7 @@ namespace BMITrackerAPI.Controllers
             }
         }
         [HttpPut]
-        public ActionResult<Menu> updateMenu(Guid menuId, [FromBody] MenuInfo dto,Guid userId)
+        public ActionResult<Menu> updateMenu(Guid menuId, [FromBody] menuUpdateInfo dto,Guid userId)
         {
             try
             {

@@ -28,7 +28,7 @@ namespace Repository
         public Menu getMenuById(Guid id) =>dao.getMenuById(id);
         public List<food> getFoodByMenuName(string menuName) => dao.getFoodByMenuName(menuName);
 
-        public Menu UpdateMenu(Guid id, MenuInfo menu)
+        public Menu UpdateMenu(Guid id, menuUpdateInfo menu)
         {
             var r = dao.getMenuById(id);  
             if (!String.IsNullOrEmpty(menu.menuName))

@@ -14,7 +14,7 @@ namespace Repository.Interfaces
         Menu getMenuById(Guid id);
         List<food> getFoodByMenuName(string menuName);
         List<food> getFoodByMenuId(Guid menuId);
-        Menu UpdateMenu(Guid id, MenuInfo menu);
+        Menu UpdateMenu(Guid id, menuUpdateInfo menu);
         Task<Menu> AddNewMenu(Menu MenuInfo);
         void deleteMenu(Menu menu);
 
